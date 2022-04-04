@@ -8,10 +8,15 @@ const Header = () => {
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        paddingTop:1,
-        paddingBottom:1
+        marginBottom:2,
+        background:'white',
+        borderBottom: '1px solid #e0e0e0'
       }}>
-        <Container>
+        <Container
+          sx={{
+            paddingTop:'10px',
+            paddingBottom:'10px',
+          }}>
           <Typography
             component={RouterLink}
             to={'/'}
