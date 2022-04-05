@@ -52,7 +52,7 @@ const Forgotpassword = () => {
                             mt: '150px'
                         },
                         '@media(min-height: 920px)': {
-                            mt: '25vh'
+                            mt: '25px'
                         }
                     }}>
                     <Form<ForgotFormData>
