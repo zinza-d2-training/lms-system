@@ -1,24 +1,37 @@
 import {
     Box,
-    Button,
-    FormLabel,
-    Stack,
-    TextField,
-    Typography, Link
+    Button
 } from '@mui/material';
-import { height } from '@mui/system';
+import {
+    makeValidate,
+    TextField
+} from 'mui-rff';
 import React from 'react';
-// import './Forgotpassword.scss'
-import { Link as RouteLink } from 'react-router-dom';
+import { Form } from 'react-final-form';
+import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
 import Header from '../Header/Header';
 
+interface ForgotFormData {
+    email?: string | null
+}
 
+const schema: Yup.SchemaOf<ForgotFormData> = Yup.object().shape({
+    email: Yup.string().email().required(),
+});
 
+const validate = makeValidate<ForgotFormData>(schema);
 const Forgotpassword = () => {
+    const navigate = useNavigate()
+    const handleSubmit = () => {
+        navigate('/')
+    }
+
     return (
         <>
             <Header />
             <Box
+                className=''
                 sx={{
                     width: 500,
                     margin: '50px auto',
@@ -26,7 +39,7 @@ const Forgotpassword = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     flex: 1,
-                    border: '1px solid ',
+                    border: '1px solid #cccaca',
                     borderRadius: '5px',
                     background: 'white'
                 }}>
@@ -42,18 +55,21 @@ const Forgotpassword = () => {
                             mt: '25vh'
                         }
                     }}>
-                    <FormLabel>
-                        <Stack spacing={2}>
-                            <Stack spacing={2}>
-                                <Box>
-                                    <Typography sx={{
-                                        fontWeight: '800',
-                                        color: 'black'
-                                    }}><b>Reset password</b></Typography>
-                                </Box>
-                                <Box>
-                                    <Typography mb={1}>Enter your username or email address and we'll email you instructions on how to reset your password</Typography>
+                    <Form<ForgotFormData>
+                        onSubmit={handleSubmit}
+                        validate={validate}
+                        render={({ handleSubmit, invalid, submitting }) => {
+                            return (
+                                <form onSubmit={handleSubmit}>
                                     <TextField
+                                        margin="normal"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email Address"
+                                        name="email"
+                                        autoComplete="email"
+                                        autoFocus
                                         sx={{
                                             height: '10px',
                                             padding: 'none',
@@ -63,39 +79,26 @@ const Forgotpassword = () => {
                                             root: '.custom-css'
                                         }}
                                         placeholder="Username or email"
-                                        type="text" fullWidth />
-                                </Box>
-                            </Stack>
+                                    />
 
-                            <Button
-                                variant="contained"
-                                sx={{
-                                    height: '38px',
-                                    backgroundColor: '#000FE6',
-                                }}>
-                                Send
-                            </Button>
-                            <Typography
-                                variant="body2"
-                                align="center"
-
-                            >
-                                <Link
-                                    component={RouteLink}
-                                    to={'/login-password'}
-                                    sx={{
-                                        textAlign: 'center',
-                                    }}
-                                >
-                                    Log in
-                                    <span
-                                    >with your credentials</span>
-
-                                </Link>
-                            </Typography>
-
-                        </Stack>
-                    </FormLabel>
+                                    <Button
+                                        disabled={invalid || submitting}
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{
+                                            mt: 3,
+                                            mb: 2,
+                                            height: '38px',
+                                            backgroundColor: '#000FE6',
+                                        }}
+                                    >
+                                        Send
+                                    </Button>
+                                </form>
+                            );
+                        }}
+                    />
                 </Box>
             </Box>
         </>
