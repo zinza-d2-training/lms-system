@@ -30,7 +30,7 @@
     "start": "node server.js",
     "dev": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --passWithNoTests",
     "eject": "react-scripts eject",
     "eslint": "eslint --ext .js,.jsx,.ts,.tsx src/",
     "eslint:fix": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix",
