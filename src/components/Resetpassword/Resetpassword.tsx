@@ -10,7 +10,7 @@ import {
 } from 'mui-rff';
 import React from 'react';
 import { Form } from 'react-final-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import Header from '../Header/Header';
 
@@ -23,7 +23,7 @@ const schema: Yup.SchemaOf<ResetFormData> = Yup.object().shape({
 });
 
 const validate = makeValidate<ResetFormData>(schema);
-const Resetpassword = () => {
+const ResetPassword = () => {
     const navigate = useNavigate()
     const handleSubmit = () => {
         navigate('/')
@@ -138,4 +138,4 @@ const Resetpassword = () => {
         </>
     )
 }
-export default Resetpassword;
+export default ResetPassword;
