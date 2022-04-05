@@ -21,7 +21,7 @@ const schema: Yup.SchemaOf<ForgotFormData> = Yup.object().shape({
 });
 
 const validate = makeValidate<ForgotFormData>(schema);
-const Forgotpassword = () => {
+const ForgotPassword = () => {
     const navigate = useNavigate()
     const handleSubmit = () => {
         navigate('/')
@@ -104,4 +104,4 @@ const Forgotpassword = () => {
         </>
     )
 }
-export default Forgotpassword;
+export default ForgotPassword;
