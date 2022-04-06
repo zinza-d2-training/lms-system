@@ -1,10 +1,11 @@
 import { ClassNames } from '@emotion/react';
 import {
-    Box, Button, FormControlLabel
+    Box, Button, FormControlLabel, Link
 } from '@mui/material';
 import { makeValidate, Checkboxes, TextField } from 'mui-rff';
 import { Form } from 'react-final-form';
 import * as Yup from 'yup';
+import { Link as RouterLink } from 'react-router-dom';
 import './Signup.css';
 //import { UserRole } from '../../types/users';
 
@@ -21,7 +22,7 @@ const schema: Yup.SchemaOf<SignupFormData> = Yup.object().shape({
     password: Yup.string().min(5).required(),
     name: Yup.string().required(),
     userName: Yup.string().required(),
-    check: Yup.boolean().oneOf([true], 'Required').default(false)
+    check: Yup.boolean().oneOf([true], 'Please confirm your choice').default(false)
 
 });
 
@@ -76,7 +77,7 @@ const Signup = () => {
                             mt: '150px'
                         },
                         '@media(min-height: 920px)': {
-                            mt: '25vh'
+                            mt: '25px'
                         }
                     }}>
                     <Form<SignupFormData>
@@ -156,7 +157,9 @@ const Signup = () => {
                                         <Box
                                             className='signup-text-end'
                                         >
-                                            <p>Already have an account? <span>Login!</span></p>
+                                            <p>Already have an account? <Link className='signup-text-end-link' underline='none' to={'/login'} component={RouterLink}>Login</Link>                                            
+                                            </p>
+                                            
                                         </Box>
                                     </form>
                                 </Box>
