@@ -1,6 +1,6 @@
 .css-ohiho2-MuiInputBase-root-MuiOutlinedInput-root{
     border: unset;
-    width: 250px !important;
+    width: 250px ;
     height: 50px;
 }
 .resetpass-inputpasss div {
@@ -10,4 +10,15 @@
     /* width: ; */
     padding: 0;
     margin-left: 12px;
+}
+
+/* CSS Component - Signup */
+.MuiBox-root{
+    border: none;
+}
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input{
+    width: 500px;
+}
+.Signup-input{
+    width: 500px !important;
 }

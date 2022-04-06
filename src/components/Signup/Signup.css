@@ -1,0 +1,39 @@
+.Signup-input {
+    border: unset;
+    width: 500px;
+    height: 50px;
+    margin-bottom: 22px;
+}
+.signup-container-form {
+    padding: 0 !important;
+}
+.signup-container-form p {
+    margin-bottom: 12px;
+}
+
+.signup-text-end{
+    display: flex;
+    justify-content: center;
+}
+
+.signup-text-end p {
+    font-weight: 600;
+}
+
+.signup-text-end span{
+    color: #3a8fe2;
+}
+
+.Signup-checkbox{
+    margin-left: 2px;
+}
+.Signup-buttonSubmit{
+    width: 30%;
+    text-transform: lowercase;
+    border-radius: 50px;
+    margin-left: 170px;
+}
+body{
+    background-image: url(./backgroundImages.png);
+    background-size: cover;
+}
