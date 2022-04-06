@@ -14,10 +14,9 @@ export const UserProvider: FC = ({ children }) => {
   const [user, setUser] = useState<Pick<User, 'id' | 'email'>>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [role, setRole] = useState<UserRole | undefined>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    setLoading(true);
     if (getCurrentUser()) {
       setUser(JSON.parse(getCurrentUser() as string));
       setRole(UserRole.Instructor)
@@ -33,7 +32,7 @@ export const UserProvider: FC = ({ children }) => {
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-
+    return () => clearTimeout()
   }, []);
   return loading ? (
     <div>Loading...</div>

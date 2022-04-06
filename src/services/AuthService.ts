@@ -1,6 +1,6 @@
 import { User } from "../types/users";
 import { Users } from '../fakeData/users';
-import _ from "lodash";
+import { pick } from "lodash";
 export type UserLogin = Pick<User, 'email'> & { password: string };
 
 const KEY_USER = 'user';
@@ -13,7 +13,7 @@ export async function login(user: UserLogin) {
 	if (found) {
 		localStorage.setItem(
 			KEY_USER,
-			JSON.stringify(_.pick(found, 'id', 'email', 'role'))
+			JSON.stringify(pick(found, 'id', 'email'))
 		);
 	} else {
 		throw new Error('User not found');

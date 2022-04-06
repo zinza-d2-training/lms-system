@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
-import Login from '../../pages/Login/Login';
+import Login from '../Login/Login';
 
 const PrivateRoute: FC<
   RouteProps

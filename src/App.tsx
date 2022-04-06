@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import PrivateRoute from './components/common/PrivateRoute';
-import Login from './pages/Login/Login';
-import { UserRole } from './types/users';
-import Home from './pages/Home/Home';
+//import PrivateRoute from './components/common/PrivateRoute';
+import Login from './components/Login/Login';
+//import { UserRole } from './types/users';
+import Home from './components/Home/Home';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 
 function App() {
