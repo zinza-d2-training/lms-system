@@ -1,19 +1,22 @@
-import { useEffect } from 'react';
-import { getCurrentUser } from '../../services/AuthService';
+import { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
 
 const Home = () => {
+  const navigate = useNavigate();
+  const userContext = useContext(UserContext);
   useEffect(() => {
-    const currentUser = JSON.parse(getCurrentUser() as string);
-    if(!currentUser) {
-      window.location.replace('/login')
+    const currentUser = userContext.user;
+    if (!currentUser) {
+      navigate('/login')
     }
-  }, [])
+    console.log('asd', currentUser)
+  }, [navigate, userContext, userContext.user]);
   return (
-
     <>
-      <div >Home page</div>
+      <div>Home page</div>
     </>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

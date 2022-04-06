@@ -1,41 +1,31 @@
 import { Box, Button } from '@mui/material';
-import * as Yup from 'yup';
-import Header from '../../components/Header/Header';
 import { makeValidate, TextField } from 'mui-rff';
+import React from 'react';
 import { Form } from 'react-final-form';
-import { login } from '../../services/AuthService';
 import { useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
+import Header from '../Header/Header';
 
-interface LoginFormData {
+interface ForgotFormData {
   email?: string | null;
-  password?: string | null;
 }
 
-const schema: Yup.SchemaOf<LoginFormData> = Yup.object().shape({
-  email: Yup.string().email().required(),
-  password: Yup.string().min(5).required()
+const schema: Yup.SchemaOf<ForgotFormData> = Yup.object().shape({
+  email: Yup.string().email().required()
 });
 
-const validate = makeValidate<LoginFormData>(schema);
-const Login = () => {
-  const navigate = useNavigate()
-  const handleSubmit = async (user: LoginFormData) => {
-    if (user.email && user.password) {
-      try {
-        await login({
-          email: user.email,
-          password: user.password
-        });
-        navigate('/');
-      } catch (e) {
-        alert(e);
-      }
-    }
+const validate = makeValidate<ForgotFormData>(schema);
+const ForgotPassword = () => {
+  const navigate = useNavigate();
+  const handleSubmit = () => {
+    navigate('/');
   };
+
   return (
     <>
       <Header />
       <Box
+        className=""
         sx={{
           width: 500,
           margin: '50px auto',
@@ -43,7 +33,7 @@ const Login = () => {
           display: 'flex',
           justifyContent: 'center',
           flex: 1,
-          border: '1px solid #701515',
+          border: '1px solid #cccaca',
           borderRadius: '5px',
           background: 'white'
         }}>
@@ -56,10 +46,10 @@ const Login = () => {
               mt: '150px'
             },
             '@media(min-height: 920px)': {
-              mt: '25vh'
+              mt: '25px'
             }
           }}>
-          <Form<LoginFormData>
+          <Form<ForgotFormData>
             onSubmit={handleSubmit}
             validate={validate}
             render={({ handleSubmit, invalid, submitting }) => {
@@ -74,24 +64,29 @@ const Login = () => {
                     name="email"
                     autoComplete="email"
                     autoFocus
+                    sx={{
+                      height: '10px',
+                      padding: 'none',
+                      marginBottom: '55px'
+                    }}
+                    classes={{
+                      root: '.custom-css'
+                    }}
+                    placeholder="Username or email"
                   />
-                  <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    name="password"
-                    label="Password"
-                    type="password"
-                    id="password"
-                    autoComplete="current-password"
-                  />
+
                   <Button
                     disabled={invalid || submitting}
                     type="submit"
                     fullWidth
                     variant="contained"
-                    sx={{ mt: 3, mb: 2 }}>
-                    Login
+                    sx={{
+                      mt: 3,
+                      mb: 2,
+                      height: '38px',
+                      backgroundColor: '#000FE6'
+                    }}>
+                    Send
                   </Button>
                 </form>
               );
@@ -102,5 +97,4 @@ const Login = () => {
     </>
   );
 };
-
-export default Login;
+export default ForgotPassword;

@@ -1,20 +1,22 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import PrivateRoute from './components/common/PrivateRoute';
-import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import { UserRole } from './types/users';
+import Home from './pages/Home/Home';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <PrivateRoute
+        {/* <PrivateRoute
           path="/profile"
-          userRoles={[UserRole.Instructor, UserRole.Learner]}
-        />
+          element={null}
+        /> */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot" element={<ForgotPassword />} />
       </Routes>
     </div>
   );
