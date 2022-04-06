@@ -63,8 +63,7 @@ const ForgotPassword = () => {
                     id="email"
                     label="Email Address"
                     name="email"
-                    autoComplete="email"
-                    autoFocus
+                    autoComplete="email"                    
                     sx={{
                       height: '10px',
                       padding: 'none',

@@ -79,8 +79,7 @@ const Login = () => {
                     id="email"
                     label="Email Address"
                     name="email"
-                    autoComplete="email"
-                    autoFocus
+                    autoComplete="email"                    
                   />
                   <TextField
                     margin="normal"
