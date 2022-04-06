@@ -1,6 +1,7 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
 import { makeValidate, TextField } from 'mui-rff';
 import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -88,6 +89,13 @@ const ForgotPassword = () => {
                     }}>
                     Send
                   </Button>
+
+                  <Typography sx={{ textAlign: 'center' }}>
+                    <Link underline="none" to={'/login'} component={RouterLink}>
+                      Login
+                    </Link>{' '}
+                    with your credentials
+                  </Typography>
                 </form>
               );
             }}

@@ -20,7 +20,7 @@ const ResetPassword = () => {
   const handleSubmit = () => {
     navigate('/');
   };
-  console.log('123');
+
   return (
     <>
       <Header />
@@ -29,7 +29,6 @@ const ResetPassword = () => {
         sx={{
           width: 1050,
           margin: '50px auto',
-
           display: 'flex',
           justifyContent: 'center',
           flex: 1,
@@ -41,12 +40,7 @@ const ResetPassword = () => {
           sx={{
             justifyContent: 'center',
             width: '100%',
-            '@media(min-height: 768px)': {
-              mt: '150px'
-            },
-            '@media(min-height: 920px)': {
-              mt: '25vh'
-            }
+            mt: '150px'
           }}>
           <Form<ResetFormData>
             onSubmit={handleSubmit}

@@ -1,8 +1,8 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
 import { makeValidate, TextField } from 'mui-rff';
 import { useContext, useEffect } from 'react';
 import { Form } from 'react-final-form';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { UserContext } from '../../contexts/UserContext';
 import { login } from '../../services/AuthService';
@@ -55,7 +55,7 @@ const Login = () => {
           display: 'flex',
           justifyContent: 'center',
           flex: 1,
-          border: '1px solid #701515',
+          boxShadow: '0 3px 10px rgb(0 0 0 / 0.2)',
           borderRadius: '5px',
           background: 'white'
         }}>
@@ -64,12 +64,7 @@ const Login = () => {
           sx={{
             justifyContent: 'center',
             width: '100%',
-            '@media(min-height: 768px)': {
-              mt: '150px'
-            },
-            '@media(min-height: 920px)': {
-              mt: '25vh'
-            }
+            mt: '25px'
           }}>
           <Form<LoginFormData>
             onSubmit={handleSubmit}
@@ -105,6 +100,9 @@ const Login = () => {
                     sx={{ mt: 3, mb: 2 }}>
                     Login
                   </Button>
+                  <Typography sx={{ textAlign: 'center' }}>
+                    Forgot your <Link underline='none' to={'/forgot'} component={RouterLink}>password?</Link>
+                  </Typography>
                 </form>
               );
             }}
