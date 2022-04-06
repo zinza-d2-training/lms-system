@@ -4,7 +4,7 @@ import React from 'react';
 import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import Header from '../Header/Header';
+import Header from '../Layout/Header/Header';
 
 interface ForgotFormData {
   email?: string | null;

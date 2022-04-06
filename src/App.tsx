@@ -5,6 +5,8 @@ import Login from './components/Login/Login';
 //import { UserRole } from './types/users';
 import Home from './components/Home/Home';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import ResetPassword from './components/ResetPassword/ResetPassword';
+import './App.css';
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot" element={<ForgotPassword />} />
+        <Route path="/reset" element={<ResetPassword />} />
       </Routes>
     </div>
   );
