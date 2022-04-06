@@ -39,8 +39,7 @@ const ResetPassword = () => {
           component="form"
           sx={{
             justifyContent: 'center',
-            width: '100%',
-            mt: '150px'
+            width: '100%'
           }}>
           <Form<ResetFormData>
             onSubmit={handleSubmit}

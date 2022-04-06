@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
+import Header from './../Layout/Header/Header';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Home = () => {
   }, []);
   return (
     <>
+      <Header/>
       <div>Home page</div>
     </>
   );

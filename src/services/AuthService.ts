@@ -22,6 +22,7 @@ export async function login(user: UserLogin) {
 
 export async function logout() {
 	localStorage.removeItem(KEY_USER);
+  localStorage.removeItem('role');
 }
 
 export function getCurrentUser() {
