@@ -10,8 +10,8 @@ const Home = () => {
     if (!currentUser) {
       navigate('/login')
     }
-    console.log('asd', currentUser)
-  }, [navigate, userContext, userContext.user]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <div>Home page</div>
