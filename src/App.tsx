@@ -1,25 +1,27 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-//import PrivateRoute from './components/common/PrivateRoute';
-import Login from './components/Login/Login';
-//import { UserRole } from './types/users';
-import Home from './components/Home/Home';
-import ForgotPassword from './components/ForgotPassword/ForgotPassword';
-import ResetPassword from './components/ResetPassword/ResetPassword';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import PrivateRoute from './components/common/PrivateRoute';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import Home from './components/Home/Home';
+import Login from './components/Login/Login';
+import ResetPassword from './components/ResetPassword/ResetPassword';
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        {/* <PrivateRoute
-          path="/profile"
-          element={null}
-        /> */}
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot" element={<ForgotPassword />} />
-        <Route path="/reset" element={<ResetPassword />} />
+        <Route
+          path="/reset"
+          element={
+            <PrivateRoute>
+              <ResetPassword />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </div>
   );

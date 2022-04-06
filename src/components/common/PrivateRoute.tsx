@@ -1,20 +1,18 @@
 import { FC, useContext } from 'react';
-import { Route, RouteProps } from 'react-router-dom';
+import { Navigate, RouteProps, useLocation } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
-import Login from '../Login/Login';
+
 
 const PrivateRoute: FC<
-  RouteProps
-> = ({ path, element, ...rest }) => {
+  RouteProps & {
+    children: JSX.Element
+  }
+> = ({ children }) => {
   const userContext = useContext(UserContext);
   const user = userContext.user
-  return (
-    <Route
-      path={path}
-      element={!user ? <Login/> : element}
-      {...rest}
-    />
-  );
+  const location = useLocation()
+  if(!user) return <Navigate to="/login" state={{ from: location }} replace />
+  return children
 };
 
 export default PrivateRoute;
