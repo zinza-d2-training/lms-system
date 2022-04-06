@@ -63,7 +63,6 @@ const Signup = () => {
                     display: 'flex',
                     justifyContent: 'center',
                     flex: 1,
-                    // border: '1px solid #701515',
                     borderRadius: '5px',
                     background: 'white'
                 }}>
@@ -84,7 +83,6 @@ const Signup = () => {
                         onSubmit={handleSubmit}
                         validate={validate}
                         render={({ handleSubmit, invalid, submitting, errors, values }) => {
-                            console.log(invalid, submitting, errors, values);
                             return (
                                 <Box
 
