@@ -6,7 +6,8 @@ import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import Header from '../Layout/Header/Header';
-
+import './ForgotPassword.css'
+// import './ForgotPassword.css'
 interface ForgotFormData {
   email?: string | null;
 }
@@ -56,36 +57,42 @@ const ForgotPassword = () => {
             render={({ handleSubmit, invalid, submitting }) => {
               return (
                 <form onSubmit={handleSubmit}>
+
+                  <Box>
+                    <Box className='forgot-box-title'>Reset Password</Box>
+                    <Box className='forgot-box-des'>Enter your username or email address and we'll email you intructions on how to reset <br /> your password</Box>
+                  </Box>
                   <TextField
+                    className='forgot-input'
                     margin="normal"
                     required
                     fullWidth
                     id="email"
-                    label="Email Address"
+                    label="Username or email"
                     name="email"
                     autoComplete="email"
-                    autoFocus
                     sx={{
-                      height: '10px',
+                      height: '1',
                       padding: 'none',
                       marginBottom: '55px'
                     }}
                     classes={{
                       root: '.custom-css'
                     }}
-                    placeholder="Username or email"
                   />
 
                   <Button
+                    className='forgotpass-button'
                     disabled={invalid || submitting}
                     type="submit"
                     fullWidth
                     variant="contained"
                     sx={{
                       mt: 3,
-                      mb: 2,
-                      height: '38px',
-                      backgroundColor: '#000FE6'
+                      mb: 5,
+                      textTransform : 'capitalize',
+                      backgroundImage : '#000FE6',
+                      height : '38px'
                     }}>
                     Send
                   </Button>
