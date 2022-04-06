@@ -2,7 +2,7 @@ import { Box, Button } from '@mui/material';
 import { makeValidate, TextField } from 'mui-rff';
 import { useContext, useEffect } from 'react';
 import { Form } from 'react-final-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { UserContext } from '../../contexts/UserContext';
 import { login } from '../../services/AuthService';
@@ -20,14 +20,15 @@ const schema: Yup.SchemaOf<LoginFormData> = Yup.object().shape({
 
 const validate = makeValidate<LoginFormData>(schema);
 const Login = () => {
-  const navigate = useNavigate()
-  const userContext = useContext(UserContext)
+  const navigate = useNavigate();
+  const userContext = useContext(UserContext);
+  const location = useLocation();
   useEffect(() => {
-    if(userContext.user) {
-      navigate('/')
+    if (userContext.user) {
+      navigate('/');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const handleSubmit = async (user: LoginFormData) => {
     if (user.email && user.password) {
       try {
@@ -35,7 +36,9 @@ const Login = () => {
           email: user.email,
           password: user.password
         });
-        window.location.replace('/')
+        window.location.replace(
+          (location?.state as any)?.from ? (location?.state as any)?.from : '/'
+        );
       } catch (e) {
         alert(e);
       }
