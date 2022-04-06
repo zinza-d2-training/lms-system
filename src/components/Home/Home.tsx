@@ -11,6 +11,7 @@ const Home = () => {
       navigate('/login')
     }
     console.log('asd', currentUser)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

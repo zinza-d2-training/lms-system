@@ -1,18 +1,17 @@
 import {
-    Box,
-    Button,
-    Typography
+  Box,
+  Button,
+  Typography
 } from '@mui/material';
-import { fontWeight } from '@mui/system';
 import {
-    makeValidate,
-    TextField
+  makeValidate,
+  TextField
 } from 'mui-rff';
 import React from 'react';
 import { Form } from 'react-final-form';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import Header from '../Header/Header';
+import Header from '../Layout/Header/Header';
 
 interface ResetFormData {
     password?: string | null

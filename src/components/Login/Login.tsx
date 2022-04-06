@@ -26,6 +26,7 @@ const Login = () => {
     if(userContext.user) {
       navigate('/')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   const handleSubmit = async (user: LoginFormData) => {
     if (user.email && user.password) {
