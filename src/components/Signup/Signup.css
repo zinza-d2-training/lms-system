@@ -25,7 +25,7 @@
 }
 
 .Signup-checkbox{
-    margin-left: 2px;
+    margin-left: 2px !important;
 }
 .Signup-buttonSubmit{
     width: 30%;
