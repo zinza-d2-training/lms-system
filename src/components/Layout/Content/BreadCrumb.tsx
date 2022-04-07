@@ -16,20 +16,23 @@ const BreadCrumb = () => {
 
   return (
     <Box
-      role="presentation"
+      role='presentation'
       onClick={handleClick}
       sx={{
-        background: '#0084D6',
-        color: '#FFFFFF'
+        borderTopLeftRadius:'5px',
+        borderTopRightRadius:'5px',
+        padding: '15px',
+        width:'100%',
+        background: '#0084D6'
       }}>
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link underline="hover" color="inherit" to={'/'} component={RouterLink}>
+      <Breadcrumbs aria-label='breadcrumb'>
+        <Link underline='hover' color='#FFFFFF' to={'/'} component={RouterLink}>
           Home
         </Link>
         {pathItem.map((item) => (
           <Link
-            underline="hover"
-            color="inherit"
+            underline='hover'
+            color='#FFFFFF'
             to={`/${item}`}
             component={RouterLink}>
             {item}
