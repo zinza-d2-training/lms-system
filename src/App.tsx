@@ -1,10 +1,11 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+//import PrivateRoute from './components/common/PrivateRoute';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
+import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
-import Home from './pages/Home/Home';
 
 function App() {
   return (
