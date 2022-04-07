@@ -1,10 +1,10 @@
-import { Typography, Box } from '@mui/material';
+import { Typography, Container } from '@mui/material';
 import React from 'react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const Footer = () => {
   return (
-    <Box
+    <Container
       sx={{
         padding: '5px',
         display: 'flex',
@@ -19,7 +19,7 @@ const Footer = () => {
         }}
       />
       <Typography>TalentLMS</Typography>
-    </Box>
+    </Container>
   );
 };
 

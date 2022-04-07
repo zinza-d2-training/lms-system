@@ -1,6 +1,6 @@
 import React from 'react';
 import BreadCrumb from './BreadCrumb';
-import { Box } from '@mui/material';
+import { Container } from '@mui/material';
 
 interface MainContentProps {
   children?: React.ReactNode;
@@ -9,7 +9,7 @@ interface MainContentProps {
 const MainContent = (props: MainContentProps) => {
   const { children, ...other } = props;
   return (
-    <Box
+    <Container
       {...other}
       sx={{
         borderRadius: '5px',
@@ -17,7 +17,7 @@ const MainContent = (props: MainContentProps) => {
       }}>
       <BreadCrumb />
       {children}
-    </Box>
+    </Container>
   );
 };
 
