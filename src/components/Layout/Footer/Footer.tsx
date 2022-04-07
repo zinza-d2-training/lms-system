@@ -6,15 +6,18 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        padding:'5px',
-        display:'flex',
+        padding: '5px',
+        display: 'flex',
         justifyContent: 'flex-end'
       }}>
-      <LockOutlinedIcon sx={{
-        color:'white',
-        background:'black',
-        borderRadius:'50%'
-      }} />
+      <LockOutlinedIcon
+        fontSize="small"
+        sx={{
+          color: 'white',
+          background: 'black',
+          borderRadius: '50%'
+        }}
+      />
       <Typography>TalentLMS</Typography>
     </Box>
   );
