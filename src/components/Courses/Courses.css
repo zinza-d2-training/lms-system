@@ -1,0 +1,88 @@
+.main-container{
+    width: 1070px ;
+}
+
+.box-header-content{
+    background-color:#0084d6; 
+    height: 56px;
+    width: 100%;
+}
+
+.box-content-container{
+    display: flex;
+    flex-direction: row;
+}
+.box-content-left{
+    margin-top: 12px;
+    flex-basis: 70%;
+}
+.box-content-left-container
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+.box-content-right{
+    display: flex;
+    flex-basis: 30%;
+    justify-content: end;
+}
+.box-content-right-link{
+    border: 1px solid silver;
+    margin-right: 12px;
+    color: #333333;
+}
+.box-content-left-option{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    
+}
+.box-content-right-link{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: 600;
+    font-size: 12px;
+    padding: 2px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.box-content-right-link span {
+    text-decoration: none;
+    margin-bottom: 12px;
+    align-self: center
+}
+.box-content-left .content-button{
+    border: 1px solid #e2e8ea;
+    height: 34px;
+    width: 256px;
+    
+}
+
+.box-content-right-btn1,
+.box-content-right-btn2{
+    /* padding: 2px; */
+    border: none;
+    padding: 2px 2px;
+    padding-left: 4px;
+    padding-right: 4px;
+    border:1px solid silver;
+}
+
+/* List courses */
+.card-course{
+    margin-top: 16px;
+    width: 275px;
+    height: 183px;
+}
+.card-course img{
+    width: 100%;
+
+}
+.card-course-container{
+    border: 1px solid silver;
+    border-radius: 5px;
+
+}
