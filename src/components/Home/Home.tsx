@@ -1,6 +1,8 @@
+import { Container } from '@mui/material';
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
+import Footer from '../Layout/Footer/Footer';
 import Header from './../Layout/Header/Header';
 
 const Home = () => {
@@ -16,7 +18,8 @@ const Home = () => {
   return (
     <>
       <Header/>
-      <div>Home page</div>
+      <Container sx={{height: '100vh'}}>Home page</Container>
+      <Footer/>
     </>
   );
 };

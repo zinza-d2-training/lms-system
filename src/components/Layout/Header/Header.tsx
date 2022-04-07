@@ -17,6 +17,8 @@ import {
   Radio,
   RadioGroup,
   Stack,
+  Tab,
+  Tabs,
   TextField,
   Typography
 } from '@mui/material';
@@ -24,17 +26,32 @@ import React, { useContext, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext';
 import { logout } from '../../../services/AuthService';
+import TabPanel from './TabPanel';
+
+function a11yProps(index: number) {
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`
+  };
+}
+
 const Header = () => {
   const userContext = useContext(UserContext);
   const user = userContext.user;
   const [anchorUser, setAnchorUser] = useState<null | HTMLElement>(null);
   const [anchorMessage, setAnchorMessage] = useState<null | HTMLElement>(null);
   const [anchorHelp, setAnchorHelp] = useState<null | HTMLElement>(null);
+  const [role, setRole] = useState('Instructor');
+  const [value, setValue] = useState(0);
+  const location = useLocation();
   const openUser = Boolean(anchorUser);
   const openMessage = Boolean(anchorMessage);
   const openHelp = Boolean(anchorHelp);
-  const [role, setRole] = React.useState('Instructor');
-  const location = useLocation();
+
+  const handleOnChange = (event: React.SyntheticEvent, newValue: number) => {
+    setValue(newValue);
+  };
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRole((event.target as HTMLInputElement).value);
   };
@@ -152,7 +169,8 @@ const Header = () => {
                   value={role}
                   onChange={handleChange}
                   sx={{
-                    paddingLeft: '15px'
+                    paddingLeft: '15px',
+                    background: '#e5e5e5'
                   }}>
                   <FormControlLabel
                     value="Instructor"
@@ -298,12 +316,49 @@ const Header = () => {
                     }
                   }
                 }}>
-                <MenuItem onClick={handleClose}>Knowledge base</MenuItem>
-                <MenuItem onClick={handleClose}>Tour</MenuItem>
-                <MenuItem onClick={handleClose}>Videos</MenuItem>
-                <MenuItem onClick={handleClose}>Contact support</MenuItem>
-                <MenuItem onClick={handleClose}>Live support</MenuItem>
-                <MenuItem onClick={handleClose}>Success manager</MenuItem>
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    display: 'flex',
+                    width: '500px',
+                    height: '400px'
+                  }}>
+                  <Tabs
+                    orientation="vertical"
+                    variant="scrollable"
+                    value={value}
+                    onChange={handleOnChange}
+                    aria-label="Vertical tabs example"
+                    sx={{
+                      borderRight: 1,
+                      borderColor: 'divider',
+                      minWidth: '200px'
+                    }}>
+                    <Tab label="Item One" {...a11yProps(0)} />
+                    <Tab label="Item Two" {...a11yProps(1)} />
+                    <Tab label="Item Three" {...a11yProps(2)} />
+                    <Tab label="Item Four" {...a11yProps(3)} />
+                  </Tabs>
+                  <TabPanel value={value} index={0}>
+                    <TextField placeholder={'search'} size="small" />
+                    <p>
+                      Item One Lorem ipsum, dolor sit amet consectetur
+                      adipisicing elit. Provident, cum, animi tempore atque
+                      exercitationem nam, ab ut obcaecati odit reprehenderit
+                      numquam. Tempore recusandae deserunt rem beatae eaque
+                      laudantium voluptatibus dolorem.
+                    </p>
+                  </TabPanel>
+                  <TabPanel value={value} index={1}>
+                    Item Two
+                  </TabPanel>
+                  <TabPanel value={value} index={2}>
+                    Item Three
+                  </TabPanel>
+                  <TabPanel value={value} index={3}>
+                    Item Four
+                  </TabPanel>
+                </Box>
               </Menu>
             </Stack>
             <Stack>
