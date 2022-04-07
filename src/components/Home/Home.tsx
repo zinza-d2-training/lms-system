@@ -18,7 +18,7 @@ const Home = () => {
   return (
     <>
       <Header/>
-      <Container sx={{height: '100vh'}}>Home page</Container>
+      <Container sx={{minHeight: '100px'}}>Home page</Container>
       <Footer/>
     </>
   );
