@@ -1,17 +1,30 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-//import PrivateRoute from './components/common/PrivateRoute';
+import Courses from './components/Courses/Courses';
+import PrivateRoute from './components/common/PrivateRoute';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
+import AddCourses from './components/Courses/AddCourses';
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />}>
+          <Route path="courses" element={<Courses />}>
+            <Route
+              path="add-courses"
+              element={
+                <PrivateRoute>
+                  <AddCourses />
+                </PrivateRoute>
+              }
+            />
+          </Route>
+        </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/forgot" element={<ForgotPassword />} />
         <Route path="/reset" element={<ResetPassword />} />

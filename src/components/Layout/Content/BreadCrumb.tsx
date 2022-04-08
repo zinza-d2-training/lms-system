@@ -25,14 +25,14 @@ const BreadCrumb = () => {
         width:'100%',
         background: '#0084D6'
       }}>
-      <Breadcrumbs aria-label='breadcrumb'>
-        <Link underline='hover' color='#FFFFFF' to={'/'} component={RouterLink}>
+      <Breadcrumbs aria-label='breadcrumb' color='#FFFFFF'>
+        <Link underline='hover' color='inherit' to={'/'} component={RouterLink}>
           Home
         </Link>
         {pathItem.map((item) => (
           <Link
             underline='hover'
-            color='#FFFFFF'
+            color='inherit'
             to={`/${item}`}
             component={RouterLink}>
             {item}

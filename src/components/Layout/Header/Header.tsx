@@ -41,7 +41,7 @@ const Header = () => {
   const [anchorUser, setAnchorUser] = useState<null | HTMLElement>(null);
   const [anchorMessage, setAnchorMessage] = useState<null | HTMLElement>(null);
   const [anchorHelp, setAnchorHelp] = useState<null | HTMLElement>(null);
-  const [role, setRole] = useState('Instructor');
+  const [role, setRole] = useState(user?.role as string);
   const [value, setValue] = useState(0);
   const location = useLocation();
   const openUser = Boolean(anchorUser);
@@ -87,6 +87,7 @@ const Header = () => {
         }}>
         <Container
           sx={{
+            flex: '1',
             paddingTop: '10px',
             paddingBottom: '10px'
           }}>
@@ -114,10 +115,11 @@ const Header = () => {
 
         <Container
           sx={{
+            flex: '2',
             paddingTop: '10px',
             paddingBottom: '10px',
             display: 'flex',
-            justifyContent: 'space-around '
+            justifyContent: 'space-between'
           }}>
           {user ? (
             <>
@@ -128,7 +130,7 @@ const Header = () => {
                   aria-haspopup="true"
                   aria-expanded={openUser ? 'true' : undefined}
                   onClick={handleClick}>
-                  User
+                  User | {user.role}
                 </Button>
                 <Menu
                   id="user-menu"
