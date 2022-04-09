@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
+import Courses from '../Courses';
 import Footer from '../Layout/Footer/Footer';
 import MainContent from './../Layout/Content/MainContent';
 import Header from './../Layout/Header/Header';
@@ -11,15 +12,17 @@ const Home = () => {
   useEffect(() => {
     const currentUser = userContext.user;
     if (!currentUser) {
-      navigate('/login')
+      navigate('/login');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>
-      <Header/>
-      <MainContent>Home page</MainContent>
-      <Footer/>
+      <Header />
+      <MainContent>
+        <Courses />
+      </MainContent>
+      <Footer />
     </>
   );
 };
