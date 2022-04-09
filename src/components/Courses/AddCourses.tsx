@@ -10,21 +10,18 @@ import React from 'react';
 import { Form } from 'react-final-form';
 import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
+import { CourseInfo } from '../../types/courses';
 import { ImageField } from '../common/ImageField';
 import { useCourseData } from './hook';
-interface AddCourseFormData {
-  name?: string | null;
-  description?: string | null;
-  image?: string | null;
-}
 
-const schema: Yup.SchemaOf<AddCourseFormData> = Yup.object().shape({
-  name: Yup.string().min(10).max(100).required(),
+
+const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
+  title: Yup.string().min(10).max(100).required(),
   description: Yup.string().max(1000).required(),
-  image: Yup.mixed().notRequired()
+  imageURL: Yup.mixed().notRequired()
 });
 
-const validate = makeValidate<AddCourseFormData>(schema);
+const validate = makeValidate(schema);
 
 const AddCourses = () => {
   const handleSubmit = () => {};
@@ -44,7 +41,7 @@ const AddCourses = () => {
         padding: '0'
       }}>
       <Box component="form">
-        <Form<AddCourseFormData>
+        <Form<CourseInfo>
           onSubmit={handleSubmit}
           initialValues={initialValues}
           validate={validate}
@@ -81,10 +78,10 @@ const AddCourses = () => {
                         }}>
                         <TextField
                           required
-                          name="name"
+                          name="title"
                           type="text"
-                          id="name"
-                          autoComplete="name"
+                          id="title"
+                          autoComplete="title"
                           size="small"
                           placeholder="e.g. Introduction"
                         />
@@ -134,8 +131,8 @@ const AddCourses = () => {
                       textAlign: 'center'
                     }}>
                     <ImageField
-                      name="image"
-                      // initPreview={initialValues.image}
+                      name="imageURL"
+                      initPreview={initialValues && initialValues.imageURL}
                     />
                   </Box>
                 </Box>
