@@ -12,7 +12,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
-import { updateCourse } from '../../services/CourseService';
+import { createCourse, updateCourse } from '../../services/CourseService';
 import { CourseInfo } from '../../types/courses';
 import { ImageField } from '../common/ImageField';
 import SnackBar from '../common/SnackBar';
@@ -30,17 +30,27 @@ const EditCourse = () => {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [success, setSuccess] = useState(false);
+
   const { id: courseId } = useParams() as { id: string };
-  const id = parseInt(courseId);
+  const id =
+    courseId && !isNaN(parseInt(courseId)) ? parseInt(courseId) : undefined;
   const { courseInfo: initialValues, loading } = useCourseData(id);
+
   const handleSubmit = async (courseForm: CourseInfo) => {
     const courseInfo = pick(courseForm, 'title', 'imageURL', 'description');
 
     try {
-      await updateCourse(id, courseInfo);
-      setMessage('success!');
-      setSuccess(true);
-      setOpen(true);
+      if (id) {
+        await updateCourse(id, courseInfo);
+        setMessage('success!');
+        setSuccess(true);
+        setOpen(true);
+      } else {
+        await createCourse(courseInfo);
+        setMessage('success!');
+        setSuccess(true);
+        setOpen(true);
+      }
     } catch (error) {
       setOpen(true);
       setMessage('Something went wrong');
@@ -192,7 +202,7 @@ const EditCourse = () => {
                         width: '15%',
                         marginLeft: '210px'
                       }}>
-                      Update
+                      {id ? 'Update' : 'Save'}
                     </Button>
                     <Link
                       component={RouterLink}

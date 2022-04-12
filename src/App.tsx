@@ -7,7 +7,6 @@ import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
-import AddCourses from './components/Courses/AddCourses';
 import EditCourse from './components/Courses/EditCourse';
 
 function App() {
@@ -20,7 +19,7 @@ function App() {
               path="add"
               element={
                 <PrivateRoute>
-                  <AddCourses />
+                  <EditCourse />
                 </PrivateRoute>
               }
             />
