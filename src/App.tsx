@@ -8,6 +8,7 @@ import Login from './components/Login/Login';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
 import AddCourses from './components/Courses/AddCourses';
+import EditCourse from './components/Courses/EditCourse';
 
 function App() {
   return (
@@ -16,10 +17,18 @@ function App() {
         <Route path="/" element={<Home />}>
           <Route path="courses" element={<Courses />}>
             <Route
-              path="add-courses"
+              path="add"
               element={
                 <PrivateRoute>
                   <AddCourses />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="edit/:id"
+              element={
+                <PrivateRoute>
+                  <EditCourse />
                 </PrivateRoute>
               }
             />

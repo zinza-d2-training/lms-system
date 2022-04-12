@@ -24,7 +24,7 @@ const Home = () => {
           courses
         </Link>
         <Button>
-          <Link component={RouterLink} to={'courses/add-courses'}>
+          <Link component={RouterLink} to={'courses/add'}>
             Add
           </Link>
         </Button>

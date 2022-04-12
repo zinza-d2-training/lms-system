@@ -6,7 +6,7 @@ const Courses = () => {
     <div>
       Courses
       <Button>
-        <Link component={RouterLink} to={'add-courses'}>
+        <Link component={RouterLink} to={'add'}>
           Add
         </Link>
       </Button>

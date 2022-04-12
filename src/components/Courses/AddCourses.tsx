@@ -3,19 +3,26 @@ import {
   Button,
   Checkbox,
   FormControlLabel,
+  Link,
   Typography
 } from '@mui/material';
+import { pick } from 'lodash';
 import { makeValidate, TextField } from 'mui-rff';
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'react-final-form';
-import { useParams } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import * as Yup from 'yup';
-import { CourseInfo } from '../../types/courses';
+import { createCourse } from '../../services/CourseService';
 import { ImageField } from '../common/ImageField';
-import { useCourseData } from './hook';
+import SnackBar from '../common/SnackBar';
 
+interface CourseFormData {
+  title: string;
+  imageURL: string;
+  description: string;
+}
 
-const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
+const schema: Yup.SchemaOf<CourseFormData> = Yup.object().shape({
   title: Yup.string().min(10).max(100).required(),
   description: Yup.string().max(1000).required(),
   imageURL: Yup.mixed().notRequired()
@@ -24,28 +31,53 @@ const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
 const validate = makeValidate(schema);
 
 const AddCourses = () => {
-  const handleSubmit = () => {};
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [success, setSuccess] = useState(false);
+  const handleSubmit = async (courseForm: CourseFormData) => {
+    const courseCreate = pick(courseForm, 'title', 'imageURL', 'description');
 
-  const { id: courseId } = useParams() as { id: string };
-  const id =
-    courseId && !isNaN(parseInt(courseId)) ? parseInt(courseId) : undefined;
+    try {
+      await createCourse(courseCreate);
+      setMessage('success!');
+      setSuccess(true);
+      setOpen(true);
+    } catch (error) {
+      setOpen(true);
+      setMessage('Something went wrong');
+    }
+  };
 
-  const { courseInfo: initialValues, loading } = useCourseData(id);
+  const handleClose = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
 
-  return loading ? (
-    <>Loading...</>
-  ) : (
+    setOpen(false);
+  };
+
+  return (
     <Box
       sx={{
         margin: '5px',
         padding: '0'
       }}>
+      <SnackBar
+        open={open}
+        autoHide={2000}
+        message={message}
+        onClose={handleClose}
+        severity={success ? 'success' : 'error'}
+      />
       <Box component="form">
-        <Form<CourseInfo>
+        <Form<CourseFormData>
           onSubmit={handleSubmit}
-          initialValues={initialValues}
+          initialValues={{ imageURL: '' }}
           validate={validate}
-          render={({ handleSubmit, invalid, initialValues }) => {
+          render={({ handleSubmit, invalid, submitting }) => {
             return (
               <form onSubmit={handleSubmit}>
                 <Box
@@ -117,6 +149,7 @@ const AddCourses = () => {
                           multiline
                           rows={5}
                         />
+
                         <FormControlLabel
                           control={<Checkbox value="active" color="primary" />}
                           label="Active"
@@ -130,27 +163,40 @@ const AddCourses = () => {
                       flex: 1,
                       textAlign: 'center'
                     }}>
-                    <ImageField
-                      name="imageURL"
-                      initPreview={initialValues && initialValues.imageURL}
-                    />
+                    <ImageField name="imageURL" />
                   </Box>
                 </Box>
-                <Button
-                  disabled={invalid}
-                  type="submit"
-                  fullWidth
-                  variant="contained"
+                <Box
                   sx={{
-                    mt: 3,
-                    mb: 2,
-                    height: '38px',
-                    backgroundColor: '#000FE6',
-                    width: '20%',
-                    marginLeft: '175px'
+                    display: 'flex',
+                    justifyContent: 'start',
+                    alignItems: 'center'
                   }}>
-                  save
-                </Button>
+                  <Button
+                    disabled={invalid || submitting}
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{
+                      mt: 3,
+                      mb: 2,
+                      height: '38px',
+                      backgroundColor: '#000FE6',
+                      width: '15%',
+                      marginLeft: '210px'
+                    }}>
+                    Create
+                  </Button>
+                  <Link
+                    component={RouterLink}
+                    underline="hover"
+                    to="/courses"
+                    sx={{
+                      marginLeft: '15px'
+                    }}>
+                    <Typography>Cancel</Typography>
+                  </Link>
+                </Box>
               </form>
             );
           }}

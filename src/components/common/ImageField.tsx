@@ -79,6 +79,7 @@ export const ImageField = ({ name, initPreview, config }: Props) => {
       )}
 
       <button
+        type="button"
         onClick={onButtonClick}
         style={{
           margin: '10px'
