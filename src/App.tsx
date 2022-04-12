@@ -6,7 +6,7 @@ import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
-
+import ListCoursesRender from './components/Courses/ListCourses/ListCourses';
 function App() {
   return (
     <div className="App">
@@ -16,6 +16,7 @@ function App() {
         <Route path="/forgot" element={<ForgotPassword />} />
         <Route path="/reset" element={<ResetPassword />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/Courses" element={<ListCoursesRender />} />
       </Routes>
     </div>
   );

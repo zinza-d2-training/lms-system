@@ -1,0 +1,14 @@
+/* body {} */
+.container-options {
+    margin-top: 12px;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.container-options button {
+    height: 25px;
+    text-transform: unset;
+    background-color: #003de6;
+}
