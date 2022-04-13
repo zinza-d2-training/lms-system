@@ -1,10 +1,10 @@
 export type CourseDB = {
-	id: number;
-	title: string;
-	imageURL?: string;
-	description: string;
+  id: number;
+  title: string;
+  imageURL?: string;
+  description: string;
 };
 
-export type UserFullInfo = Omit<CourseDB,'description'>;
+export type ListCourse = Omit<CourseDB, 'description'>;
 
-export type User = Pick<UserFullInfo, 'id' | 'title' | 'imageURL'>
+export type Course = Pick<ListCourse, 'id' | 'title' | 'imageURL'>;
