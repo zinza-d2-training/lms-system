@@ -1,10 +1,6 @@
 import { pick } from 'lodash';
 import { courses } from '../fakeData/courses';
-import {
-  CourseBasic,
-  CourseFullInfo,
-  CourseInfo
-} from '../types/courses';
+import { CourseBasic, CourseInfo, CoursesDB } from '../types/courses';
 
 export interface FilterCourse {
   id?: number;
@@ -19,7 +15,7 @@ export async function createCourse(courseInfo: CourseInfo) {
 }
 
 export async function updateCourse(courseId: number, courseInfo: CourseInfo) {
-  let course = courses.find((item) => item.id === courseId) as CourseFullInfo;
+  let course = courses.find((item) => item.id === courseId) as CoursesDB;
 
   const index = courses.indexOf(course);
 

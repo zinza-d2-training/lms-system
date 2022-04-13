@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/common/PrivateRoute';
 import CourseForm from './components/Courses/CourseForm';
 import Courses from './components/Courses/Courses';
+import { Courses as CourseIndex } from './components/Courses';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
@@ -17,6 +18,14 @@ function App() {
       <SnackbarProvider maxSnack={3}>
         <Routes>
           <Route path="/" element={<Home />}>
+            <Route
+              index
+              element={
+                <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
+                  <CourseIndex />
+                </PrivateRoute>
+              }
+            />
             <Route path="courses" element={<Courses />}>
               <Route
                 path="add"

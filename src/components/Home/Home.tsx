@@ -19,7 +19,7 @@ const Home = () => {
     <>
       <Header />
       <MainContent>
-        <Outlet/>
+        <Outlet />
       </MainContent>
       <Footer />
     </>

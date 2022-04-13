@@ -80,7 +80,6 @@ const Header = () => {
       (location?.state as any)?.from ? (location?.state as any)?.from : '/'
     );
   };
-
   return (
     <Box
       sx={{
