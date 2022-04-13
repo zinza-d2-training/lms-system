@@ -8,14 +8,14 @@ import {
 } from '@mui/material';
 import { pick } from 'lodash';
 import { makeValidate, TextField } from 'mui-rff';
-import React, { useState } from 'react';
+import { useSnackbar } from 'notistack';
+import React from 'react';
 import { Form } from 'react-final-form';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { createCourse, updateCourse } from '../../services/CourseService';
 import { CourseInfo } from '../../types/courses';
 import { ImageField } from '../common/ImageField';
-import SnackBar from '../common/SnackBar';
 import { useCourseData } from './hook';
 
 const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
@@ -26,11 +26,8 @@ const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
 
 const validate = makeValidate(schema);
 
-const EditCourse = () => {
-  const [open, setOpen] = useState(false);
-  const [message, setMessage] = useState('');
-  const [success, setSuccess] = useState(false);
-
+const CourseForm = () => {
+  const { enqueueSnackbar } = useSnackbar()
   const { id: courseId } = useParams() as { id: string };
   const id =
     courseId && !isNaN(parseInt(courseId)) ? parseInt(courseId) : undefined;
@@ -42,31 +39,19 @@ const EditCourse = () => {
     try {
       if (id) {
         await updateCourse(id, courseInfo);
-        setMessage('success!');
-        setSuccess(true);
-        setOpen(true);
+        enqueueSnackbar('Success!', {
+          variant: 'success'
+        })
       } else {
         await createCourse(courseInfo);
-        setMessage('success!');
-        setSuccess(true);
-        setOpen(true);
       }
     } catch (error) {
-      setOpen(true);
-      setMessage('Something went wrong');
+      enqueueSnackbar({'Error': error}, {
+        variant: 'error'
+      })
     }
   };
 
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
 
   return loading ? (
     <>loading...</>
@@ -77,13 +62,6 @@ const EditCourse = () => {
           margin: '5px',
           padding: '0'
         }}>
-        <SnackBar
-          open={open}
-          autoHide={2000}
-          message={message}
-          onClose={handleClose}
-          severity={success ? 'success' : 'error'}
-        />
         <Box component="form">
           <Form<CourseInfo>
             onSubmit={handleSubmit}
@@ -99,6 +77,7 @@ const EditCourse = () => {
                     }}>
                     <Box
                       sx={{
+                        marginTop: '20px',
                         flex: 3
                       }}>
                       <Box
@@ -174,6 +153,7 @@ const EditCourse = () => {
 
                     <Box
                       sx={{
+                        marginTop:'20px',
                         flex: 1,
                         textAlign: 'center'
                       }}>
@@ -224,4 +204,4 @@ const EditCourse = () => {
   );
 };
 
-export default EditCourse;
+export default CourseForm;

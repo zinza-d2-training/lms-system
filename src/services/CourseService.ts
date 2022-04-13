@@ -1,11 +1,10 @@
+import { pick } from 'lodash';
 import { courses } from '../fakeData/courses';
 import {
   CourseBasic,
   CourseFullInfo,
-  CourseInfo,
-  CoursesDB
+  CourseInfo
 } from '../types/courses';
-import { pick } from 'lodash';
 
 export interface FilterCourse {
   id?: number;
@@ -25,17 +24,6 @@ export async function updateCourse(courseId: number, courseInfo: CourseInfo) {
   const index = courses.indexOf(course);
 
   courses[index] = { ...course, ...courseInfo };
-}
-
-export async function getSearchCourses(
-  filter?: FilterCourse
-): Promise<CoursesDB[]> {
-  if (!filter) return courses;
-  return courses.filter((item) => {
-    let searchKey = true;
-    if (filter.id) return filter.id === item.id;
-    return searchKey;
-  });
 }
 
 export async function getCourses(

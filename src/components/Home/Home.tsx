@@ -1,6 +1,5 @@
-import { Button, Link } from '@mui/material';
 import { useContext, useEffect } from 'react';
-import { Link as RouterLink, Outlet, useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import Footer from '../Layout/Footer/Footer';
 import MainContent from './../Layout/Content/MainContent';
@@ -20,15 +19,7 @@ const Home = () => {
     <>
       <Header />
       <MainContent>
-        <Link component={RouterLink} to={'courses'}>
-          courses
-        </Link>
-        <Button>
-          <Link component={RouterLink} to={'courses/add'}>
-            Add
-          </Link>
-        </Button>
-        <Outlet />
+        <Outlet/>
       </MainContent>
       <Footer />
     </>

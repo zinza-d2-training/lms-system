@@ -1,8 +1,8 @@
 import { pick } from 'lodash';
 import { Users } from '../fakeData/users';
-import { User, UserFullInfo } from '../types/users';
+import { User, UserFullInfo, UserRole } from '../types/users';
 export type UserLogin = Pick<User, 'email'> & { password: string };
-export type UserInfo = Pick<UserFullInfo, 'email' | 'username' | 'role'>;
+export type UserInfo = Pick<UserFullInfo, 'email' | 'username' >;
 const KEY_USER = 'user';
 
 export async function login(user: UserLogin) {
@@ -13,7 +13,11 @@ export async function login(user: UserLogin) {
   if (found) {
     localStorage.setItem(
       KEY_USER,
-      JSON.stringify(pick(found, 'id', 'email', 'role'))
+      JSON.stringify(pick(found, 'id', 'email'))
+    );
+    localStorage.setItem(
+      'role',
+      JSON.stringify(UserRole.Instructor)
     );
   } else {
     throw new Error('User not found');
@@ -43,3 +47,11 @@ export async function updateUser(info: UserInfo) {
 export function getCurrentUser() {
   return localStorage.getItem(KEY_USER);
 }
+
+export async function changeRole(role: UserRole) {
+  localStorage.setItem(
+    'role',
+    role
+  );
+}
+
