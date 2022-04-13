@@ -7,9 +7,9 @@ export type CourseDB = {
   timeUpdate: string;
 };
 
-export type UserFullInfo = Omit<CourseDB, 'description'>;
+export type ListCourse = Omit<CourseDB, 'description'>;
 
-export type User = Pick<
-  UserFullInfo,
+export type Course = Pick<
+  ListCourse,
   'id' | 'title' | 'imageURL' | 'category' | 'timeUpdate'
 >;
