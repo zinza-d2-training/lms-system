@@ -11,33 +11,31 @@ function handleClick(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
 
 const BreadCrumb = () => {
   const location = useLocation();
-  const pathItem = location.pathname.split('/');
-  pathItem.shift();
+  const pathItem = location.pathname.split('/')[1];
 
   return (
     <Box
-      role='presentation'
+      role="presentation"
       onClick={handleClick}
       sx={{
-        borderTopLeftRadius:'5px',
-        borderTopRightRadius:'5px',
+        borderTopLeftRadius: '5px',
+        borderTopRightRadius: '5px',
         padding: '15px',
-        width:'100%',
+        width: '100%',
         background: '#0084D6'
       }}>
-      <Breadcrumbs aria-label='breadcrumb'>
-        <Link underline='hover' color='#FFFFFF' to={'/'} component={RouterLink}>
+      <Breadcrumbs aria-label="breadcrumb" color="#FFFFFF">
+        <Link underline="hover" color="inherit" to={'/'} component={RouterLink}>
           Home
         </Link>
-        {pathItem.map((item) => (
-          <Link
-            underline='hover'
-            color='#FFFFFF'
-            to={`/${item}`}
-            component={RouterLink}>
-            {item}
-          </Link>
-        ))}
+
+        <Link
+          underline="hover"
+          color="inherit"
+          to={`/${pathItem}`}
+          component={RouterLink}>
+          {pathItem}
+        </Link>
       </Breadcrumbs>
     </Box>
   );

@@ -11,4 +11,4 @@ export const Users: UserDB[] = [
     email: 'user2@gmail.com',
     password: '12345'
   }
-]
+];

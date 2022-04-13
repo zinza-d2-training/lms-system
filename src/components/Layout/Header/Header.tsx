@@ -25,7 +25,8 @@ import {
 import React, { useContext, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext';
-import { logout } from '../../../services/AuthService';
+import { changeRole, logout } from '../../../services/AuthService';
+import { UserRole } from '../../../types/users';
 import TabPanel from './TabPanel';
 
 function a11yProps(index: number) {
@@ -37,13 +38,14 @@ function a11yProps(index: number) {
 
 const Header = () => {
   const userContext = useContext(UserContext);
-  const user = userContext.user;
+
   const [anchorUser, setAnchorUser] = useState<null | HTMLElement>(null);
   const [anchorMessage, setAnchorMessage] = useState<null | HTMLElement>(null);
   const [anchorHelp, setAnchorHelp] = useState<null | HTMLElement>(null);
-  const [role, setRole] = useState('Instructor');
   const [value, setValue] = useState(0);
+
   const location = useLocation();
+
   const openUser = Boolean(anchorUser);
   const openMessage = Boolean(anchorMessage);
   const openHelp = Boolean(anchorHelp);
@@ -52,8 +54,14 @@ const Header = () => {
     setValue(newValue);
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRole((event.target as HTMLInputElement).value);
+  const handleChange = async (e: { target: HTMLInputElement }) => {
+    const changedRole = (e.target as HTMLInputElement).value as UserRole;
+    try {
+      if (changedRole) {
+        await changeRole(changedRole);
+        window.location.replace('/');
+      }
+    } catch (error) {}
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -72,7 +80,6 @@ const Header = () => {
       (location?.state as any)?.from ? (location?.state as any)?.from : '/'
     );
   };
-
   return (
     <Box
       sx={{
@@ -80,13 +87,16 @@ const Header = () => {
         background: 'white',
         borderBottom: '1px solid #e0e0e0'
       }}>
-      <Container
+      <Box
         sx={{
+          margin: '0 auto',
+          width: '80%',
           display: 'flex',
           justifyContent: 'space-between'
         }}>
         <Container
           sx={{
+            flex: '1',
             paddingTop: '10px',
             paddingBottom: '10px'
           }}>
@@ -114,12 +124,13 @@ const Header = () => {
 
         <Container
           sx={{
+            flex: '2',
             paddingTop: '10px',
             paddingBottom: '10px',
             display: 'flex',
-            justifyContent: 'space-around '
+            justifyContent: 'space-between'
           }}>
-          {user ? (
+          {userContext.user ? (
             <>
               <Stack>
                 <Button
@@ -128,7 +139,7 @@ const Header = () => {
                   aria-haspopup="true"
                   aria-expanded={openUser ? 'true' : undefined}
                   onClick={handleClick}>
-                  User
+                  User | {userContext.role}
                 </Button>
                 <Menu
                   id="user-menu"
@@ -169,7 +180,7 @@ const Header = () => {
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue="female"
                     name="radio-buttons-group"
-                    value={role}
+                    value={userContext.role}
                     onChange={handleChange}
                     sx={{
                       paddingLeft: '15px',
@@ -382,7 +393,7 @@ const Header = () => {
             <></>
           )}
         </Container>
-      </Container>
+      </Box>
     </Box>
   );
 };

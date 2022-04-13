@@ -1,21 +1,21 @@
-import { Box, Container } from '@mui/material';
-import LayersIcon from '@mui/icons-material/Layers';
-import ViewListIcon from '@mui/icons-material/ViewList';
-import GridOnIcon from '@mui/icons-material/GridOn';
-import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
-import GroupsIcon from '@mui/icons-material/Groups';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import GridOnIcon from '@mui/icons-material/GridOn';
+import GroupsIcon from '@mui/icons-material/Groups';
+import InfoIcon from '@mui/icons-material/Info';
+import LayersIcon from '@mui/icons-material/Layers';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import InfoIcon from '@mui/icons-material/Info';
-import BreadCrumb from '../Layout/Content/BreadCrumb';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import { Box, Container, Link } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 // import '../Courses../componnent'
 // import { UserDB } from './../types/users';
 // import Courses from '../../fakeData/courses';
-import { ListCourses } from '../../fakeData/courses';
+import { courses } from '../../fakeData/courses';
 import './Courses.css';
 
-const Courses = () => {
+export const Courses = () => {
   return (
     <>
       <Container className="main-container">
@@ -57,8 +57,8 @@ const Courses = () => {
             <Box className="card-container-imageList">
               <Box className="card-course">
                 <Box className="card-course-container">
-                  {ListCourses.map((course) => (
-                    <Box key={course.imageURL} className="course-item">
+                  {courses.map((course) => (
+                    <Box key={course.id} className="course-item">
                       <img
                         className="courses-item-image"
                         src={`${course.imageURL}?w=164&h=164&fit=crop&auto=format`}
@@ -91,7 +91,12 @@ const Courses = () => {
                 </Box>
                 <Box className="item-right">
                   <h5>COURSES</h5>
-                  <p>Add course</p>
+                  <Link
+                    component={RouterLink}
+                    to={'/courses/add'}
+                    underline="none">
+                    Add course
+                  </Link>
                 </Box>
               </Box>
 
@@ -141,5 +146,3 @@ const Courses = () => {
     </>
   );
 };
-
-export default Courses;

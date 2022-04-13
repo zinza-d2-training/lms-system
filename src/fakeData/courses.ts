@@ -1,6 +1,6 @@
-import { CourseDB } from './../types/courses';
+import { CoursesDB } from '../types/courses';
 
-export const ListCourses: CourseDB[] = [
+export const courses: CoursesDB[] = [
   {
     id: 1,
     title: 'Introduction to TalentLMS',
