@@ -12,3 +12,57 @@
     text-transform: unset;
     background-color: #003de6;
 }
+
+.box-content-container {
+    margin-bottom: 16px;
+}
+
+.icon-share {
+    /* transform: rotate(100%); */
+    margin-top: 4px;
+}
+
+.container-options-right {
+    display: flex;
+}
+
+.container-options-right p {
+    margin-top: 9px;
+}
+
+.table-head {
+    background-color: #049cdb;
+}
+
+.table-head th {
+    color: aliceblue;
+}
+
+.box-container-footer button {
+    background-color: #b0b5b9;
+    border: none;
+    padding: 4px;
+    border-radius: 15px;
+}
+
+.table-head tr {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.button-search input {
+    padding: 0;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    margin-left: 4px;
+}
+
+.button-search input::placeholder {
+    /* margin-left: 4; */
+    font-size: 12px;
+}
+
+.box-container-footer-right svg {
+    margin-right: 8px;
+}
