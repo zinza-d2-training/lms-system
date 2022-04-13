@@ -39,7 +39,8 @@
 }
 
 .box-container-footer button {
-    background-color: #b0b5b9;
+    background-color: #b6bbbf;
+    color: aliceblue;
     border: none;
     padding: 4px;
     border-radius: 15px;
@@ -53,6 +54,8 @@
 .button-search input {
     padding: 0;
     border: none;
+    padding-top: 4px;
+    padding-bottom: 4px;
     outline: none;
     border-radius: 5px;
     margin-left: 4px;
