@@ -1,8 +1,7 @@
-import { date } from 'yup';
+import { CoursesDB } from '../types/courses';
 import { formatDateTime } from '../utils/datetime';
-import { CourseDB } from './../types/courses';
 
-export const ListCourses: CourseDB[] = [
+export const courses: CoursesDB[] = [
   {
     id: 1,
     title: 'Introduction to TalentLMS',

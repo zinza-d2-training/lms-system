@@ -4,39 +4,40 @@ import { User, UserRole } from '../types/users';
 
 export type defaultUserContext = {
   user: Pick<User, 'id' | 'email'> | undefined;
+  role: UserRole | undefined;
 };
 
 export const UserContext = createContext<defaultUserContext>({
-  user: undefined
+  user: undefined,
+  role: undefined
 });
 
 export const UserProvider: FC = ({ children }) => {
   const [user, setUser] = useState<Pick<User, 'id' | 'email'>>();
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [role, setRole] = useState<UserRole | undefined>();
+  const [role, setRole] = useState<UserRole>();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (getCurrentUser()) {
       setUser(JSON.parse(getCurrentUser() as string));
-      setRole(UserRole.Instructor)
-      localStorage.setItem('role', UserRole.Instructor)
     }
-      // if (localStorage.getItem('role')) {
-      //   setRole(JSON.parse(localStorage.getItem('role') as string));
-      // }
-      //  else {
-      //   setRole(UserRole.Instructor);
-      //   localStorage.setItem('role', UserRole.Instructor);
-      // }
+    const localRole = localStorage.getItem('role');
+    if (localRole) {
+      setRole(localRole as UserRole);
+    }
+
     setTimeout(() => {
       setLoading(false);
     }, 1000);
-    return () => clearTimeout()
+
+    return () => clearTimeout();
   }, []);
+
   return loading ? (
     <div>Loading...</div>
   ) : (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, role }}>
+      {children}
+    </UserContext.Provider>
   );
 };

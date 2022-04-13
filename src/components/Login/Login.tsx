@@ -1,5 +1,6 @@
 import { Box, Button, Link, Typography } from '@mui/material';
 import { makeValidate, TextField } from 'mui-rff';
+import { useSnackbar } from 'notistack';
 import { useContext, useEffect } from 'react';
 import { Form } from 'react-final-form';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
@@ -20,6 +21,7 @@ const schema: Yup.SchemaOf<LoginFormData> = Yup.object().shape({
 
 const validate = makeValidate<LoginFormData>(schema);
 const Login = () => {
+  const { enqueueSnackbar } = useSnackbar()
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
   const location = useLocation();
@@ -39,8 +41,13 @@ const Login = () => {
         window.location.replace(
           (location?.state as any)?.from ? (location?.state as any)?.from : '/'
         );
+        enqueueSnackbar('Success!', {
+          variant: 'success'
+        })
       } catch (e) {
-        alert(e);
+        enqueueSnackbar({'Error': e}, {
+          variant: 'error'
+        })
       }
     }
   };

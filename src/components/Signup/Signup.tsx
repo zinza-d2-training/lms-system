@@ -1,4 +1,3 @@
-import { ClassNames } from '@emotion/react';
 import {
     Box, Button, FormControlLabel, Link
 } from '@mui/material';
@@ -155,9 +154,9 @@ const Signup = () => {
                                         <Box
                                             className='signup-text-end'
                                         >
-                                            <p>Already have an account? <Link className='signup-text-end-link' underline='none' to={'/login'} component={RouterLink}>Login</Link>                                            
+                                            <p>Already have an account? <Link className='signup-text-end-link' underline='none' to={'/login'} component={RouterLink}>Login</Link>
                                             </p>
-                                            
+
                                         </Box>
                                     </form>
                                 </Box>
