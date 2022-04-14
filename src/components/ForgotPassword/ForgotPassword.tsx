@@ -6,8 +6,6 @@ import { Form } from 'react-final-form';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import Header from '../Layout/Header/Header';
-import './ForgotPassword.css'
-// import './ForgotPassword.css'
 interface ForgotFormData {
   email?: string | null;
 }
@@ -57,13 +55,15 @@ const ForgotPassword = () => {
             render={({ handleSubmit, invalid, submitting }) => {
               return (
                 <form onSubmit={handleSubmit}>
-
                   <Box>
-                    <Box className='forgot-box-title'>Reset Password</Box>
-                    <Box className='forgot-box-des'>Enter your username or email address and we'll email you intructions on how to reset <br /> your password</Box>
+                    <Box className="forgot-box-title">Reset Password</Box>
+                    <Box className="forgot-box-des">
+                      Enter your username or email address and we'll email you
+                      intructions on how to reset <br /> your password
+                    </Box>
                   </Box>
                   <TextField
-                    className='forgot-input'
+                    className="forgot-input"
                     margin="normal"
                     required
                     fullWidth
@@ -82,7 +82,7 @@ const ForgotPassword = () => {
                   />
 
                   <Button
-                    className='forgotpass-button'
+                    className="forgotpass-button"
                     disabled={invalid || submitting}
                     type="submit"
                     fullWidth
@@ -90,9 +90,9 @@ const ForgotPassword = () => {
                     sx={{
                       mt: 3,
                       mb: 5,
-                      textTransform : 'capitalize',
-                      backgroundImage : '#000FE6',
-                      height : '38px'
+                      textTransform: 'capitalize',
+                      backgroundImage: '#000FE6',
+                      height: '38px'
                     }}>
                     Send
                   </Button>
