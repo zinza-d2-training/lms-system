@@ -1,0 +1,103 @@
+/* body {} */
+.container-options {
+    margin-top: 12px;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.container-options button {
+    height: 25px;
+    text-transform: unset;
+    background-color: #003de6;
+}
+
+.box-content-container {
+    margin-bottom: 16px;
+}
+
+.icon-share {
+    /* transform: rotate(100%); */
+    margin-top: 4px;
+}
+
+.container-options-right {
+    display: flex;
+}
+
+.container-options-right p {
+    margin-top: 9px;
+}
+
+.table-head {
+    background-color: #049cdb;
+}
+
+.table-head th {
+    color: aliceblue;
+}
+
+.box-container-footer button {
+    background-color: #b6bbbf;
+    color: aliceblue;
+    border: none;
+    padding: 4px;
+    border-radius: 15px;
+}
+
+.table-head tr {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+
+.button-search input {
+    padding: 0;
+    border: none;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    outline: none;
+    border-radius: 5px;
+    margin-left: 4px;
+}
+
+
+/* Pseudo-classes AND Pseudo-elements */
+.button-search input::placeholder {
+    font-size: 12px;
+}
+
+.box-container-footer-right svg {
+    margin-right: 8px;
+}
+
+.option-hide {
+    display: none !important;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tbody tr:hover {
+    background-color: #cce8f3;
+}
+
+.menu-customer:hover button {
+    background-color: unset !important;
+}
+
+.option-link {
+    text-decoration: none;
+    color: black;
+    /* background-color: #3333; */
+}
+
+/* td svg:hover .option-hide {
+    display: none;
+}
+
+td svg:hover {
+    display: block !important;
+} */
