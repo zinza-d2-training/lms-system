@@ -18,6 +18,10 @@ function App() {
     <div className="App">
       <SnackbarProvider maxSnack={3}>
         <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot" element={<ForgotPassword />} />
+          <Route path="/reset" element={<ResetPassword />} />
+          <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Home />}>
             <Route
               index
@@ -54,10 +58,6 @@ function App() {
               />
             </Route>
           </Route>
-          <Route path="/login" element={<Login />} />
-          <Route path="/forgot" element={<ForgotPassword />} />
-          <Route path="/reset" element={<ResetPassword />} />
-          <Route path="/signup" element={<Signup />} />
         </Routes>
       </SnackbarProvider>
     </div>
