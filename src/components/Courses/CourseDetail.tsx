@@ -5,6 +5,12 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import HeightIcon from '@mui/icons-material/Height';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult
+} from 'react-beautiful-dnd';
+import {
   Box,
   Button,
   Container,
@@ -26,28 +32,48 @@ const btnStyle = {
   marginRight: '5px'
 };
 
+const getItemStyle = (draggableStyle: any) => ({
+  margin: '5px',
+  padding: '5px',
+  border: `1px solid black`,
+  fontSize: `20px`,
+  borderRadius: `5px`,
+
+  ...draggableStyle
+});
+
 const CourseDetail = () => {
   const { id: courseId } = useParams() as { id: string };
   const id =
     courseId && !isNaN(parseInt(courseId)) ? parseInt(courseId) : undefined;
 
   const { courseInfo } = useCourseData(id);
-  const { contentData } = useContentData(id)
+  const { contentData } = useContentData(id);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [anchorOp, setAnchorOp] = useState<null | HTMLElement>(null);
   const [reorder, setReorder] = useState(false);
   const open = Boolean(anchorEl);
   const openOp = Boolean(anchorOp);
-  // const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorEl(event.currentTarget);
-  //   setAnchorOp(event.currentTarget)
-  // };
+
+  const [todo, setTodo] = useState(contentData)
+  const onDragEnd = (result: DropResult) => {
+    const { source, destination } = result;
+    if (!destination) return;
+
+    const items = Array.from(todo);
+    const [newOrder] = items.splice(source.index, 1);
+    items.splice(destination.index, 0, newOrder);
+
+    setTodo(items);
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
     setAnchorOp(null);
   };
   const handleReorder = () => {
     setReorder(!reorder);
+    setTodo(contentData)
   };
   return (
     <Box sx={{ display: 'flex' }}>
@@ -193,15 +219,41 @@ const CourseDetail = () => {
             </Box>
           </Box>
           <Box>
-
             {reorder ? (
-              contentData.map((item) => <List>
-                <ListItem disablePadding>{item.name}</ListItem>
-              </List>)
+              <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId="todo">
+                  {(provided) => (
+                    <div
+                      className="todo"
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}>
+                      {todo.map(({ sequence, name }, index) => {
+                        return (
+                          <Draggable key={sequence} draggableId={''+sequence} index={index}>
+                            {(provided, snapshot) => (
+                              <div
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                {...provided.dragHandleProps}
+                                style={getItemStyle(
+                                  provided.draggableProps.style
+                                )}>
+                                {name}
+                              </div>
+                            )}
+                          </Draggable>
+                        );
+                      })}
+                    </div>
+                  )}
+                </Droppable>
+              </DragDropContext>
             ) : (
-              contentData.map((item) => <List>
-                <ListItem disablePadding sx={{border: '1px solid'}}>{item.name}</ListItem>
-              </List>)
+              contentData.map((item) => (
+                <List>
+                  <ListItem disablePadding>{item.name}</ListItem>
+                </List>
+              ))
             )}
           </Box>
         </Box>
