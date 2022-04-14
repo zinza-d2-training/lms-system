@@ -10,6 +10,7 @@ import Home from './components/Home/Home';
 import Login from './components/Login/Login';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
+import ListCoursesRender from './components/Courses/ListCourses/ListCourses';
 import { UserRole } from './types/users';
 import CourseDetail from './components/Courses/CourseDetail';
 
@@ -32,6 +33,15 @@ function App() {
               }
             />
             <Route path="courses" element={<Courses />}>
+              <Route
+                index
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
+                    <ListCoursesRender />
+                  </PrivateRoute>
+                }
+              />
+
               <Route
                 path="add"
                 element={

@@ -3,9 +3,9 @@ export interface CoursesDB {
   title: string;
   imageURL?: string;
   description: string;
-  timeupdate?: string
+  timeUpdate?: string;
 }
 
-export type CourseInfo = Pick<CoursesDB, 'title' | 'imageURL' | 'description'>
+export type CourseInfo = Pick<CoursesDB, 'title' | 'imageURL' | 'description'>;
 
-export type CourseBasic = Pick<CoursesDB, 'id' | 'title' | 'imageURL'>
+export type CourseBasic = Pick<CoursesDB, 'id' | 'title' | 'imageURL'>;
