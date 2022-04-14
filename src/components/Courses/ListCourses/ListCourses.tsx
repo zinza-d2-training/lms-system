@@ -14,8 +14,7 @@ import Paper from '@mui/material/Paper';
 import './ListCourses.css';
 import Header from '../../Layout/Header/Header';
 import MainContent from '../../Layout/Content/MainContent';
-// import { ListCourses } from '../../../fakeData/courses';
-import { ListCourses } from '../../../fakeData/courses';
+import { courses } from '../../../fakeData/courses';
 import ReplyIcon from '@mui/icons-material/Reply';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
@@ -55,13 +54,12 @@ const ListCoursesRender = () => {
                 <TableHead className="table-head">
                   <TableRow>
                     <TableCell>COURSES</TableCell>
-                    <TableCell align="right">CATEGORY</TableCell>
                     <TableCell align="right">LAST UPDATE ON</TableCell>
                     <TableCell align="right">OPTIONS</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {ListCourses.map((course) => (
+                  {courses.map((course) => (
                     <TableRow
                       key={course.id}
                       sx={{
@@ -69,9 +67,6 @@ const ListCoursesRender = () => {
                       }}>
                       <TableCell component="th" scope="row">
                         {course.title}
-                      </TableCell>
-                      <TableCell sx={{ paddingRight: '22px' }} align="right">
-                        {course.category}
                       </TableCell>
                       <TableCell sx={{ paddingRight: '28px' }} align="right">
                         {course.timeUpdate}

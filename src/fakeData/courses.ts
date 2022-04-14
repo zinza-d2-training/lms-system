@@ -8,7 +8,6 @@ export const courses: CoursesDB[] = [
     imageURL:
       'https://d3j0t7vrtr92dk.cloudfront.net/samplecourses/1548346756_intro.png?',
     description: 'Introduction to TalentL',
-    category: 'Samples',
     timeUpdate: formatDateTime('1995-12-17T03:24:00')
   },
   {
@@ -17,7 +16,6 @@ export const courses: CoursesDB[] = [
     imageURL:
       'https://d3j0t7vrtr92dk.cloudfront.net/samplecourses/1548346702_toolkit.png?',
     description: 'Học lập trình',
-    category: 'Samples',
     timeUpdate: formatDateTime('1995-12-17T03:24:00')
   },
   {
@@ -26,7 +24,6 @@ export const courses: CoursesDB[] = [
     imageURL:
       'https://d3j0t7vrtr92dk.cloudfront.net/samplecourses/1548346716_content.png?',
     description: 'Học lập trình',
-    category: 'Samples',
     timeUpdate: formatDateTime('1995-12-17T03:24:00')
   },
   {
@@ -35,7 +32,6 @@ export const courses: CoursesDB[] = [
     imageURL:
       'https://d3j0t7vrtr92dk.cloudfront.net/samplecourses/1548346739_fundamentals.png?',
     description: 'Học lập trình',
-    category: 'Samples',
     timeUpdate: formatDateTime('1995-12-17T03:24:00')
   },
   {
@@ -44,7 +40,6 @@ export const courses: CoursesDB[] = [
     imageURL:
       'https://d3j0t7vrtr92dk.cloudfront.net/samplecourses/1548346727_employees.png?',
     description: 'Học lập trình',
-    category: 'Samples',
     timeUpdate: formatDateTime('1995-12-17T03:24:00')
   },
   {
@@ -53,7 +48,6 @@ export const courses: CoursesDB[] = [
     imageURL:
       'https://d3j0t7vrtr92dk.cloudfront.net/samples/1635953915_whatistalentlibrary.png?',
     description: 'Học lập trình',
-    category: 'Samples',
     timeUpdate: formatDateTime('1995-12-17T03:24:00')
   },
   {
@@ -61,7 +55,6 @@ export const courses: CoursesDB[] = [
     title: 'Give your course a name',
     imageURL: 'https://huyhoang7511.talentlms.com/pages/images/unknown_x4.png',
     description: 'Học lập trình',
-    category: 'Samples',
     timeUpdate: formatDateTime('1995-12-17T03:24:00')
   },
   {
@@ -69,7 +62,6 @@ export const courses: CoursesDB[] = [
     title: 'Give your course a name 2',
     imageURL: 'https://huyhoang7511.talentlms.com/pages/images/unknown_x4.png',
     description: 'Học lập trình',
-    category: 'Samples',
     timeUpdate: formatDateTime('1995-12-17T03:24:00')
   }
 ];

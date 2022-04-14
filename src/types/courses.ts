@@ -3,8 +3,7 @@ export interface CoursesDB {
   title: string;
   imageURL?: string;
   description: string;
-  category: string;
-  timeUpdate: string;
+  timeUpdate?: string;
 }
 
 export type CourseInfo = Pick<CoursesDB, 'title' | 'imageURL' | 'description'>;
