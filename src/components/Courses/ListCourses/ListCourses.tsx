@@ -17,7 +17,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Link as RouterLink } from 'react-router-dom';
 import { courses } from '../../../fakeData/courses';
-import CustomizedMenus from '../../Dropbutton/Dropbutton';
+import CustomizedMenus from './CourseMenuActions';
 import './ListCourses.css';
 
 const ListCoursesRender = () => {

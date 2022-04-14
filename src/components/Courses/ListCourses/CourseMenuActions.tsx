@@ -9,7 +9,8 @@ import MenuItem from '@mui/material/MenuItem';
 import { alpha, styled } from '@mui/material/styles';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import '../Courses/ListCourses/ListCourses.css';
+import './ListCourses.css';
+
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
     elevation={0}
