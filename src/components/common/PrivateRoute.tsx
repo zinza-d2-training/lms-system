@@ -12,6 +12,9 @@ const PrivateRoute: FC<
   const userContext = useContext(UserContext);
   const location = useLocation();
 
+  if (!userContext.user)
+    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+
   if (!userContext.role || !roles.includes(userContext.role))
     return <Navigate to="/" state={{ from: location.pathname }} replace />;
   return children;
