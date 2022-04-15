@@ -110,11 +110,11 @@ const ListCoursesRender = () => {
               <button>1 to 8 of 8</button>
             </Box>
 
-            <Box className="box-container-footer-right">
-              <SaveAltIcon />
-              <FilterAltIcon />
-              <TextField className="button-search" placeholder="Search" />
-            </Box>
+              <Box className="box-container-footer-right">
+                <SaveAltIcon />
+                <FilterAltIcon />
+                <TextField className="button-search" placeholder="Search" />
+              </Box>
           </Box>
         </Box>
       </Container>
