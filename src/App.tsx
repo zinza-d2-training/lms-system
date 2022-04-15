@@ -41,6 +41,14 @@ function App() {
                   </PrivateRoute>
                 }
               />
+              <Route
+                path=":id/users"
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor]}>
+                    <ManagementUser />
+                  </PrivateRoute>
+                }
+              />
 
               <Route
                 path="add"
@@ -55,14 +63,6 @@ function App() {
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
                     <CourseForm />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="managementUser"
-                element={
-                  <PrivateRoute roles={[UserRole.Instructor]}>
-                    <ManagementUser />
                   </PrivateRoute>
                 }
               />
