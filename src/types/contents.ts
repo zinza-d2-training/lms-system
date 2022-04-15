@@ -23,3 +23,5 @@ export type Content = {
   link?: string;
   surveyId?: number;
 };
+
+export type ContentInfo = Omit<Content, 'id' | 'type' | 'courseId'>;

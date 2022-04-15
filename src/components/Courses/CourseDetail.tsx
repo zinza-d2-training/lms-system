@@ -1,17 +1,17 @@
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
+import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
+import CodeIcon from '@mui/icons-material/Code';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import GridOnIcon from '@mui/icons-material/GridOn';
 import HeightIcon from '@mui/icons-material/Height';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
 import SlowMotionVideoOutlinedIcon from '@mui/icons-material/SlowMotionVideoOutlined';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
-import CodeIcon from '@mui/icons-material/Code';
-import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import {
   Box,
   Button,
@@ -24,7 +24,8 @@ import {
   MenuItem,
   Typography
 } from '@mui/material';
-import React, { useState } from 'react';
+import { sortBy } from 'lodash';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   DragDropContext,
   Draggable,
@@ -32,6 +33,7 @@ import {
   DropResult
 } from 'react-beautiful-dnd';
 import { Link as RouterLink, useParams } from 'react-router-dom';
+import { reorderCourseContents } from '../../services/ContentService';
 import { useContentData, useCourseData } from './hook';
 import { StyledMenu } from './StyledMenu';
 
@@ -63,7 +65,7 @@ const CourseDetail = () => {
   const open = Boolean(anchorEl);
   const openOp = Boolean(anchorOp);
   const [todo, setTodo] = useState(contentData);
-  const onDragEnd = (result: DropResult) => {
+  const onDragEnd = async (result: DropResult) => {
     const { source, destination } = result;
     if (!destination) return;
 
@@ -71,8 +73,20 @@ const CourseDetail = () => {
     const [newOrder] = items.splice(source.index, 1);
     items.splice(destination.index, 0, newOrder);
 
-    setTodo(items);
+    const reOrderMapping: Record<number, number> = {};
+    items.forEach((item, index) => {
+      reOrderMapping[item.sequence] = index + 1;
+    });
+    const contents = await reorderCourseContents(reOrderMapping);
+    setTodo(contents);
   };
+  useEffect(() => {
+    setTodo(contentData);
+  }, [contentData]);
+
+  const sortedContents = useMemo(() => {
+    return sortBy(todo, 'sequence');
+  }, [todo]);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -244,7 +258,7 @@ const CourseDetail = () => {
                       className="todo"
                       {...provided.droppableProps}
                       ref={provided.innerRef}>
-                      {todo.map(({ id, sequence, name }, index) => {
+                      {sortedContents.map(({ sequence, name }, index) => {
                         return (
                           <Draggable
                             key={sequence}
@@ -269,7 +283,7 @@ const CourseDetail = () => {
                 </Droppable>
               </DragDropContext>
             ) : (
-              contentData.map((item) => (
+              sortedContents.map((item) => (
                 <List>
                   <ListItem
                     disablePadding
