@@ -335,12 +335,7 @@ const CourseDetail = () => {
           <ListItem disablePadding>
             <ListItemButton sx={{ borderRadius: '10px' }}>
               <GridOnIcon
-                sx={{
-                  marginRight: '5px',
-                  padding: '5px',
-                  borderRadius: '50%',
-                  backgroundColor: '#DADADA'
-                }}
+                className='right-menu-icon'
                 fontSize="large"
               />
               <Link
@@ -355,12 +350,7 @@ const CourseDetail = () => {
           <ListItem disablePadding>
             <ListItemButton sx={{ borderRadius: '10px' }}>
               <AccountCircleOutlinedIcon
-                sx={{
-                  marginRight: '5px',
-                  padding: '5px',
-                  borderRadius: '50%',
-                  backgroundColor: '#DADADA'
-                }}
+                className='right-menu-icon'
                 fontSize="large"
               />
               <Link
@@ -375,12 +365,7 @@ const CourseDetail = () => {
           <ListItem disablePadding>
             <ListItemButton sx={{ borderRadius: '10px' }}>
               <FolderOutlinedIcon
-                sx={{
-                  marginRight: '5px',
-                  padding: '5px',
-                  borderRadius: '50%',
-                  backgroundColor: '#DADADA'
-                }}
+                className='right-menu-icon'
                 fontSize="large"
               />
               <Link

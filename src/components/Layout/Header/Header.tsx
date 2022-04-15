@@ -27,14 +27,9 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext';
 import { changeRole, logout } from '../../../services/AuthService';
 import { UserRole } from '../../../types/users';
-import TabPanel from './TabPanel';
+import TabPanel, { a11yProps } from './TabPanel';
 
-function a11yProps(index: number) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`
-  };
-}
+
 
 const paper = {
   elevation: 0,
@@ -307,7 +302,7 @@ const Header = () => {
                       <Tab label="Item Three" {...a11yProps(2)} />
                       <Tab label="Item Four" {...a11yProps(3)} />
                     </Tabs>
-                    <TabPanel value={value} index={0}>
+                    <TabPanel value={value} index={0} height='390px'>
                       <TextField placeholder={'search'} size="small" />
                       <p>
                         Item One Lorem ipsum, dolor sit amet consectetur
@@ -317,13 +312,13 @@ const Header = () => {
                         laudantium voluptatibus dolorem.
                       </p>
                     </TabPanel>
-                    <TabPanel value={value} index={1}>
+                    <TabPanel value={value} index={1} height='390px'>
                       Item Two
                     </TabPanel>
-                    <TabPanel value={value} index={2}>
+                    <TabPanel value={value} index={2} height='390px'>
                       Item Three
                     </TabPanel>
-                    <TabPanel value={value} index={3}>
+                    <TabPanel value={value} index={3} height='390px'>
                       Item Four
                     </TabPanel>
                   </Box>
