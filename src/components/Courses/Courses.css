@@ -218,3 +218,10 @@
   display: block;
   cursor: pointer;
 }
+
+.right-menu-icon {
+  margin-right: 5px;
+  padding: 5px;
+  border-radius: 50%;
+  background-color: #DADADA;
+}

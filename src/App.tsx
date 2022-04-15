@@ -12,6 +12,7 @@ import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
 import ListCoursesRender from './components/Courses/ListCourses/ListCourses';
 import { UserRole } from './types/users';
+import CourseDetail from './components/Courses/CourseDetail';
 
 function App() {
   return (
@@ -54,6 +55,14 @@ function App() {
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
                     <CourseForm />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path=":id"
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor]}>
+                    <CourseDetail />
                   </PrivateRoute>
                 }
               />
