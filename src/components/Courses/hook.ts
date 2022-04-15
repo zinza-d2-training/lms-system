@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { getCourseContents } from '../../services/ContentService';
 import { getCourseInfoForm } from '../../services/CourseService';
+import { Content } from '../../types/contents';
 import { CourseInfo } from '../../types/courses';
 
 export const useCourseData = (courseId?: number) => {
@@ -25,3 +27,24 @@ export const useCourseData = (courseId?: number) => {
     loading
   };
 };
+
+export const useContentData = (courseId?: number) => {
+  const [contentData, setContentData] = useState<Content[]>([])
+
+  useEffect(() => {
+    const getContentData = async (courseId?: number) => {
+      if (courseId) {
+        const contentInfo = await getCourseContents(courseId);
+        setContentData(contentInfo);
+      }
+    }
+
+    getContentData(courseId)
+
+    return () => {};
+  }, [courseId])
+
+  return {
+    contentData
+  }
+}

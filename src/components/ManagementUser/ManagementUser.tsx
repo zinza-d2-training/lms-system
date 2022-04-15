@@ -15,8 +15,12 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { TabCoursesUser } from './TabCoursesUser/TabCoursesUser';
 import { TabEnrollUser } from './TabEnrollUser/TabEnrollUser';
+import CourseRightMenu from '../CourseRightMenu/CourseRightMenu';
+import { useParams } from 'react-router-dom';
 export const ManagementUser = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
+  const { id: courseId } = useParams() as { id: string };
+  const id = parseInt(courseId);
 
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -60,33 +64,7 @@ export const ManagementUser = () => {
               </Box>
             </Box>
           </Box>
-
-          <Box>
-            <Box>
-              <Box className="box-content-right-container-item">
-                <Box className="item-left">
-                  <PersonIcon className="right-menu-icon" fontSize="large" />
-                </Box>
-                <Box className="item-right">
-                  <h5>USERS & PROGRESS</h5>
-                  <p>1 instructor · 0 learners</p>
-                </Box>
-              </Box>
-
-              <Box className="box-content-right-container-item">
-                <Box className="item-left">
-                  <FolderCopyIcon
-                    className="right-menu-icon"
-                    fontSize="large"
-                  />
-                </Box>
-                <Box className="item-right">
-                  <h5>FILES</h5>
-                  <p>0 files</p>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
+          <CourseRightMenu id={id} />
         </Box>
       </Container>
     </>

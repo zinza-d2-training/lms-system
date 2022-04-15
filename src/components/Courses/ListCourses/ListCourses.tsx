@@ -77,7 +77,7 @@ const ListCoursesRender = () => {
                     <TableCell component="th" scope="row">
                       <Link
                         component={RouterLink}
-                        to={`/courses/edit/${course.id}`}
+                        to={`/courses/${course.id}/edit`}
                         underline="hover"
                         color="black">
                         {course.title}
@@ -89,8 +89,8 @@ const ListCoursesRender = () => {
                     </TableCell>
                     <TableCell sx={{ paddingRight: '28px' }} align="right">
                       <CustomizedMenus
-                        linkTo={`/courses/edit/${course.id}`}
-                        courseDetial={`/courses/trainer/${course.id}`}
+                        linkTo={`/courses/${course.id}/edit`}
+                        courseDetial={`/courses/${course.id}`}
                       />
                     </TableCell>
                   </TableRow>
@@ -110,11 +110,11 @@ const ListCoursesRender = () => {
               <button>1 to 8 of 8</button>
             </Box>
 
-              <Box className="box-container-footer-right">
-                <SaveAltIcon />
-                <FilterAltIcon />
-                <TextField className="button-search" placeholder="Search" />
-              </Box>
+            <Box className="box-container-footer-right">
+              <SaveAltIcon />
+              <FilterAltIcon />
+              <TextField className="button-search" placeholder="Search" />
+            </Box>
           </Box>
         </Box>
       </Container>

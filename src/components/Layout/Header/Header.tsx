@@ -27,14 +27,37 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext';
 import { changeRole, logout } from '../../../services/AuthService';
 import { UserRole } from '../../../types/users';
-import TabPanel from './TabPanel';
+import TabPanel, { a11yProps } from './TabPanel';
 
-function a11yProps(index: number) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`
-  };
-}
+
+
+const paper = {
+  elevation: 0,
+  sx: {
+    overflow: 'visible',
+    filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+    position: 'absolute',
+    mt: 1.5,
+    '& .MuiAvatar-root': {
+      width: 32,
+      height: 32,
+      ml: -0.5,
+      mr: 1
+    },
+    '&:before': {
+      content: '""',
+      display: 'block',
+      position: 'absolute',
+      top: 0,
+      left: 14,
+      width: 10,
+      height: 10,
+      bgcolor: 'background.paper',
+      transform: 'translateY(-50%) rotate(45deg)',
+      zIndex: 0
+    }
+  }
+};
 
 const Header = () => {
   const userContext = useContext(UserContext);
@@ -149,33 +172,7 @@ const Header = () => {
                   MenuListProps={{
                     'aria-labelledby': 'user-button'
                   }}
-                  PaperProps={{
-                    elevation: 0,
-                    sx: {
-                      overflow: 'visible',
-                      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                      position: 'absolute',
-                      mt: 1.5,
-                      '& .MuiAvatar-root': {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1
-                      },
-                      '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        left: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0
-                      }
-                    }
-                  }}>
+                  PaperProps={paper}>
                   <RadioGroup
                     aria-labelledby="demo-radio-buttons-group-label"
                     defaultValue="female"
@@ -253,32 +250,7 @@ const Header = () => {
                   MenuListProps={{
                     'aria-labelledby': 'message-button'
                   }}
-                  PaperProps={{
-                    elevation: 0,
-                    sx: {
-                      overflow: 'visible',
-                      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                      mt: 1.5,
-                      '& .MuiAvatar-root': {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1
-                      },
-                      '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        left: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0
-                      }
-                    }
-                  }}>
+                  PaperProps={paper}>
                   <MenuItem onClick={handleClose}>Go to Inbox</MenuItem>
                   <MenuItem onClick={handleClose}>My account</MenuItem>
                   <Divider />
@@ -306,32 +278,7 @@ const Header = () => {
                   MenuListProps={{
                     'aria-labelledby': 'help-button'
                   }}
-                  PaperProps={{
-                    elevation: 0,
-                    sx: {
-                      overflow: 'visible',
-                      filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-                      mt: 1.5,
-                      '& .MuiAvatar-root': {
-                        width: 32,
-                        height: 32,
-                        ml: -0.5,
-                        mr: 1
-                      },
-                      '&:before': {
-                        content: '""',
-                        display: 'block',
-                        position: 'absolute',
-                        top: 0,
-                        left: 14,
-                        width: 10,
-                        height: 10,
-                        bgcolor: 'background.paper',
-                        transform: 'translateY(-50%) rotate(45deg)',
-                        zIndex: 0
-                      }
-                    }
-                  }}>
+                  PaperProps={paper}>
                   <Box
                     sx={{
                       flexGrow: 1,
@@ -355,7 +302,7 @@ const Header = () => {
                       <Tab label="Item Three" {...a11yProps(2)} />
                       <Tab label="Item Four" {...a11yProps(3)} />
                     </Tabs>
-                    <TabPanel value={value} index={0}>
+                    <TabPanel value={value} index={0} height='390px'>
                       <TextField placeholder={'search'} size="small" />
                       <p>
                         Item One Lorem ipsum, dolor sit amet consectetur
@@ -365,13 +312,13 @@ const Header = () => {
                         laudantium voluptatibus dolorem.
                       </p>
                     </TabPanel>
-                    <TabPanel value={value} index={1}>
+                    <TabPanel value={value} index={1} height='390px'>
                       Item Two
                     </TabPanel>
-                    <TabPanel value={value} index={2}>
+                    <TabPanel value={value} index={2} height='390px'>
                       Item Three
                     </TabPanel>
-                    <TabPanel value={value} index={3}>
+                    <TabPanel value={value} index={3} height='390px'>
                       Item Four
                     </TabPanel>
                   </Box>
