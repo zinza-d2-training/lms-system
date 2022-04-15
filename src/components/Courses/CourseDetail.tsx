@@ -1,15 +1,17 @@
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
 import GridOnIcon from '@mui/icons-material/GridOn';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import HeightIcon from '@mui/icons-material/Height';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import {
-  DragDropContext,
-  Draggable,
-  Droppable,
-  DropResult
-} from 'react-beautiful-dnd';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
+import SlowMotionVideoOutlinedIcon from '@mui/icons-material/SlowMotionVideoOutlined';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import CodeIcon from '@mui/icons-material/Code';
+import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import {
   Box,
   Button,
@@ -23,8 +25,14 @@ import {
   Typography
 } from '@mui/material';
 import React, { useState } from 'react';
+import {
+  DragDropContext,
+  Draggable,
+  Droppable,
+  DropResult
+} from 'react-beautiful-dnd';
 import { Link as RouterLink, useParams } from 'react-router-dom';
-import { useCourseData, useContentData } from './hook';
+import { useContentData, useCourseData } from './hook';
 import { StyledMenu } from './StyledMenu';
 
 const btnStyle = {
@@ -35,7 +43,7 @@ const btnStyle = {
 const getItemStyle = (draggableStyle: any) => ({
   margin: '5px',
   padding: '5px',
-  border: `1px solid black`,
+  border: `2px solid #f3f3f3`,
   fontSize: `20px`,
   borderRadius: `5px`,
 
@@ -54,8 +62,7 @@ const CourseDetail = () => {
   const [reorder, setReorder] = useState(false);
   const open = Boolean(anchorEl);
   const openOp = Boolean(anchorOp);
-
-  const [todo, setTodo] = useState(contentData)
+  const [todo, setTodo] = useState(contentData);
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
     if (!destination) return;
@@ -71,10 +78,12 @@ const CourseDetail = () => {
     setAnchorEl(null);
     setAnchorOp(null);
   };
+
   const handleReorder = () => {
     setReorder(!reorder);
-    setTodo(contentData)
+    setTodo(contentData);
   };
+
   return (
     <Box sx={{ display: 'flex' }}>
       {/* Left content */}
@@ -133,24 +142,30 @@ const CourseDetail = () => {
                 open={open}
                 onClose={handleClose}>
                 <MenuItem onClick={handleClose} disableRipple>
+                  <ArticleOutlinedIcon />
                   Content
                 </MenuItem>
                 <MenuItem onClick={handleClose} disableRipple>
+                  <CloudOutlinedIcon />
                   Web content
                 </MenuItem>
                 <Divider sx={{ my: 0.5 }} />
                 <MenuItem onClick={handleClose} disableRipple>
+                  <SlowMotionVideoOutlinedIcon />
                   Video
                 </MenuItem>
                 <MenuItem onClick={handleClose} disableRipple>
+                  <VolumeUpIcon />
                   Audio
                 </MenuItem>
                 <Divider sx={{ my: 0.5 }} />
                 <MenuItem onClick={handleClose} disableRipple>
+                  <CodeIcon />
                   Iframe
                 </MenuItem>
                 <Divider sx={{ my: 0.5 }} />
                 <MenuItem onClick={handleClose} disableRipple>
+                  <CheckBoxOutlinedIcon />
                   Survey
                 </MenuItem>
               </StyledMenu>
@@ -210,9 +225,11 @@ const CourseDetail = () => {
                 open={openOp}
                 onClose={handleClose}>
                 <MenuItem onClick={handleClose} disableRipple>
+                  <EmailOutlinedIcon />
                   Message
                 </MenuItem>
                 <MenuItem onClick={handleClose} disableRipple>
+                  <CalendarMonthOutlinedIcon />
                   Add event
                 </MenuItem>
               </StyledMenu>
@@ -227,10 +244,13 @@ const CourseDetail = () => {
                       className="todo"
                       {...provided.droppableProps}
                       ref={provided.innerRef}>
-                      {todo.map(({ sequence, name }, index) => {
+                      {todo.map(({ id, sequence, name }, index) => {
                         return (
-                          <Draggable key={sequence} draggableId={''+sequence} index={index}>
-                            {(provided, snapshot) => (
+                          <Draggable
+                            key={sequence}
+                            draggableId={'' + sequence}
+                            index={index}>
+                            {(provided) => (
                               <div
                                 ref={provided.innerRef}
                                 {...provided.draggableProps}
@@ -238,7 +258,7 @@ const CourseDetail = () => {
                                 style={getItemStyle(
                                   provided.draggableProps.style
                                 )}>
-                                {name}
+                                <Typography>{name}</Typography>
                               </div>
                             )}
                           </Draggable>
@@ -251,7 +271,44 @@ const CourseDetail = () => {
             ) : (
               contentData.map((item) => (
                 <List>
-                  <ListItem disablePadding>{item.name}</ListItem>
+                  <ListItem
+                    disablePadding
+                    sx={{
+                      '&:hover .ContentList-Option': {
+                        opacity: 1
+                      }
+                    }}>
+                    <Link
+                      component={RouterLink}
+                      to={`/unit/:type/${item.id}`}
+                      underline="hover"
+                      color="inherit">
+                      <Typography>{item.name}</Typography>
+                    </Link>
+                    <List
+                      disablePadding
+                      className="ContentList-Option"
+                      sx={{ display: 'flex', marginLeft: '20px', opacity: 0 }}>
+                      <ListItem disablePadding sx={{ marginRight: '10px' }}>
+                        <Link
+                          component={RouterLink}
+                          to={`/unit/:type/${item.id}`}
+                          underline="hover"
+                          color="inherit">
+                          <Typography variant="caption">edit</Typography>
+                        </Link>
+                      </ListItem>
+                      <ListItem disablePadding>
+                        <Link
+                          component={RouterLink}
+                          to={`/unit/:type/${item.id}`}
+                          underline="hover"
+                          color="inherit">
+                          <Typography variant="caption">delete</Typography>
+                        </Link>
+                      </ListItem>
+                    </List>
+                  </ListItem>
                 </List>
               ))
             )}
@@ -277,7 +334,7 @@ const CourseDetail = () => {
                 to={`/courses/trainer/${id}`}
                 underline="hover"
                 color={'black'}>
-                Content
+                <Typography>Content</Typography>
               </Link>
             </ListItemButton>
           </ListItem>
@@ -297,7 +354,7 @@ const CourseDetail = () => {
                 to={'/trainer'}
                 underline="hover"
                 color={'black'}>
-                User & Progress
+                <Typography>User & Progress</Typography>
               </Link>
             </ListItemButton>
           </ListItem>
@@ -317,7 +374,7 @@ const CourseDetail = () => {
                 to={'/trainer'}
                 underline="hover"
                 color={'black'}>
-                Files
+                <Typography>Files</Typography>
               </Link>
             </ListItemButton>
           </ListItem>
