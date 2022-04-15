@@ -59,7 +59,7 @@ function App() {
                 }
               />
               <Route
-                path="trainer/:id"
+                path=":id"
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
                     <CourseDetail />

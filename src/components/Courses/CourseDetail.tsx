@@ -1,12 +1,9 @@
-import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
 import CodeIcon from '@mui/icons-material/Code';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import FolderOutlinedIcon from '@mui/icons-material/FolderOutlined';
-import GridOnIcon from '@mui/icons-material/GridOn';
 import HeightIcon from '@mui/icons-material/Height';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -20,7 +17,6 @@ import {
   Link,
   List,
   ListItem,
-  ListItemButton,
   MenuItem,
   Typography
 } from '@mui/material';
@@ -36,6 +32,7 @@ import { Link as RouterLink, useParams } from 'react-router-dom';
 import { reorderCourseContents } from '../../services/ContentService';
 import { useContentData, useCourseData } from './hook';
 import { StyledMenu } from './StyledMenu';
+import CourseRightMenu from '../CourseRightMenu/CourseRightMenu';
 
 const btnStyle = {
   backgroundColor: '#000FE3',
@@ -54,8 +51,7 @@ const getItemStyle = (draggableStyle: any) => ({
 
 const CourseDetail = () => {
   const { id: courseId } = useParams() as { id: string };
-  const id =
-    courseId && !isNaN(parseInt(courseId)) ? parseInt(courseId) : undefined;
+  const id = parseInt(courseId);
 
   const { courseInfo } = useCourseData(id);
   const { contentData } = useContentData(id);
@@ -330,55 +326,7 @@ const CourseDetail = () => {
         </Box>
       </Container>
       {/* Right content */}
-      <Box sx={{ flex: 1, padding: '5px' }}>
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton sx={{ borderRadius: '10px' }}>
-              <GridOnIcon
-                className='right-menu-icon'
-                fontSize="large"
-              />
-              <Link
-                component={RouterLink}
-                to={`/courses/trainer/${id}`}
-                underline="hover"
-                color={'black'}>
-                <Typography>Content</Typography>
-              </Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton sx={{ borderRadius: '10px' }}>
-              <AccountCircleOutlinedIcon
-                className='right-menu-icon'
-                fontSize="large"
-              />
-              <Link
-                component={RouterLink}
-                to={'/trainer'}
-                underline="hover"
-                color={'black'}>
-                <Typography>User & Progress</Typography>
-              </Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton sx={{ borderRadius: '10px' }}>
-              <FolderOutlinedIcon
-                className='right-menu-icon'
-                fontSize="large"
-              />
-              <Link
-                component={RouterLink}
-                to={'/trainer'}
-                underline="hover"
-                color={'black'}>
-                <Typography>Files</Typography>
-              </Link>
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </Box>
+      <CourseRightMenu id={id} />
     </Box>
   );
 };
