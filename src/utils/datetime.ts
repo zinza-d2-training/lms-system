@@ -1,4 +1,4 @@
-import { format as formatFunction, compareAsc } from 'date-fns';
+import { format as formatFunction } from 'date-fns';
 export function formatDateTime(
   dateTime: string,
   format: string = 'dd/MM/yyyy'

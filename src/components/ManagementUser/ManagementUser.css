@@ -1,0 +1,10 @@
+.tab-option button {
+    background-color: unset !important;
+    
+}
+
+.tabManage-course {
+    padding: 0 !important;
+    margin-top: 12px;
+    width: 98%;
+}
