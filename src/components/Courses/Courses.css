@@ -193,8 +193,7 @@
   text-transform: uppercase;
 }
 
-.box-content-right-container-item .item-right p,
-.box-content-right-container-item .item-right a {
+.box-content-right-container-item .item-right p {
   font-size: 12px;
   color: #0367c8;
 }
@@ -209,7 +208,6 @@
 }
 
 .course-item:hover {
-  /* background-color: ; */
   opacity: 0.8;
   background-color: bisque;
 }
@@ -217,4 +215,16 @@
 .course-item:hover .courses-item-container {
   display: block;
   cursor: pointer;
+}
+
+.right-menu-icon {
+  margin-right: 5px;
+  padding: 5px;
+  border-radius: 50%;
+  background-color: #e4e1e1;
+}
+
+.item-right p {
+  font-size: 12px !important;
+  color: #646464 !important;
 }
