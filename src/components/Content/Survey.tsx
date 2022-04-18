@@ -1,8 +1,10 @@
-import { Box, Button, Container, TextField } from '@mui/material';
-import React from 'react';
+import { Box, Button, Checkbox, Container, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import React from 'react';
 import '../Content/StyleSurvay.css'
 export const Survey = () => {
+
   return (
     <>
       <Container
@@ -19,18 +21,23 @@ export const Survey = () => {
           <Box
             sx={{
               display: 'flex',
-              justifyContent: 'space-between'
+              justifyContent: 'space-between',
+              marginRight: '14px'
             }}>
-            <input placeholder="Survey name" />
+            <input placeholder="survey_1650280792 " className="input-survey" />
 
-            <button>Show questions from all courses</button>
+            <button className="button-survey">
+              Show questions from all courses
+            </button>
           </Box>
 
           <Box
+            className="box-container-table"
             sx={{
-              marginTop: '16px'
+              marginTop: '16px',
+              marginRight: '14px'
             }}>
-            <table id="customers">
+            <table id="container-table">
               <tr>
                 <th className="col-table-1">USER</th>
                 <th className="col-table-2">TYPE</th>
@@ -39,22 +46,51 @@ export const Survey = () => {
               </tr>
               <tr>
                 <td>
-                  <button>Add</button>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    sx={{
+                      backgroundColor: '#003de6'
+                    }}>
+                    add
+                  </Button>
                 </td>
                 <td>
-                  <input type="checkbox" />
+                  <Checkbox size="small" />
                 </td>
                 <td>How would you rate this course?</td>
-                <td>icon</td>
+                <td>
+                  <MoreHorizIcon sx={{ marginLeft: '22px' }} />
+                </td>
               </tr>
-
-              {/* <tr>
-                <td>Paris spécialités</td>
-                <td>Marie Bertrand</td>
-                <td>France</td>
-                <td>France</td>
-              </tr> */}
             </table>
+            <Box
+              className="box-container-footer"
+              sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                marginTop: '16px'
+              }}>
+              <Box>
+                <button>1 to 1 of 1</button>
+              </Box>
+
+              <Box className="box-container-footer-right">
+                <SaveAltIcon />
+              </Box>
+            </Box>
+          </Box>
+
+          <Box
+            sx={{
+              mt: 2,
+              mb: 2
+            }}>
+            <select name="cars" id="cars" className="Select-option">
+              <option value="volvo">Save and view</option>
+              <option value="saab">and back to units list</option>
+            </select>
+            <span>&nbsp;or cancel</span>
           </Box>
         </Box>
 

@@ -1,29 +1,77 @@
-#customers {
+body {
+    font-family: "Open Sans",
+    "Trebuchet MS",
+    arial,
+    verdana,
+    sans-serif;
+    color: #333333;
+}
+button {
+    height: 22px !important;
+    text-transform: capitalize !important;
+}
+#container-table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    font-size: 14px;
     text-align: start;
 }
 
-#customers td,
-#customers th {
+.box-container-table {
+    border-bottom: 1px solid #ccc;
+    min-height: 400px;
+}
+
+#container-table td,
+#container-table th {
     padding: 8px;
 }
-#customers tr:hover {
+
+#container-table tr:hover {
     background-color: #cce8f3;
 }
-#customers th {
+
+#container-table th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
     background-color: #049cdb;
     color: white;
 }
+
 .col-table-1,
-.col-table-2{
+.col-table-2 {
     width: 15%;
 }
+
 .col-table-3 {
     width: 60%;
     padding-left: 32px;
+}
+
+select option{
+    background-color: aliceblue;
+    color: black;
+}
+.Select-option {
+    background-color: #003de6;
+    font-weight: 600;
+    color: aliceblue;
+    width: 130px ;
+    height: 28px;
+    border-radius: 6px;
+}
+.input-survey,
+.button-survey{
+    border-radius: 4px;
+    border: none;
+    padding: 4px;
+    border: 1px solid #ccc;
+    width: 370px;
+}
+.button-survey{
+    width: 240px;
+    font-weight: 600;
+    color: #333333;
 }
