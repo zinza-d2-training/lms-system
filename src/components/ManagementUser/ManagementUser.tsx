@@ -1,17 +1,14 @@
-// <ColorTabs />
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Container, Tab } from '@mui/material';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import CourseRightMenu from '../CourseRightMenu/CourseRightMenu';
-// import '../Courses/Courses.css';
 import { TabCoursesUser } from './TabCoursesUser/TabCoursesUser';
 import { TabEnrollUser } from './TabEnrollUser/TabEnrollUser';
 export const ManagementUser = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const { id: courseId } = useParams() as { id: string };
   const id = parseInt(courseId);
-
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number

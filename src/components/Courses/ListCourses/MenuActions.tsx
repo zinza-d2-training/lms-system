@@ -1,11 +1,12 @@
-
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { Link, MenuItem } from '@mui/material';
 import Button from '@mui/material/Button';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import { alpha, styled } from '@mui/material/styles';
 import * as React from 'react';
 import { FC } from 'react';
 import './ListCourses.css';
+import { Link as RouterLink } from 'react-router-dom';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -50,14 +51,20 @@ const StyledMenu = styled((props: MenuProps) => (
   }
 }));
 
-// interface LinkProps {
-//   linkTo: string;
-//   courseDetial: string;
+interface RightMenuItem {
+  to: string;
+  className?: string;
+  icon?: React.ReactElement;
+  label: string;
+  onClick?: () => void;
+}
 
-// }
+interface Props {
+  items: RightMenuItem[];
+}
 
-export const CustomizedMenus: FC<{ children: JSX.Element[] }> = ({
-  children
+export const CustomizedMenus: FC< Props> = ({
+  items
 }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -90,7 +97,27 @@ export const CustomizedMenus: FC<{ children: JSX.Element[] }> = ({
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}>
-        {children}
+        {items.map((item) => (
+          <Link
+            component={RouterLink}
+            to={item.to}
+            underline="hover"
+            color="inherit"
+            onClick={
+              item.onClick
+                ? (e) => {
+                    e.preventDefault();
+                    item.onClick && item.onClick();
+                  }
+                : undefined
+            }
+            className={item.className ? item.className : 'option-link'}>
+            <MenuItem disableRipple>
+              {item.icon}
+              Synchronize
+            </MenuItem>
+          </Link>
+        ))}
       </StyledMenu>
     </div>
   );

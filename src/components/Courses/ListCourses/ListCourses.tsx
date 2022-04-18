@@ -22,7 +22,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Link as RouterLink } from 'react-router-dom';
 import { courses } from '../../../fakeData/courses';
-import { CustomizedMenus } from './CourseMenuActions';
+import { CustomizedMenus } from './MenuActions';
+
 import './ListCourses.css';
 
 const ListCoursesRender = () => {
@@ -93,39 +94,21 @@ const ListCoursesRender = () => {
                       {course.timeUpdate}
                     </TableCell>
                     <TableCell sx={{ paddingRight: '28px' }} align="right">
-                      <CustomizedMenus>
-                        <Link
-                          component={RouterLink}
-                          to={`/courses/${course.id}/edit`}
-                          className="option-link">
-                          <MenuItem disableRipple>
-                            <EditIcon />
-                            Edit
-                          </MenuItem>
-                        </Link>
-
-                        <Link
-                          component={RouterLink}
-                          to={'#'}
-                          onClick={handleDelete}
-                          className="option-link">
-                          <MenuItem disableRipple>
-                            <DeleteForeverIcon />
-                            Delete
-                          </MenuItem>
-                        </Link>
-                        <Divider sx={{ my: 0.5 }} />
-
-                        <Link
-                          component={RouterLink}
-                          to={`courses/${course.id}`}
-                          className="option-link">
-                          <MenuItem disableRipple>
-                            <ExitToAppIcon />
-                            Go to course
-                          </MenuItem>
-                        </Link>
-                      </CustomizedMenus>
+                      <CustomizedMenus
+                        items={[
+                          {
+                            to: `/courses/${course.id}/edit`,
+                            label: 'Synchronize',
+                            icon: <EditIcon />
+                          },
+                          {
+                            to: `#`,
+                            label: 'Reset',
+                            icon: <DeleteForeverIcon />,
+                            onClick: handleDelete
+                          }
+                        ]}
+                      />
                     </TableCell>
                   </TableRow>
                 ))}
