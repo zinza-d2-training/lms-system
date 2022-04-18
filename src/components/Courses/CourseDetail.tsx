@@ -98,7 +98,7 @@ const CourseDetail = () => {
     <Box sx={{ display: 'flex' }}>
       {/* Left content */}
       <Container
-        sx={{ flex: 3, borderRight: '1px solid #f3f3f3', padding: '5px' }}>
+        sx={{ flex: 3, padding: '5px' }}>
         {/* Course Info */}
         <Box sx={{ display: 'flex' }}>
           <Box sx={{ flex: 1 }}>

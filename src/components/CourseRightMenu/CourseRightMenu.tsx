@@ -17,7 +17,7 @@ interface Props {
 }
 const CourseRightMenu = ({ id }: Props) => {
   return (
-    <Box sx={{ flex: 1, padding: '5px' }}>
+    <Box sx={{ flex: 1, padding: '5px', borderLeft: '1px solid #f3f3f3'}}>
       <List>
         <ListItem disablePadding>
           <ListItemButton sx={{ borderRadius: '10px' }}>
