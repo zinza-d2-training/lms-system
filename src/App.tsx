@@ -11,6 +11,7 @@ import Login from './components/Login/Login';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
 import { UserRole } from './types/users';
+import { Survey } from './components/Content/Survey';
 
 function App() {
   return (
@@ -47,6 +48,9 @@ function App() {
                   </PrivateRoute>
                 }
               />
+            </Route>
+            <Route path = "survey" element = {<Survey/>}>
+
             </Route>
           </Route>
         </Routes>
