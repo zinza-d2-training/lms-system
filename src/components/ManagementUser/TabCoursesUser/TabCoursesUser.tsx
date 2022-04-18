@@ -1,11 +1,17 @@
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Link, MenuItem } from '@mui/material';
 import React from 'react';
-import './StyleTabCoursesUser.css';
+import ReplayIcon from '@mui/icons-material/Replay';
+import CachedIcon from '@mui/icons-material/Cached';
+import { Link as RouterLink } from 'react-router-dom';
+import { CustomizedMenus } from '../../Courses/ListCourses/CourseMenuActions';
+import './StyleTabCoursesUser.css';  
 
 export const TabCoursesUser = () => {
+  const handleDelete = () => {
+
+  };
   return (
     <>
       <table id="customers" className="customers">
@@ -29,7 +35,32 @@ export const TabCoursesUser = () => {
             <div className="chart-layout__item">75%</div>
           </td>
           <td className="td-option">
-            <MoreHorizIcon />
+            <CustomizedMenus>
+              <Link
+                component={RouterLink}
+                to={`/courses/`}
+                underline="hover"
+                color="inherit"
+                className="option-link">
+                <MenuItem disableRipple>
+                  <CachedIcon />
+                  Synchronize
+                </MenuItem>
+              </Link>
+
+              <Link
+                component={RouterLink}
+                to={'#'}
+                underline="hover"
+                color="inherit"
+                onClick={handleDelete}
+                className="option-link">
+                <MenuItem disableRipple>
+                  <ReplayIcon />
+                  Reset
+                </MenuItem>
+              </Link>
+            </CustomizedMenus>
           </td>
         </tr>
       </table>

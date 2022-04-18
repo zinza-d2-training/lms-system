@@ -1,9 +1,12 @@
+import CachedIcon from '@mui/icons-material/Cached';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import ReplayIcon from '@mui/icons-material/Replay';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import { Box, Button } from '@mui/material';
-import React from 'react';
-import './StyleTabEnrollUser.css';
+import { Box, Button, Link, MenuItem } from '@mui/material';
+import * as React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { CustomizedMenus } from '../../Courses/ListCourses/CourseMenuActions';
+  import './StyleTabEnrollUser.css';
 export const TabEnrollUser = () => {
   return (
     <>
@@ -23,7 +26,32 @@ export const TabEnrollUser = () => {
           <td className="td-date">31/03/2022</td>
 
           <td className="td-option td-option-enroll">
-            <MoreHorizIcon />
+            <CustomizedMenus>
+              <Link
+                component={RouterLink}
+                to={`/courses/`}
+                underline="hover"
+                color="inherit"
+                className="option-link">
+                <MenuItem disableRipple>
+                  <CachedIcon />
+                  Synchronize
+                </MenuItem>
+              </Link>
+
+              <Link
+                component={RouterLink}
+                to={'#'}
+                underline="hover"
+                color="inherit"
+                // onClick={handleDelete}
+                className="option-link">
+                <MenuItem disableRipple>
+                  <ReplayIcon />
+                  Reset
+                </MenuItem>
+              </Link>
+            </CustomizedMenus>
           </td>
         </tr>
       </table>

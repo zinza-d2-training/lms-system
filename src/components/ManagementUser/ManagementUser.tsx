@@ -1,22 +1,12 @@
 // <ColorTabs />
-import FolderCopyIcon from '@mui/icons-material/FolderCopy';
-import GridOnIcon from '@mui/icons-material/GridOn';
-import PersonIcon from '@mui/icons-material/Person';
-import { Box, Container, Tab } from '@mui/material';
-import '../Courses/Courses.css';
-import * as React from 'react';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
+import { Box, Container, Tab } from '@mui/material';
+import * as React from 'react';
+import { useParams } from 'react-router-dom';
+import CourseRightMenu from '../CourseRightMenu/CourseRightMenu';
+// import '../Courses/Courses.css';
 import { TabCoursesUser } from './TabCoursesUser/TabCoursesUser';
 import { TabEnrollUser } from './TabEnrollUser/TabEnrollUser';
-import CourseRightMenu from '../CourseRightMenu/CourseRightMenu';
-import { useParams } from 'react-router-dom';
 export const ManagementUser = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const { id: courseId } = useParams() as { id: string };
@@ -52,7 +42,10 @@ export const ManagementUser = () => {
                       <Tab label="Enroll users" value="2" />
                     </TabList>
                   </Box>
-                  <TabPanel value="1" className="tabManage-course">
+                  <TabPanel
+                    value="1"
+                    className="tabManage-course"
+                    sx={{ padding: 0, marginTop: '12px', width: '98%' }}>
                     <TabCoursesUser />
                   </TabPanel>
                   <TabPanel
