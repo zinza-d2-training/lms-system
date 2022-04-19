@@ -15,6 +15,7 @@ import { UserRole } from './types/users';
 import { ManagementUser } from './components/ManagementUser/ManagementUser';
 import CourseDetail from './components/Courses/CourseDetail';
 import { Survey } from './components/Content/Survey';
+import MainSurvey from './components/Content/MenuRight/MainSurvey';
 
 function App() {
   return (
@@ -77,9 +78,7 @@ function App() {
                 }
               />
             </Route>
-            <Route path = "survey" element = {<Survey/>}>
-
-            </Route>
+            <Route path="survey" element={<MainSurvey />}></Route>
           </Route>
         </Routes>
       </SnackbarProvider>

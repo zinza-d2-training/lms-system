@@ -17,21 +17,17 @@ button {
     font-size: 14px;
     text-align: start;
 }
-
 .box-container-table {
     border-bottom: 1px solid #ccc;
     min-height: 400px;
 }
-
 #container-table td,
 #container-table th {
     padding: 8px;
 }
-
 #container-table tr:hover {
     background-color: #cce8f3;
 }
-
 #container-table th {
     padding-top: 12px;
     padding-bottom: 12px;
@@ -39,7 +35,6 @@ button {
     background-color: #049cdb;
     color: white;
 }
-
 .col-table-1,
 .col-table-2 {
     width: 15%;
