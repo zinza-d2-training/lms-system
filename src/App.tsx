@@ -13,6 +13,7 @@ import Signup from './components/Signup/Signup';
 import ListCoursesRender from './components/Courses/ListCourses/ListCourses';
 import { UserRole } from './types/users';
 import CourseDetail from './components/Courses/CourseDetail';
+import ManagerFiles from './components/ManagerFiles/ManagerFiles';
 
 function App() {
   return (
@@ -51,7 +52,7 @@ function App() {
                 }
               />
               <Route
-                path="edit/:id"
+                path=":id/edit"
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
                     <CourseForm />
@@ -63,6 +64,14 @@ function App() {
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
                     <CourseDetail />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path=":id/files"
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor]}>
+                    <ManagerFiles />
                   </PrivateRoute>
                 }
               />

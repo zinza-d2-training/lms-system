@@ -199,7 +199,7 @@ const CourseDetail = () => {
                 sx={btnStyle}>
                 <Link
                   component={RouterLink}
-                  to={`/courses/edit/${id}`}
+                  to={`/courses/${id}/edit`}
                   underline="none"
                   color="inherit">
                   Edit course
