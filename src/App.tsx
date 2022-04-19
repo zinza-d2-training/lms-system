@@ -12,6 +12,7 @@ import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
 import ListCoursesRender from './components/Courses/ListCourses/ListCourses';
 import { UserRole } from './types/users';
+import { ManagementUser } from './components/ManagementUser/ManagementUser';
 import CourseDetail from './components/Courses/CourseDetail';
 import ManagerFiles from './components/ManagerFiles/ManagerFiles';
 
@@ -56,6 +57,14 @@ function App() {
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
                     <CourseForm />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path=":id/users"
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor]}>
+                    <ManagementUser />
                   </PrivateRoute>
                 }
               />
