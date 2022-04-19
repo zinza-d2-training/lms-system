@@ -1,6 +1,9 @@
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import MoreHorizOutlinedIcon from '@mui/icons-material/MoreHorizOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import { TabContext, TabList, TabPanel } from '@mui/lab';
 import { Box, Link, Tab, TableContainer, TextField } from '@mui/material';
 import Table from '@mui/material/Table';
@@ -14,6 +17,7 @@ import CourseRightMenu from './../CourseRightMenu/CourseRightMenu';
 import { useCourseFiles } from './hook';
 import UploadFile from './UploadFile';
 import UploadFileLink from './UploadFileLink';
+import { CustomizedMenus } from '../Courses/ListCourses/MenuActions';
 
 const ManagerFiles = () => {
   const { id: courseId } = useParams() as { id: string };
@@ -23,6 +27,8 @@ const ManagerFiles = () => {
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+  const handleDelete = () => {};
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -94,7 +100,31 @@ const ManagerFiles = () => {
                       <TableCell align="center">{file.size}</TableCell>
                       <TableCell align="right">{file.created_At}</TableCell>
                       <TableCell align="right">
-                        <MoreHorizOutlinedIcon />
+                        <CustomizedMenus
+                          items={[
+                            {
+                              to: `#`,
+                              label: 'Preview',
+                              icon: <RemoveRedEyeOutlinedIcon />
+                            },
+                            {
+                              to: `#`,
+                              label: 'Download',
+                              icon: <FileDownloadOutlinedIcon />
+                            },
+                            {
+                              to: `#`,
+                              label: 'Edit',
+                              icon: <ModeEditOutlinedIcon />
+                            },
+                            {
+                              to: `#`,
+                              label: 'Delete',
+                              icon: <ClearOutlinedIcon />,
+                              onClick: handleDelete
+                            }
+                          ]}
+                        />
                       </TableCell>
                     </TableRow>
                   ))}
