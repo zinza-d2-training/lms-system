@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom';
 import AudioContent from './AudioContent';
 import BasicContent from './BasicContent';
 import IframeContent from './IframeContent';
-import Survey from './Survey';
+import Survey from './Survey/Survey';
 import VideoContent from './VideoContent';
 import WebContent from './WebContent';
 
 const AddContent = () => {
-  const { id, type } = useParams() as { id: string; type: string };
+  const { type } = useParams() as { type: string };
   return (
     <>
       {(() => {

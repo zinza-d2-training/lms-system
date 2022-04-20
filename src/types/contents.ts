@@ -16,7 +16,7 @@ export type Content = {
   id: number;
   name: string;
   courseId: number;
-  completedMethod: CompletedMethod;
+  completedMethod?: CompletedMethod;
   content?: string;
   sequence: number;
   type: ContentType;
