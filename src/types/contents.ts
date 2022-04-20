@@ -5,11 +5,11 @@ export enum CompletedMethod {
 }
 
 export enum ContentType {
-  Basic = 1,
-  Video = 2,
-  Audio = 3,
-  Survey = 4,
-  Iframe = 5
+  Basic = 'basic',
+  Video = 'video',
+  Audio = 'audio',
+  Survey = 'survey',
+  Iframe = 'iframe'
 }
 
 export type Content = {
@@ -24,4 +24,4 @@ export type Content = {
   surveyId?: number;
 };
 
-export type ContentInfo = Omit<Content, 'id' | 'type' | 'courseId'>;
+export type ContentInfo = Omit<Content, 'id' | 'courseId'>;

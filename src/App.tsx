@@ -13,6 +13,8 @@ import Signup from './components/Signup/Signup';
 import ListCoursesRender from './components/Courses/ListCourses/ListCourses';
 import { UserRole } from './types/users';
 import CourseDetail from './components/Courses/CourseDetail';
+import Contents from './components/Contents/Contents';
+import AddContent from './components/Contents/AddContent/index';
 
 function App() {
   return (
@@ -63,6 +65,30 @@ function App() {
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
                     <CourseDetail />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path=":id/unit/view/:contentId"
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor]}>
+                    <Contents />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path=":id/unit/edit/:type/:contentId"
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor]}>
+                    <Contents />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path=":id/unit/add/:type"
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor]}>
+                    <AddContent />
                   </PrivateRoute>
                 }
               />

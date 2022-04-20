@@ -5,6 +5,12 @@ export async function getCourseContents(courseId: number): Promise<Content[]> {
   return contents.filter((item) => item.courseId === courseId);
 }
 
+export async function getContentDetail(contentId: number) {
+  const content = contents.find((item) => item.id === contentId)
+
+  return content ? {...content} : {}
+}
+
 export async function reorderCourseContents(
   orderMapping: Record<number, number>
 ): Promise<Content[]> {
@@ -25,4 +31,9 @@ export async function updateContent(
   const index = contents.indexOf(content);
 
   contents[index] = { ...content, ...contentInfo };
+}
+
+export async function createContent(courseId: number, contentInfo: Content) {
+  const newContent = {...contentInfo, courseId: courseId, id: contents.length + 1, survey: contents.length + 1}
+  return newContent
 }

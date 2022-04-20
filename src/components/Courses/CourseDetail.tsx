@@ -290,7 +290,7 @@ const CourseDetail = () => {
                     }}>
                     <Link
                       component={RouterLink}
-                      to={`/unit/:type/${item.id}`}
+                      to={`/courses/${id}/unit/view/${item.id}`}
                       underline="hover"
                       color="inherit">
                       <Typography>{item.name}</Typography>
@@ -302,7 +302,7 @@ const CourseDetail = () => {
                       <ListItem disablePadding sx={{ marginRight: '10px' }}>
                         <Link
                           component={RouterLink}
-                          to={`/unit/:type/${item.id}`}
+                          to={`/courses/${id}/unit/edit/${item.type}/${item.id}`}
                           underline="hover"
                           color="inherit">
                           <Typography variant="caption">edit</Typography>
