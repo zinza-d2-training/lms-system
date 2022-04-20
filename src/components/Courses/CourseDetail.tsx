@@ -152,31 +152,67 @@ const CourseDetail = () => {
                 open={open}
                 onClose={handleClose}>
                 <MenuItem onClick={handleClose} disableRipple>
-                  <ArticleOutlinedIcon />
-                  Content
+                  <Link
+                    component={RouterLink}
+                    to={`/courses/${id}/contents/add/basic`}
+                    underline="none"
+                    color="inherit">
+                    <ArticleOutlinedIcon />
+                    Content
+                  </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose} disableRipple>
-                  <CloudOutlinedIcon />
-                  Web content
-                </MenuItem>
-                <Divider sx={{ my: 0.5 }} />
-                <MenuItem onClick={handleClose} disableRipple>
-                  <SlowMotionVideoOutlinedIcon />
-                  Video
-                </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                  <VolumeUpIcon />
-                  Audio
-                </MenuItem>
-                <Divider sx={{ my: 0.5 }} />
-                <MenuItem onClick={handleClose} disableRipple>
-                  <CodeIcon />
-                  Iframe
+                  <Link
+                    component={RouterLink}
+                    to={`/courses/${id}/contents/add/web`}
+                    underline="none"
+                    color="inherit">
+                    <CloudOutlinedIcon />
+                    Web content
+                  </Link>
                 </MenuItem>
                 <Divider sx={{ my: 0.5 }} />
                 <MenuItem onClick={handleClose} disableRipple>
-                  <CheckBoxOutlinedIcon />
-                  Survey
+                  <Link
+                    component={RouterLink}
+                    to={`/courses/${id}/contents/add/video`}
+                    underline="none"
+                    color="inherit">
+                    <SlowMotionVideoOutlinedIcon />
+                    Video
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleClose} disableRipple>
+                  <Link
+                    component={RouterLink}
+                    to={`/courses/${id}/contents/add/audio`}
+                    underline="none"
+                    color="inherit">
+                    <VolumeUpIcon />
+                    Audio
+                  </Link>
+                </MenuItem>
+                <Divider sx={{ my: 0.5 }} />
+                <MenuItem onClick={handleClose} disableRipple>
+                  <Link
+                    component={RouterLink}
+                    to={`/courses/${id}/contents/add/iframe`}
+                    underline="none"
+                    color="inherit">
+                    <CodeIcon />
+                    Iframe
+                  </Link>
+                </MenuItem>
+                <Divider sx={{ my: 0.5 }} />
+                <MenuItem onClick={handleClose} disableRipple>
+                  <Link
+                    component={RouterLink}
+                    to={`/courses/${id}/contents/add/survey`}
+                    underline="none"
+                    color="inherit">
+                    <CheckBoxOutlinedIcon />
+                    Survey
+                  </Link>
                 </MenuItem>
               </StyledMenu>
             </Box>
@@ -302,7 +338,7 @@ const CourseDetail = () => {
                       <ListItem disablePadding sx={{ marginRight: '10px' }}>
                         <Link
                           component={RouterLink}
-                          to={`/courses/${id}/unit/edit/${item.type}/${item.id}`}
+                          to={`/courses/${id}/contents/edit/${item.type}/${item.id}`}
                           underline="hover"
                           color="inherit">
                           <Typography variant="caption">edit</Typography>

@@ -1,8 +1,12 @@
 import React from 'react'
+import * as Yup from 'yup'
+
+
 
 const Survey = () => {
   return (
-    <div>Survey</div>
+    <>
+    </>
   )
 }
 

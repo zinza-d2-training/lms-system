@@ -1,12 +1,39 @@
-import React from 'react'
+import React from 'react';
 import { useParams } from 'react-router-dom';
+import AudioContent from './AudioContent';
+import BasicContent from './BasicContent';
+import IframeContent from './IframeContent';
+import Survey from './Survey';
+import VideoContent from './VideoContent';
+import WebContent from './WebContent';
 
 const AddContent = () => {
-  const {id, type} = useParams() as {id: string, type: string}
-  console.log('123', id, type)
+  const { id, type } = useParams() as { id: string; type: string };
   return (
-    <div>index</div>
-  )
-}
+    <>
+      {(() => {
+        switch (type) {
+          case 'video':
+            return <VideoContent />;
 
-export default AddContent
+          case 'web':
+            return <WebContent />;
+
+          case 'audio':
+            return <AudioContent />;
+
+          case 'iframe':
+            return <IframeContent />;
+
+          case 'survey':
+            return <Survey />;
+
+          default:
+            return <BasicContent />;
+        }
+      })()}
+    </>
+  );
+};
+
+export default AddContent;

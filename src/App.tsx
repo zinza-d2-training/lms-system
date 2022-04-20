@@ -69,7 +69,7 @@ function App() {
                 }
               />
               <Route
-                path=":id/unit/view/:contentId"
+                path=":id/contents/view/:contentId"
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
                     <Contents />
@@ -77,15 +77,15 @@ function App() {
                 }
               />
               <Route
-                path=":id/unit/edit/:type/:contentId"
+                path=":id/contents/edit/:type/:contentId"
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
-                    <Contents />
+                    <AddContent />
                   </PrivateRoute>
                 }
               />
               <Route
-                path=":id/unit/add/:type"
+                path=":id/contents/add/:type"
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
                     <AddContent />
