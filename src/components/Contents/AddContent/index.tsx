@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import AudioContent from './AudioContent';
-import BasicContent from './BasicContent/BasicContent';
+import BasicContent from './MainBasicContent/BasicContent';
 import IframeContent from './IframeContent';
 import Survey from './Survey';
 import VideoContent from './VideoContent';

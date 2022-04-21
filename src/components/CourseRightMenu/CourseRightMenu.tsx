@@ -64,3 +64,4 @@ const CourseRightMenu = ({ id }: Props) => {
 };
 
 export default CourseRightMenu;
+    

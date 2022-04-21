@@ -6,9 +6,8 @@ export async function getCourseContents(courseId: number): Promise<Content[]> {
 }
 
 export async function getContentDetail(contentId: number) {
-  const content = contents.find((item) => item.id === contentId)
+  return contents.find((item) => item.id === contentId)
 
-  return content ? {...content} : {}
 }
 
 export async function reorderCourseContents(

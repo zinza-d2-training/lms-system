@@ -21,7 +21,8 @@ export type Content = {
   sequence: number;
   type: ContentType;
   link?: string;
-  surveyId?: number;
+  completedQuestionId?: number;
+  periodTime?: number;
 };
 
-export type ContentInfo = Omit<Content, 'id' | 'courseId'>;
+export type ContentInfo = Omit<Content, 'id' | 'sequence'>;

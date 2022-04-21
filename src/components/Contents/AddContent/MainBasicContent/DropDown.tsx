@@ -84,8 +84,7 @@ export function DropDown() {
         }}
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}
-        
+        onClose={handleClose}        
         >
         <MenuItem disableRipple className='font-size-13'>Multiple choice</MenuItem>
         <MenuItem disableRipple className='font-size-13'>Fill the gap</MenuItem>
