@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { useField, UseFieldConfig } from 'react-final-form';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import './style.css'
+import './style.css';
 
 interface Props {
   name: string;
@@ -11,12 +11,20 @@ interface Props {
 
 export const EditorField = ({ name, config }: Props) => {
   const {
-    input: { value, onChange }
+    input: { value, onChange },
+    meta: { submitFailed, error }
   } = useField(name, config);
 
   return (
     <Box>
-      <ReactQuill theme="snow" value={value} onChange={onChange} className = 'component-quill'/>
+      <ReactQuill
+      
+        theme="snow"
+        value={value}
+        onChange={onChange}
+        className="component-quill"
+      />
+      {submitFailed && error?.length && error[0]}
     </Box>
   );
 };

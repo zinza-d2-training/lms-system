@@ -1,15 +1,10 @@
-import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { Link } from '@mui/material';
 import Button from '@mui/material/Button';
 import Menu, { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import EditIcon from '@mui/icons-material/Edit';
-import Divider from '@mui/material/Divider';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { Link } from '@mui/material';
+import { alpha, styled } from '@mui/material/styles';
+import * as React from 'react';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -54,7 +49,7 @@ const StyledMenu = styled((props: MenuProps) => (
   }
 }));
 
-export function DropDown() {
+export function DropDownBasicContentQuestion() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -84,14 +79,25 @@ export function DropDown() {
         }}
         anchorEl={anchorEl}
         open={open}
-        onClose={handleClose}        
-        >
-        <MenuItem disableRipple className='font-size-13'>Multiple choice</MenuItem>
-        <MenuItem disableRipple className='font-size-13'>Fill the gap</MenuItem>
-        <MenuItem disableRipple className='font-size-13'>Ordering</MenuItem>
-        <MenuItem disableRipple className='font-size-13'>Drag-and-drop</MenuItem>
-        <MenuItem disableRipple className='font-size-13'>Free text</MenuItem>
-        <MenuItem disableRipple className='font-size-13'>Randomized</MenuItem>
+        onClose={handleClose}>
+        <MenuItem disableRipple className="font-size-13">
+          Multiple choice
+        </MenuItem>
+        <MenuItem disableRipple className="font-size-13">
+          Fill the gap
+        </MenuItem>
+        <MenuItem disableRipple className="font-size-13">
+          Ordering
+        </MenuItem>
+        <MenuItem disableRipple className="font-size-13">
+          Drag-and-drop
+        </MenuItem>
+        <MenuItem disableRipple className="font-size-13">
+          Free text
+        </MenuItem>
+        <MenuItem disableRipple className="font-size-13">
+          Randomized
+        </MenuItem>
       </StyledMenu>
     </Link>
   );
