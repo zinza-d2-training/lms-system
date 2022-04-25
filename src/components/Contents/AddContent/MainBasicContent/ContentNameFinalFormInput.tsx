@@ -2,7 +2,7 @@ import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
 import { useField, UseFieldConfig } from 'react-final-form';
 import 'react-quill/dist/quill.snow.css';
 import { CompletedMethod } from '../../../../types/contents';
-import { DropDownBasicContentQuestion } from './DropDown';
+import { SelectQuestionButtonFinalForm } from '../../../SelectQuestionButtonFinalForm';
 
 interface Props {
   name: string;
@@ -73,14 +73,16 @@ export const CompletedMethodFinalFormInput = ({
         </ButtonGroup>
       </Box>
       {value === CompletedMethod.WithQuestion && (
-        <Box className='container-question-select'>
+        <Box className="container-question-select">
           <Box sx={{ display: 'flex' }}>
-            <Typography className="question-select" sx ={{
-                fontSize : '14px',
-            }}>
+            <Typography
+              className="question-select"
+              sx={{
+                fontSize: '14px'
+              }}>
               Select a question
             </Typography>
-            <DropDownBasicContentQuestion />
+            <SelectQuestionButtonFinalForm />
           </Box>
         </Box>
       )}

@@ -5,6 +5,8 @@ import Menu, { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { alpha, styled } from '@mui/material/styles';
 import * as React from 'react';
+import { useState } from 'react';
+import { CreateQuestionDialog } from './CreateQuestionDialog';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -49,56 +51,63 @@ const StyledMenu = styled((props: MenuProps) => (
   }
 }));
 
-export function DropDownBasicContentQuestion() {
+export function SelectQuestionButtonFinalForm() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
+  const QuestionType = []
+  
+  const [creatingType, setCreatingType] = useState<QuestionType>();
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleCreated = (id: number) => {
+
+  }
 
   return (
-    <Link className="container-drop" underline="hover" sx={{}}>
-      <Button
-        id="demo-customized-button"
-        aria-controls={open ? 'demo-customized-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        variant="contained"
-        disableElevation
-        onClick={handleClick}
-        endIcon={<KeyboardArrowDownIcon />}>
-        Options
-      </Button>
-      <StyledMenu
-        id="demo-customized-menu"
-        MenuListProps={{
-          'aria-labelledby': 'demo-customized-button'
-        }}
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}>
-        <MenuItem disableRipple className="font-size-13">
-          Multiple choice
-        </MenuItem>
-        <MenuItem disableRipple className="font-size-13">
-          Fill the gap
-        </MenuItem>
-        <MenuItem disableRipple className="font-size-13">
-          Ordering
-        </MenuItem>
-        <MenuItem disableRipple className="font-size-13">
-          Drag-and-drop
-        </MenuItem>
-        <MenuItem disableRipple className="font-size-13">
-          Free text
-        </MenuItem>
-        <MenuItem disableRipple className="font-size-13">
-          Randomized
-        </MenuItem>
-      </StyledMenu>
-    </Link>
+    <>
+      <Link className="container-drop" underline="hover" sx={{}}>
+        <Button
+          id="demo-customized-button"
+          aria-controls={open ? 'demo-customized-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          variant="contained"
+          disableElevation
+          onClick={handleClick}
+          endIcon={<KeyboardArrowDownIcon />}>
+          Options
+        </Button>
+        <StyledMenu
+          id="demo-customized-menu"
+          MenuListProps={{
+            'aria-labelledby': 'demo-customized-button'
+          }}
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}>
+          <MenuItem
+            disableRipple
+            className="font-size-13"
+            onClick={() => setCreatingType(QuestionType.FreeText)}>
+            Free text
+          </MenuItem>
+          <MenuItem disableRipple className="font-size-13">
+            Multiple choice
+          </MenuItem>
+          <MenuItem disableRipple className="font-size-13">
+            Single choice
+          </MenuItem>
+        </StyledMenu>
+      </Link>
+      {creatingType && (
+        <CreateQuestionDialog type={creatingType} onCreated={handleCreated} />
+      )}
+    </>
   );
 }

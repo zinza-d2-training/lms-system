@@ -10,7 +10,6 @@ import * as Yup from 'yup';
 import { CompletedMethod, Content } from '../../../../types/contents';
 import { EditorField } from '../../Editer/EditorField';
 import { CompletedMethodFinalFormInput } from './ContentNameFinalFormInput';
-import { DropDownBasicContentQuestion } from './DropDown';
 import './StyleTabBasicContent.css';
 
 type BasicContentForm = Pick<
@@ -50,8 +49,18 @@ const RenderBasicContent = () => {
           <form onSubmit={handleSubmit}>
             <Box
               className="container-input-unit-form font-size-14"
-              sx={{ display: 'flex', fontSize: '13px', pt: '24px',pb : '18px' }}>
-              <Typography sx={{ marginLeft: '110px' , marginTop: '-13px',fontSize : '14px'}}>
+              sx={{
+                display: 'flex',
+                fontSize: '13px',
+                pt: '24px',
+                pb: '18px'
+              }}>
+              <Typography
+                sx={{
+                  marginLeft: '110px',
+                  marginTop: '-13px',
+                  fontSize: '14px'
+                }}>
                 Unit Form
               </Typography>
               <TextField
