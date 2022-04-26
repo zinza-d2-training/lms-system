@@ -1,183 +1,232 @@
 import AddIcon from '@mui/icons-material/Add';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ImportExportIcon from '@mui/icons-material/ImportExport';
-import SettingsIcon from '@mui/icons-material/Settings';
-import { Box, Link } from '@mui/material';
+import { Box, Button, Divider, Link, Typography } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import * as React from 'react';
-import TabPanel from '../../../Layout/Header/TabPanel';
-import SurveySelect from './SurveySelect';
+import { makeValidate, TextField } from 'mui-rff';
+import { useSnackbar } from 'notistack';
+import React, { useMemo, useState } from 'react';
+import { Form } from 'react-final-form';
+import { Link as RouterLink, useParams } from 'react-router-dom';
+import * as Yup from 'yup';
+import {
+  createContent,
+  updateContent
+} from '../../../../services/ContentService';
+import { ContentType } from '../../../../types/contents';
+import TabPanel, { a11yProps } from '../../../Layout/Header/TabPanel';
+import { useContentInfo } from '../../hook';
+import { useQuestion } from './hook';
+import SurveyOrderQuestion from './SurveyOrderQuestion';
+import SurveyQuestionListFinalForm from './SurveyQuestionListFinalForm';
 
-function a11yProps(index: number) {
-  return {
-    id: `vertical-tab-${index}`,
-    'aria-controls': `vertical-tabpanel-${index}`
-  };
-}
+type ContentForm = {
+  name: string;
+  questions?: Array<number>;
+};
 
-const SurveyRight = () => {
-  const [value, setValue] = React.useState(5);
+const Survey = () => {
+  const { id, contentId } = useParams() as { id: string; contentId: string };
+  const { enqueueSnackbar } = useSnackbar();
+  const { questions } = useQuestion();
+  const { contentInfo } = useContentInfo(parseInt(contentId));
+  const initialValues = useMemo<ContentForm>(() => {
+    return {
+      name: contentInfo?.name || '',
+      questions: contentInfo?.questions?.map((item) => item.id) || []
+    };
+  }, [contentInfo?.name, contentInfo?.questions]);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+  const schema: Yup.SchemaOf<ContentForm> = Yup.object().shape({
+    name: Yup.string().max(80).required(),
+    questions: Yup.array()
+  });
+
+  const validate = makeValidate(schema);
+
+  const handleSubmit = async (value: ContentForm) => {
+    const newContent = {
+      name: value.name,
+      questions: value.questions,
+      type: ContentType.Survey,
+      courseId: parseInt(id)
+    };
+    try {
+      if (id) {
+        await updateContent(parseInt(contentId), newContent);
+      } else {
+        await createContent(parseInt(id), newContent);
+      }
+    } catch (error) {
+      enqueueSnackbar(
+        { Error: error },
+        {
+          variant: 'error'
+        }
+      );
+    }
+  };
 
   return (
-    <Box
-      sx={{
-        flexGrow: 1,
-        bgcolor: 'background.paper',
-        display: 'flex',
-        height: 224,
-        minHeight: '550px'
-      }}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          width: '100%'
-        }}>
-        <Box
-          sx={{
-            flexBasis: '75%',
-            borderRight: '1px solid #ccc'
-          }}>
-          <TabPanel value={value} index={5} height='100%'>
-            <SurveySelect />
-          </TabPanel>
-          <TabPanel value={value} index={6} height='100%'>
-            <Box>
+    <Box sx={{ padding: '5px' }}>
+      <Form<ContentForm>
+        onSubmit={handleSubmit}
+        initialValues={initialValues}
+        validate={validate}
+        render={({ handleSubmit, invalid, submitting }) => {
+          return (
+            <form onSubmit={handleSubmit}>
               <Box
                 sx={{
+                  flexGrow: 1,
+                  bgcolor: 'background.paper',
                   display: 'flex',
-                  justifyContent: 'space-between',
-                  marginRight: '14px'
+                  flexDirection: 'column'
                 }}>
-                <input placeholder="Name Survey " className="input-survey" />
-              </Box>
-              <Box
-                sx={{
-                  width: '100%',
-                  backgroundColor: '#f5f5f5',
-                  height: '45px',
-                  mt: 2
-                }}
-                className="Text-question-order">
-                <b>Please add some questions to the survey first</b>
-              </Box>
-            </Box>
-          </TabPanel>
-          <TabPanel value={value} index={7} height='100%'>
-            <Box>
-              <Box
-                sx={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  marginRight: '14px'
-                }}>
-                <input placeholder="Name Survey " className="input-survey" />
-              </Box>
-
-              <Box
-                sx={{
-                  width: '100%',
-                  backgroundColor: '#f5f5f5',
-                  minHeight: '245px',
-                  mt: 2,
-                  paddingTop: '4px'
-                }}
-                className="Text-question-order">
-                <Box
-                  className="container-option-ckb"
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginLeft: '22px',
-                    marginTop: '12px',
-                    mb: '4px'
-                  }}>
-                  <input type="checkbox" />
-                  <p>Show answers after completion</p>
-                </Box>
-
-                <Box
-                  className="Text-question-order"
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginLeft: '22px',
-                  }}>
-                  <input type="checkbox" />
-                  <p>Do not continue until an answer is chosen</p>
-                </Box>
-
-                <textarea
-                  className="textarea-input"
-                  placeholder="Add a survey description up to 800 characters"
+                <TextField
+                  required
+                  name="name"
+                  type="text"
+                  id="name"
+                  size="small"
+                  placeholder="Name Content "
+                  sx={{ paddingLeft: '10px', width: '20%' }}
                 />
+                <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: '100%'
+                  }}>
+                  <Box
+                    sx={{
+                      flexBasis: '75%',
+                      borderRight: '1px solid #ccc'
+                    }}>
+                    <TabPanel value={value} index={0} height="100%">
+                      <SurveyQuestionListFinalForm
+                        questions={questions}
+                        name="questions"
+                      />
+                    </TabPanel>
+                    <TabPanel value={value} index={1} height="100%">
+                      <SurveyOrderQuestion
+                        contentId={parseInt(contentId)}
+                        questions={questions.filter((item) =>
+                          (initialValues?.questions || []).includes(item.id)
+                        )}
+                      />
+                    </TabPanel>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      flexBasis: '25%',
+                      justifyContent: 'start'
+                    }}
+                    className="menu-right">
+                    <Tabs
+                      orientation="vertical"
+                      value={value}
+                      onChange={handleChange}>
+                      <Tab
+                        icon={
+                          <CheckBoxIcon
+                            fontSize="large"
+                            sx={{
+                              padding: '5px',
+                              boxSizing: 'unset',
+                              borderRadius: '50%',
+                              backgroundColor: '#DADADA'
+                            }}
+                          />
+                        }
+                        iconPosition="start"
+                        label="SELECT QUESTIONS"
+                        {...a11yProps(0)}
+                        sx={{ justifyContent: 'left' }}
+                      />
+                      <Tab
+                        icon={
+                          <ImportExportIcon
+                            fontSize="large"
+                            sx={{
+                              padding: '5px',
+                              boxSizing: 'unset',
+                              borderRadius: '50%',
+                              backgroundColor: '#DADADA'
+                            }}
+                          />
+                        }
+                        iconPosition="start"
+                        label="SET QUESTION ORDER"
+                        {...a11yProps(1)}
+                        sx={{ justifyContent: 'left' }}
+                      />
+                    </Tabs>
+                    <Divider />
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        padding: '20px'
+                      }}>
+                      <Box>
+                        <AddIcon
+                          fontSize="large"
+                          sx={{
+                            padding: '5px',
+                            boxSizing: 'unset',
+                            borderRadius: '50%',
+                            backgroundColor: '#DADADA'
+                          }}
+                        />
+                      </Box>
+                      <Box
+                        sx={{
+                          paddingLeft: '10px',
+                          display: 'flex',
+                          flexDirection: 'column'
+                        }}>
+                        add question
+                      </Box>
+                    </Box>
+                  </Box>
+                </Box>
               </Box>
-            </Box>
-          </TabPanel>
-          <TabPanel value={value} index={3} height='100%'>
-            Item 4
-          </TabPanel>
-        </Box>
-
-        <Box
-          sx={{
-            flexBasis: '25%',
-            borderRight: 'none',
-            justifyContent: 'start'
-          }}
-          className="menu-right">
-          <Tabs
-            orientation="vertical"
-            variant="scrollable"
-            value={value}
-            onChange={handleChange}
-            aria-label="Vertical tabs example">
-            <Tab
-              icon={<CheckBoxIcon />}
-              iconPosition="start"
-              label="SELECT QUESTIONS"
-              {...a11yProps(0)}
-            />
-            <Tab
-              icon={<ImportExportIcon />}
-              iconPosition="start"
-              label="SET QUESTION ORDER"
-              {...a11yProps(1)}
-            />
-            <Tab
-              className="line-option"
-              icon={<SettingsIcon />}
-              iconPosition="start"
-              label="SELECT QUESTIONS"
-              {...a11yProps(2)}
-            />
-          </Tabs>
-          <Box className="box-content-right-container-item icon-main">
-            <Box className="item-left icon-main-left">
-              <AddIcon />
-            </Box>
-            <Box
-              className="item-right icon-main-right"
-              sx={{
-                display: 'flex',
-                flexDirection: 'column'
-              }}>
-              <h5>Add question</h5>
-              <Link underline="hover">Multiple choice</Link>
-              <Link underline="hover">Free text</Link>
-              <Link underline="hover">Likert scale</Link>
-            </Box>
-          </Box>
-        </Box>
-      </Box>
+              <Box
+                sx={{
+                  display: 'flex',
+                  margin: '0 0 20px 20px',
+                  alignItems: 'center'
+                }}>
+                <Button
+                  disabled={invalid || submitting}
+                  type="submit"
+                  size="small"
+                  variant="contained"
+                  sx={{ marginRight: '20px', backgroundColor: '#000FE6' }}>
+                  Save
+                </Button>
+                <Link
+                  component={RouterLink}
+                  to={'/course'}
+                  underline="hover"
+                  color="inherit">
+                  <Typography variant="caption">cancel</Typography>
+                </Link>
+              </Box>
+            </form>
+          );
+        }}
+      />
     </Box>
-  )
-}
+  );
+};
 
-export default SurveyRight
+export default Survey;

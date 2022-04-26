@@ -73,7 +73,7 @@ const CourseDetail = () => {
     items.forEach((item, index) => {
       reOrderMapping[item.sequence] = index + 1;
     });
-    const contents = await reorderCourseContents(reOrderMapping);
+    const contents = await reorderCourseContents(id, reOrderMapping);
     setTodo(contents);
   };
   useEffect(() => {

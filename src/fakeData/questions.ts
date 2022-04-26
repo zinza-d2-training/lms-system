@@ -1,32 +1,35 @@
-import { Questions, QuestionType } from "../types/questions";
+import { Question, QuestionsType } from '../types/questions';
 
-export const questions: Questions[] = [
+export const questions: Question[] = [
   {
     id: 1,
     sequence: 1,
-    question: 'test the first one',
-    questionType: QuestionType.Raw,
-    answer: ['']
+    questionName: 'question 1',
+    contentId: 3,
+    questionType: QuestionsType.Multiple,
+    answer: ['hello', '1', '2']
   },
   {
     id: 2,
     sequence: 2,
-    question: 'test the first one',
-    questionType: QuestionType.Multiple,
-    answer: ['one', 'two', 'three']
+    questionName: 'question 2',
+    contentId: 3,
+    questionType: QuestionsType.Raw
   },
   {
     id: 3,
     sequence: 3,
-    question: 'test the first one',
-    questionType: QuestionType.Raw,
+    questionName: 'question 3',
+    contentId: 3,
+    questionType: QuestionsType.Multiple,
     answer: ['']
   },
   {
     id: 4,
     sequence: 4,
-    question: 'test the first one',
-    questionType: QuestionType.Single,
-    answer: ['test']
+    questionName: 'question 4',
+    contentId: 3,
+    questionType: QuestionsType.Single,
+    answer: ['1']
   }
-]
+];

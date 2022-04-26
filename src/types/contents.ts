@@ -1,3 +1,5 @@
+import { Question } from './questions';
+
 export enum CompletedMethod {
   WithCheckBox = 1,
   WithQuestion = 2,
@@ -21,7 +23,15 @@ export type Content = {
   sequence: number;
   type: ContentType;
   link?: string;
-  surveyId?: number;
+  questions?: Array<Question>;
 };
 
-export type ContentInfo = Omit<Content, 'id' | 'courseId'>;
+export type ContentInfo = Omit<Content, 'id' | 'sequence'>;
+
+export type ContentFormData = Omit<
+  Content,
+  'id' | 'sequence' | 'questions' | 'courseId'
+> & {
+  questions?: Array<number>;
+  courseId?: number;
+};

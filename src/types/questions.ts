@@ -1,13 +1,19 @@
-export enum QuestionType {
+export type Question = {
+  id: number;
+  sequence: number;
+  contentId: number;
+  questionName: string;
+  questionType: QuestionsType;
+  answer?: Array<string>;
+};
+
+export type QuestionForm = Pick<
+  Question,
+  'questionName' | 'questionType' | 'answer'
+>;
+
+export enum QuestionsType {
   Multiple = 'Multiple',
   Raw = 'Raw',
   Single = 'Single'
 }
-
-export type Questions = {
-  id: number;
-  sequence: number;
-  question: string;
-  answer: Array<string>;
-  questionType: QuestionType;
-};

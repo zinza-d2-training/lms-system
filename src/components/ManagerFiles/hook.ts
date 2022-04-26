@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getFiles } from '../../services/FileService';
-import { Files } from '../../types/files';
+import { File } from '../../types/files';
 
 export const useCourseFiles = (courseId?: number) => {
-  const [filesData, setFilesData] = useState<Files[]>([]);
+  const [filesData, setFilesData] = useState<File[]>([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const getContentFile = async (courseId?: number) => {
