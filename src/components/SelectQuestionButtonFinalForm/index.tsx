@@ -5,9 +5,10 @@ import Menu, { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { alpha, styled } from '@mui/material/styles';
 import * as React from 'react';
-import { useState } from 'react';
+import { UseFieldConfig } from 'react-final-form';
+import { QuestionType } from '../../types/contents';
 import { CreateQuestionDialog } from './CreateQuestionDialog';
-
+import '../SelectQuestionButtonFinalForm/Modal.css';
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
     elevation={0}
@@ -51,13 +52,21 @@ const StyledMenu = styled((props: MenuProps) => (
   }
 }));
 
+interface Props {
+  name: string;
+  config?: UseFieldConfig<string>;
+}
+
 export function SelectQuestionButtonFinalForm() {
+  // { name, config }: Props
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const QuestionType = []
-  
-  const [creatingType, setCreatingType] = useState<QuestionType>();
+  // const {
+  //   input: { value, onChange }
+  // } = useField(name, config);
+
+  const [creatingType, setCreatingType] = React.useState<QuestionType | null>();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -66,8 +75,9 @@ export function SelectQuestionButtonFinalForm() {
     setAnchorEl(null);
   };
   const handleCreated = (id: number) => {
-
-  }
+    // return onChange(id);
+    return id;
+  };
 
   return (
     <>
@@ -94,19 +104,38 @@ export function SelectQuestionButtonFinalForm() {
           <MenuItem
             disableRipple
             className="font-size-13"
-            onClick={() => setCreatingType(QuestionType.FreeText)}>
+            onClick={() => {
+              setAnchorEl(null);
+              setCreatingType(QuestionType.FreeText);
+            }}>
             Free text
           </MenuItem>
-          <MenuItem disableRipple className="font-size-13">
+          <MenuItem
+            disableRipple
+            className="font-size-13"
+            onClick={() => {
+              setAnchorEl(null);
+              setCreatingType(QuestionType.MultipleChoice);
+            }}>
             Multiple choice
           </MenuItem>
-          <MenuItem disableRipple className="font-size-13">
+          <MenuItem
+            disableRipple
+            className="font-size-13"
+            onClick={() => {
+              setAnchorEl(null);
+              setCreatingType(QuestionType.SingleChoice);
+            }}>
             Single choice
           </MenuItem>
         </StyledMenu>
       </Link>
       {creatingType && (
-        <CreateQuestionDialog type={creatingType} onCreated={handleCreated} />
+        <CreateQuestionDialog
+          type={creatingType}
+          onCreated={handleCreated}
+          handleClose={() => setCreatingType(null)}
+        />
       )}
     </>
   );

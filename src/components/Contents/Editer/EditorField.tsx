@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useField, UseFieldConfig } from 'react-final-form';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -18,13 +18,16 @@ export const EditorField = ({ name, config }: Props) => {
   return (
     <Box>
       <ReactQuill
-      
         theme="snow"
         value={value}
         onChange={onChange}
         className="component-quill"
       />
-      {submitFailed && error?.length && error[0]}
+      <Box sx={{ marginLeft: '18px', mt: 1 }}>
+        <Typography variant="body2" color="#d32f2f">
+          {submitFailed && error?.length && error[0]}
+        </Typography>
+      </Box>
     </Box>
   );
 };

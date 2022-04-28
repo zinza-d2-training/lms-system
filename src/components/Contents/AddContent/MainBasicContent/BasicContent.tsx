@@ -1,15 +1,13 @@
 import { Box, Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { makeValidate, TextField } from 'mui-rff';
-import { type } from 'os';
 import * as React from 'react';
-import { useState } from 'react';
 import { Form } from 'react-final-form';
 import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { CompletedMethod, Content } from '../../../../types/contents';
 import { EditorField } from '../../Editer/EditorField';
-import { CompletedMethodFinalFormInput } from './ContentNameFinalFormInput';
+import { CompletedMethodFinalFormInput } from './CompletedMethodFinalFormInput';
 import './StyleTabBasicContent.css';
 
 type BasicContentForm = Pick<
@@ -18,12 +16,11 @@ type BasicContentForm = Pick<
 >;
 
 const RenderBasicContent = () => {
-  const [click, setClick] = useState(false);
   const { id } = useParams() as { id: string };
   const schema: Yup.SchemaOf<BasicContentForm> = Yup.object().shape({
-    name: Yup.string().max(80).required(),
+    name: Yup.string().max(80).required('Error : Name is a required field'),
     completedMethod: Yup.mixed().oneOf([1, 2, 3]),
-    content: Yup.string().required('Co loi'),
+    content: Yup.string().required('Error : Content is a required field'),
     completedQuestionId: Yup.number(),
     periodTime: Yup.number()
   });
@@ -32,10 +29,6 @@ const RenderBasicContent = () => {
   const handleSubmit = async (value: BasicContentForm) => {
     console.log(value);
   };
-
-  // const handleClickButton = (e) => {
-  //   setClick(!click)
-  // }
 
   return (
     <Form<BasicContentForm>
@@ -68,7 +61,7 @@ const RenderBasicContent = () => {
                 placeholder="Unit name"
                 id="filled-basic"
                 name="name"
-                className="input-name "
+                className="input-name"
               />
             </Box>
             <Box sx={{ display: 'flex' }}>
@@ -83,7 +76,11 @@ const RenderBasicContent = () => {
                     <EditorField name="content" />
                   </Box>
                   <Box>
-                    <Button variant="contained" color="primary" type="submit">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      sx={{ marginTop: '18px', marginLeft: '18px' }}>
                       Save
                     </Button>
                   </Box>

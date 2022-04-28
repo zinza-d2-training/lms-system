@@ -74,7 +74,7 @@ export const CompletedMethodFinalFormInput = ({
       </Box>
       {value === CompletedMethod.WithQuestion && (
         <Box className="container-question-select">
-          <Box sx={{ display: 'flex' }}>
+          <Box sx={{ display: 'flex', marginLeft: '42px' }}>
             <Typography
               className="question-select"
               sx={{
@@ -82,23 +82,38 @@ export const CompletedMethodFinalFormInput = ({
               }}>
               Select a question
             </Typography>
-            <SelectQuestionButtonFinalForm />
+            <Box
+              sx={{
+                marginTop: '12px',
+                marginLeft: '24px'
+              }}>
+              <SelectQuestionButtonFinalForm
+              // name = {'completedMethod'}
+              // config = {}
+              />
+            </Box>
           </Box>
         </Box>
       )}
       {value === CompletedMethod.AfterPeriodTime && (
         <Box>
-          <Box sx={{ display: 'flex' }}>
-            <Typography className="label-after-of-time font-size-14">
+          <Box sx={{ display: 'flex', marginLeft: '87px' }}>
+            <Typography className="label-after-of-time font-size-14" sx ={{marginTop : '12px'}}>
               Time limit
             </Typography>
-            <TextField
-              size="small"
-              placeholder="Seconds"
-              id="filled-basic"
-              name="seconds"
-              className="input-after-of-time"
-            />
+            <Box
+              sx={{
+                mt: '12px',
+                marginLeft: '10px'
+              }}>
+              <TextField
+                size="small"
+                placeholder="Seconds"
+                id="filled-basic"
+                name="seconds"
+                className="input-after-of-time"
+              />
+            </Box>
           </Box>
         </Box>
       )}

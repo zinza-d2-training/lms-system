@@ -5,11 +5,16 @@ export enum CompletedMethod {
 }
 
 export enum ContentType {
-  Basic = 'basic',
-  Video = 'video',
-  Audio = 'audio',
-  Survey = 'survey',
-  Iframe = 'iframe'
+  Basic = 1,
+  Video = 2,
+  Audio = 3,
+  Survey = 4,
+  Iframe = 5
+}
+export enum QuestionType {
+  MultipleChoice = 1,
+  SingleChoice = 2,
+  FreeText = 3
 }
 
 export type Content = {
