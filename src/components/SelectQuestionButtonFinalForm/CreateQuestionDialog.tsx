@@ -31,10 +31,9 @@ export const CreateQuestionDialog = (props: Props) => {
   const initialValues = React.useMemo<QuestionForm>(() => {
     return {
       text: questionInfo?.text || '',
-      type: questionInfo?.type || QuestionType.Multiple,
       answers: (questionInfo?.answers || []).map((item) => item)
     };
-  }, [questionInfo]);
+  }, [questionInfo?.answers, questionInfo?.text]);
 
   const [open, setOpen] = React.useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -44,12 +43,12 @@ export const CreateQuestionDialog = (props: Props) => {
     text: Yup.string()
       .max(80)
       .required('Error : Text content is a required field'),
-    type: Yup.mixed().oneOf([1, 2, 3]),
     answers: Yup.array()
       .min(1, 'You must specify at least one possible question')
       .default([])
   });
-
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const type = questionInfo?.type || props.type;
   const descriptionElementRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
     if (open) {
@@ -73,20 +72,20 @@ export const CreateQuestionDialog = (props: Props) => {
       <DialogTitle id="scroll-dialog-title" sx={{ color: 'red' }}>
         Please write your question :
       </DialogTitle>
-      <DialogContent dividers={scroll === 'paper'}>
-        <Form<QuestionForm>
-          validate={validate}
-          initialValues={initialValues}
-          onSubmit={handleSubmit}
-          render={({ handleSubmit, errors }) => {
-            return (
-              <form
-                onSubmit={handleSubmit}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  overflowY: 'auto'
-                }}>
+      <Form<QuestionForm>
+        validate={validate}
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        render={({ handleSubmit }) => {
+          return (
+            <form
+              onSubmit={handleSubmit}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                overflowY: 'auto'
+              }}>
+              <DialogContent dividers={scroll === 'paper'}>
                 <DialogContentText
                   id="scroll-dialog-description"
                   ref={descriptionElementRef}
@@ -101,22 +100,21 @@ export const CreateQuestionDialog = (props: Props) => {
                     <AnswerFinalFormField name="answers" />
                   )}
                 </DialogContentText>
-
-                <DialogActions>
-                  <Button onClick={props.handleClose}>Cancel</Button>
-                  <Button
-                    size="small"
-                    variant="contained"
-                    color="primary"
-                    type="submit">
-                    Save
-                  </Button>
-                </DialogActions>
-              </form>
-            );
-          }}
-        />{' '}
-      </DialogContent>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={props.handleClose}>Cancel</Button>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  type="submit">
+                  Save
+                </Button>
+              </DialogActions>
+            </form>
+          );
+        }}
+      />
     </Dialog>
   );
 };

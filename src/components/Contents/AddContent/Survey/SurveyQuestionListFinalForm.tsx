@@ -28,8 +28,8 @@ interface Props {
 
 const SurveyQuestionListFinalForm = (props: Props) => {
   const [openPopup, setOpenPopup] = useState(false);
-  const [type, setType] = useState<QuestionType>(QuestionType.Multiple)
-  const [questionId, setQuestionId] = useState(NaN)
+  const [type, setType] = useState<QuestionType>(QuestionType.Multiple);
+  const [questionId, setQuestionId] = useState(NaN);
   const {
     input: { value, onChange }
   } = useField(props.name);
@@ -88,11 +88,9 @@ const SurveyQuestionListFinalForm = (props: Props) => {
                           </Button>
                         </TableCell>
                         <TableCell component="th" scope="row" align="left">
-                          <IconsType type={question.type}/>
+                          <IconsType type={question.type} />
                         </TableCell>
-                        <TableCell align="center">
-                          {question.text}
-                        </TableCell>
+                        <TableCell align="center">{question.text}</TableCell>
                         <TableCell align="right">
                           <CustomizedMenus
                             items={[
@@ -105,7 +103,8 @@ const SurveyQuestionListFinalForm = (props: Props) => {
                                 to: `#`,
                                 label: 'Edit',
                                 icon: <ModeEditOutlinedIcon />,
-                                onClick:() => handleOnclick(question.type, question.id)
+                                onClick: () =>
+                                  handleOnclick(question.type, question.id)
                               },
                               {
                                 to: `#`,
@@ -139,7 +138,13 @@ const SurveyQuestionListFinalForm = (props: Props) => {
         </Box>
       </Box>
       <Divider />
-      <CreateQuestionDialog type={type} id={questionId} onCreated={(qId) => qId} handleClose={() => setOpenPopup(false)} openPopup={openPopup}/>
+      <CreateQuestionDialog
+        type={type}
+        id={questionId}
+        onCreated={(qId) => qId}
+        handleClose={() => setOpenPopup(false)}
+        openPopup={openPopup}
+      />
     </>
   );
 };

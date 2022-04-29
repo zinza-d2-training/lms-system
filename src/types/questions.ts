@@ -12,7 +12,7 @@ export type Answer = {
   isCorrect?: boolean;
 };
 
-export type QuestionForm = Partial<Pick<Question, 'text' | 'type' | 'answers'>>;
+export type QuestionForm = Partial<Pick<Question, 'text' | 'answers'>>;
 
 export enum QuestionType {
   Multiple = '1',
