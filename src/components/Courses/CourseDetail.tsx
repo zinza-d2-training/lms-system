@@ -153,7 +153,7 @@ const CourseDetail = () => {
                 <MenuItem onClick={handleClose} disableRipple>
                   <Link
                     component={RouterLink}
-                    to={`/courses/${id}/contents/add/basic`}
+                    to={`/courses/${id}/contents/add/1`}
                     underline="none"
                     color="inherit">
                     <ArticleOutlinedIcon />
@@ -163,7 +163,7 @@ const CourseDetail = () => {
                 <MenuItem onClick={handleClose} disableRipple>
                   <Link
                     component={RouterLink}
-                    to={`/courses/${id}/contents/add/web`}
+                    to={`/courses/${id}/contents/add/6`}
                     underline="none"
                     color="inherit">
                     <CloudOutlinedIcon />
@@ -174,7 +174,7 @@ const CourseDetail = () => {
                 <MenuItem onClick={handleClose} disableRipple>
                   <Link
                     component={RouterLink}
-                    to={`/courses/${id}/contents/add/video`}
+                    to={`/courses/${id}/contents/add/2`}
                     underline="none"
                     color="inherit">
                     <SlowMotionVideoOutlinedIcon />
@@ -184,7 +184,7 @@ const CourseDetail = () => {
                 <MenuItem onClick={handleClose} disableRipple>
                   <Link
                     component={RouterLink}
-                    to={`/courses/${id}/contents/add/audio`}
+                    to={`/courses/${id}/contents/add/3`}
                     underline="none"
                     color="inherit">
                     <VolumeUpIcon />
@@ -195,7 +195,7 @@ const CourseDetail = () => {
                 <MenuItem onClick={handleClose} disableRipple>
                   <Link
                     component={RouterLink}
-                    to={`/courses/${id}/contents/add/iframe`}
+                    to={`/courses/${id}/contents/add/5`}
                     underline="none"
                     color="inherit">
                     <CodeIcon />
@@ -206,7 +206,7 @@ const CourseDetail = () => {
                 <MenuItem onClick={handleClose} disableRipple>
                   <Link
                     component={RouterLink}
-                    to={`/courses/${id}/contents/add/survey`}
+                    to={`/courses/${id}/contents/add/4`}
                     underline="none"
                     color="inherit">
                     <CheckBoxOutlinedIcon />
