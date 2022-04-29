@@ -10,14 +10,14 @@ interface ContentForm {
   name: string;
   completedMethod: number;
   link?: string;
-  type: string;
+  type: number;
   contents?: string;
 }
 
 const schema: Yup.SchemaOf<ContentForm> = Yup.object().shape({
   name: Yup.string().max(80).required(),
   completedMethod: Yup.number().required(),
-  type: Yup.string().required(),
+  type: Yup.number().required(),
   link: Yup.string(),
   contents: Yup.string()
 });

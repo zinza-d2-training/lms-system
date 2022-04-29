@@ -65,7 +65,7 @@ const SurveyOrderQuestion = (props: Props) => {
                 className="todo"
                 {...provided.droppableProps}
                 ref={provided.innerRef}>
-                {sortedQuestions.map(({ sequence, questionName }, index) => {
+                {sortedQuestions.map(({ sequence, text }, index) => {
                   return (
                     <Draggable
                       key={sequence}
@@ -77,7 +77,7 @@ const SurveyOrderQuestion = (props: Props) => {
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           style={getItemStyle(provided.draggableProps.style)}>
-                          <Typography>{questionName}</Typography>
+                          <Typography>{text}</Typography>
                         </div>
                       )}
                     </Draggable>

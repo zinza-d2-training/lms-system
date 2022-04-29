@@ -1,7 +1,15 @@
 import AddIcon from '@mui/icons-material/Add';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ImportExportIcon from '@mui/icons-material/ImportExport';
-import { Box, Button, Divider, Link, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Divider,
+  Link,
+  Typography,
+  List,
+  ListItem
+} from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { makeValidate, TextField } from 'mui-rff';
@@ -15,7 +23,9 @@ import {
   updateContent
 } from '../../../../services/ContentService';
 import { ContentType } from '../../../../types/contents';
+import { QuestionType } from '../../../../types/questions';
 import TabPanel, { a11yProps } from '../../../Layout/Header/TabPanel';
+import { CreateQuestionDialog } from '../../../SelectQuestionButtonFinalForm/CreateQuestionDialog';
 import { useContentInfo } from '../../hook';
 import { useQuestion } from './hook';
 import SurveyOrderQuestion from './SurveyOrderQuestion';
@@ -27,6 +37,8 @@ type ContentForm = {
 };
 
 const Survey = () => {
+  const [openPopup, setOpenPopup] = useState(false);
+  const [type, setType] = useState<QuestionType>(QuestionType.Multiple);
   const { id, contentId } = useParams() as { id: string; contentId: string };
   const { enqueueSnackbar } = useSnackbar();
   const { questions } = useQuestion();
@@ -44,7 +56,10 @@ const Survey = () => {
   };
   const schema: Yup.SchemaOf<ContentForm> = Yup.object().shape({
     name: Yup.string().max(80).required(),
-    questions: Yup.array()
+    questions: Yup.array().min(
+      1,
+      'You must specify at least one possible question'
+    )
   });
 
   const validate = makeValidate(schema);
@@ -71,7 +86,10 @@ const Survey = () => {
       );
     }
   };
-
+  const handleOnclick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setOpenPopup(true);
+    setType(e.currentTarget.value as QuestionType);
+  };
   return (
     <Box sx={{ padding: '5px' }}>
       <Form<ContentForm>
@@ -189,11 +207,41 @@ const Survey = () => {
                       </Box>
                       <Box
                         sx={{
-                          paddingLeft: '10px',
-                          display: 'flex',
-                          flexDirection: 'column'
+                          paddingLeft: '10px'
                         }}>
-                        add question
+                        <Typography>Add question</Typography>
+                        <List>
+                          <ListItem disablePadding>
+                            <Typography variant="caption">
+                              <Button
+                                size="small"
+                                onClick={handleOnclick}
+                                value="1">
+                                Multiple
+                              </Button>
+                            </Typography>
+                          </ListItem>
+                          <ListItem disablePadding>
+                            <Typography variant="caption">
+                              <Button
+                                size="small"
+                                onClick={handleOnclick}
+                                value="2">
+                                Text
+                              </Button>
+                            </Typography>
+                          </ListItem>
+                          <ListItem disablePadding>
+                            <Typography variant="caption">
+                              <Button
+                                size="small"
+                                onClick={handleOnclick}
+                                value="3">
+                                Single
+                              </Button>
+                            </Typography>
+                          </ListItem>
+                        </List>
                       </Box>
                     </Box>
                   </Box>
@@ -224,6 +272,13 @@ const Survey = () => {
             </form>
           );
         }}
+      />
+      <CreateQuestionDialog
+        type={type}
+        id={NaN}
+        onCreated={(qId) => qId}
+        handleClose={() => setOpenPopup(false)}
+        openPopup={openPopup}
       />
     </Box>
   );

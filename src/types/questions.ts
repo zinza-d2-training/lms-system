@@ -1,19 +1,21 @@
 export type Question = {
   id: number;
   sequence: number;
-  contentId: number;
-  questionName: string;
-  questionType: QuestionsType;
-  answer?: Array<string>;
+  text: string;
+  type: QuestionType;
+  answers: Array<Answer>;
 };
 
-export type QuestionForm = Pick<
-  Question,
-  'questionName' | 'questionType' | 'answer'
->;
+export type Answer = {
+  id: number;
+  text: string;
+  isCorrect?: boolean;
+};
 
-export enum QuestionsType {
-  Multiple = 'Multiple',
-  Raw = 'Raw',
-  Single = 'Single'
+export type QuestionForm = Partial<Pick<Question, 'text' | 'type' | 'answers'>>;
+
+export enum QuestionType {
+  Multiple = '1',
+  Raw = '2',
+  Single = '3'
 }

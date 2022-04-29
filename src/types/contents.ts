@@ -7,11 +7,12 @@ export enum CompletedMethod {
 }
 
 export enum ContentType {
-  Basic = 'basic',
-  Video = 'video',
-  Audio = 'audio',
-  Survey = 'survey',
-  Iframe = 'iframe'
+  Basic = 1,
+  Video = 2,
+  Audio = 3,
+  Survey = 4,
+  Iframe = 5,
+  Web = 6
 }
 
 export type Content = {

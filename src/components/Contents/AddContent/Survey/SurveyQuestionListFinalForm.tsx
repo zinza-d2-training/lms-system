@@ -6,7 +6,6 @@ import {
   Box,
   Button,
   Divider,
-  Link,
   Table,
   TableBody,
   TableCell,
@@ -15,11 +14,12 @@ import {
   TableRow
 } from '@mui/material';
 import { sortBy } from 'lodash';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useField } from 'react-final-form';
-import { Link as RouterLink } from 'react-router-dom';
-import { Question } from '../../../../types/questions';
+import { Question, QuestionType } from '../../../../types/questions';
 import { CustomizedMenus } from '../../../Courses/ListCourses/MenuActions';
+import { CreateQuestionDialog } from '../../../SelectQuestionButtonFinalForm/CreateQuestionDialog';
+import IconsType from '../IconsType';
 
 interface Props {
   questions: Question[];
@@ -27,6 +27,9 @@ interface Props {
 }
 
 const SurveyQuestionListFinalForm = (props: Props) => {
+  const [openPopup, setOpenPopup] = useState(false);
+  const [type, setType] = useState<QuestionType>(QuestionType.Multiple)
+  const [questionId, setQuestionId] = useState(NaN)
   const {
     input: { value, onChange }
   } = useField(props.name);
@@ -35,6 +38,11 @@ const SurveyQuestionListFinalForm = (props: Props) => {
     return sortBy(props.questions, 'sequence');
   }, [props.questions]);
 
+  const handleOnclick = (type: QuestionType, id: number) => {
+    setOpenPopup(true);
+    setType(type);
+    setQuestionId(id);
+  };
   return (
     <>
       <Box>
@@ -80,16 +88,10 @@ const SurveyQuestionListFinalForm = (props: Props) => {
                           </Button>
                         </TableCell>
                         <TableCell component="th" scope="row" align="left">
-                          {question.questionType}
+                          <IconsType type={question.type}/>
                         </TableCell>
                         <TableCell align="center">
-                          <Link
-                            component={RouterLink}
-                            to={`#`}
-                            underline="hover"
-                            color="black">
-                            {question.questionName}
-                          </Link>
+                          {question.text}
                         </TableCell>
                         <TableCell align="right">
                           <CustomizedMenus
@@ -97,7 +99,8 @@ const SurveyQuestionListFinalForm = (props: Props) => {
                               {
                                 to: `#`,
                                 label: 'Preview',
-                                icon: <RemoveRedEyeOutlinedIcon />
+                                icon: <RemoveRedEyeOutlinedIcon />,
+                                onClick:() => handleOnclick(question.type, question.id)
                               },
                               {
                                 to: `#`,
@@ -136,6 +139,7 @@ const SurveyQuestionListFinalForm = (props: Props) => {
         </Box>
       </Box>
       <Divider />
+      <CreateQuestionDialog type={type} id={questionId} onCreated={(qId) => qId} handleClose={() => setOpenPopup(false)} openPopup={openPopup}/>
     </>
   );
 };

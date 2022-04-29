@@ -13,21 +13,16 @@ const AddContent = () => {
     <>
       {(() => {
         switch (type) {
-          case 'video':
+          case '2':
             return <VideoContent />;
-
-          case 'web':
-            return <WebContent />;
-
-          case 'audio':
-            return <AudioContent />;
-
-          case 'iframe':
-            return <IframeContent />;
-
-          case 'survey':
+          case '4':
             return <Survey />;
-
+          case '3':
+            return <AudioContent />;
+          case '5':
+            return <IframeContent />;
+          case '6':
+            return <WebContent />;
           default:
             return <BasicContent />;
         }

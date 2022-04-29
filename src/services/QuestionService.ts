@@ -6,16 +6,15 @@ export async function getQuestions(): Promise<Question[]> {
   return questions.map((item) => item);
 }
 
-export async function getQuestionInfo(id: number) {
-  return questions.find((item) => item.id === id);
+export async function getQuestionInfo(questionId: number) {
+  return questions.find((item) => item.id === questionId);
 }
 
-export async function createQuestion(Question: Question, contentId: number) {
+export async function createQuestion(Question: Question) {
   return {
     ...Question,
     id: questions.length + 1,
-    sequence: questions.length + 1,
-    contentId: contentId
+    sequence: questions.length + 1
   };
 }
 
@@ -24,7 +23,6 @@ export async function reorderContentQuestions(
   orderMapping: Record<number, number>
 ) {
   const content = contents.find((item) => item.id === contentId);
-
   return content?.questions?.map((item) => {
     return {
       ...item,

@@ -1,5 +1,5 @@
 import { CompletedMethod, Content, ContentType } from '../types/contents';
-import { QuestionsType } from '../types/questions';
+import { QuestionType } from '../types/questions';
 
 export const contents: Content[] = [
   {
@@ -32,25 +32,38 @@ export const contents: Content[] = [
       {
         id: 1,
         sequence: 1,
-        questionName: 'question 1',
-        contentId: 3,
-        questionType: QuestionsType.Multiple,
-        answer: ['hello', '1', '2']
+        text: 'question 1',
+        type: QuestionType.Multiple,
+        answers: [
+          {
+            id: 1,
+            text: 'hello',
+            isCorrect: true
+          },
+          {
+            id: 2,
+            text: 'hello',
+            isCorrect: false
+          },
+          {
+            id: 3,
+            text: 'hello',
+            isCorrect: false
+          }
+        ]
       },
       {
         id: 2,
         sequence: 2,
-        questionName: 'question 2',
-        contentId: 3,
-        questionType: QuestionsType.Raw
-      },
-      {
-        id: 3,
-        sequence: 3,
-        questionName: 'question 3',
-        contentId: 3,
-        questionType: QuestionsType.Multiple,
-        answer: ['']
+        text: 'question 2',
+        type: QuestionType.Raw,
+        answers: [
+          {
+            id: 1,
+            text: 'hello',
+            isCorrect: true
+          }
+        ]
       }
     ]
   },
