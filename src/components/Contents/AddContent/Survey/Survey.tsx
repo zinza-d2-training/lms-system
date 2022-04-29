@@ -263,7 +263,7 @@ const Survey = () => {
                 </Button>
                 <Link
                   component={RouterLink}
-                  to={'/course'}
+                  to={`/courses/${id}`}
                   underline="hover"
                   color="inherit">
                   <Typography variant="caption">cancel</Typography>
