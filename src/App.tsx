@@ -14,6 +14,10 @@ import ListCoursesRender from './components/Courses/ListCourses/ListCourses';
 import { UserRole } from './types/users';
 import { ManagementUser } from './components/ManagementUser/ManagementUser';
 import CourseDetail from './components/Courses/CourseDetail';
+
+import Contents from './components/Contents/Contents';
+import AddContent from './components/Contents/AddContent/index';
+
 import ManagerFiles from './components/ManagerFiles/ManagerFiles';
 
 function App() {
@@ -77,14 +81,38 @@ function App() {
                 }
               />
               <Route
-                path=":id/files"
+                path=":id/contents/view/:contentId"
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
-                    <ManagerFiles />
+                    <Contents />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path=":id/contents/edit/:type/:contentId"
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor]}>
+                    <AddContent />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path=":id/contents/add/:type"
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor]}>
+                    <AddContent />
                   </PrivateRoute>
                 }
               />
             </Route>
+            <Route
+              path=":id/files"
+              element={
+                <PrivateRoute roles={[UserRole.Instructor]}>
+                  <ManagerFiles />
+                </PrivateRoute>
+              }
+            />
           </Route>
         </Routes>
       </SnackbarProvider>
