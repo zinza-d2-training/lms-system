@@ -18,6 +18,7 @@ import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
 import { UserRole } from './types/users';
 
+
 function App() {
   return (
     <div className="App">
@@ -87,6 +88,7 @@ function App() {
                 }
               />
               <Route
+
                 path=":id/contents/view/:contentId"
                 element={
                   <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
@@ -110,6 +112,14 @@ function App() {
                 }
               />
             </Route>
+            <Route
+              path=":id/files"
+              element={
+                <PrivateRoute roles={[UserRole.Instructor]}>
+                  <ManagerFiles />
+                </PrivateRoute>
+              }
+            />
           </Route>
         </Routes>
       </SnackbarProvider>
