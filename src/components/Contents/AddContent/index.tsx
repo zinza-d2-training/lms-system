@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { ContentType } from '../../../types/contents';
 import AudioContent from './AudioContent';
 import BasicContent from './BasicContent';
 import IframeContent from './IframeContent';
@@ -13,15 +14,15 @@ const AddContent = () => {
     <>
       {(() => {
         switch (type) {
-          case '2':
+          case ContentType.Video.toString():
             return <VideoContent />;
-          case '4':
+          case ContentType.Survey.toString():
             return <Survey />;
-          case '3':
+          case ContentType.Audio.toString():
             return <AudioContent />;
-          case '5':
+          case ContentType.Iframe.toString():
             return <IframeContent />;
-          case '6':
+          case ContentType.Web.toString():
             return <WebContent />;
           default:
             return <BasicContent />;

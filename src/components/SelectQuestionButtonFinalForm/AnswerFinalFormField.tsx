@@ -8,6 +8,7 @@ import { cloneDeep } from 'lodash';
 import * as React from 'react';
 import { useField } from 'react-final-form';
 import { useParams } from 'react-router-dom';
+import { ContentType } from '../../types/contents';
 import '../SelectQuestionButtonFinalForm/Modal.css';
 interface Props {
   name: string;
@@ -17,14 +18,19 @@ interface AnswerFormField {
   isCorrect: boolean;
 }
 export default function AnswerFinalFormField({ name }: Props) {
-  const { type: contentType } = useParams() as { type: string };
+  const { type: contentType } = useParams<{ type: string }>();
   const {
-    input: { value, onChange },
+    input: { onChange },
     meta
   } = useField<AnswerFormField[]>(name);
-  const { submitFailed, error } = meta;
+  const { submitFailed, error, initial } = meta;
 
-  const [options, setOptions] = React.useState<AnswerFormField[]>(value);
+  const [options, setOptions] = React.useState<AnswerFormField[]>([]);
+  React.useEffect(() => {
+    if (initial) {
+      setOptions(initial);
+    }
+  }, [initial]);
   React.useEffect(() => {
     onChange(options.filter((option) => !!option.text));
   }, [onChange, options]);
@@ -64,7 +70,7 @@ export default function AnswerFinalFormField({ name }: Props) {
                   id="outlined-disabled"
                   label="Answer"
                 />
-                {contentType !== '4' ? (
+                {ContentType.Survey.toString() !== contentType ? (
                   <FormControlLabel
                     sx={{
                       marginRight: '-12px'

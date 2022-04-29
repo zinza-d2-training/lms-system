@@ -22,7 +22,6 @@ export interface Props {
   id: number;
   onCreated: (id: number) => void;
   handleClose: () => void;
-  openPopup: boolean;
 }
 
 export const CreateQuestionDialog = (props: Props) => {
@@ -43,9 +42,10 @@ export const CreateQuestionDialog = (props: Props) => {
     text: Yup.string()
       .max(80)
       .required('Error : Text content is a required field'),
-    answers: Yup.array()
-      .min(1, 'You must specify at least one possible question')
-      .default([])
+    answers: Yup.array().min(
+      1,
+      'You must specify at least one possible question'
+    )
   });
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const type = questionInfo?.type || props.type;
@@ -65,10 +65,7 @@ export const CreateQuestionDialog = (props: Props) => {
     setOpen(false);
   };
   return (
-    <Dialog
-      className="Container-dialog-question"
-      open={props.openPopup}
-      scroll={scroll}>
+    <Dialog className="Container-dialog-question" open scroll={scroll}>
       <DialogTitle id="scroll-dialog-title" sx={{ color: 'red' }}>
         Please write your question :
       </DialogTitle>

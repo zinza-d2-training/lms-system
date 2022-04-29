@@ -136,7 +136,6 @@ export function SelectQuestionButtonFinalForm() {
           type={creatingType}
           onCreated={handleCreated}
           handleClose={() => setCreatingType(null)}
-          openPopup={false}
         />
       )}
     </>

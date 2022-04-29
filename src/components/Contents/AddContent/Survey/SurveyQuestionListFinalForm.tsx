@@ -138,13 +138,14 @@ const SurveyQuestionListFinalForm = (props: Props) => {
         </Box>
       </Box>
       <Divider />
-      <CreateQuestionDialog
-        type={type}
-        id={questionId}
-        onCreated={(qId) => qId}
-        handleClose={() => setOpenPopup(false)}
-        openPopup={openPopup}
-      />
+      {openPopup && (
+        <CreateQuestionDialog
+          type={type}
+          id={questionId}
+          onCreated={(qId) => qId}
+          handleClose={() => setOpenPopup(false)}
+        />
+      )}
     </>
   );
 };

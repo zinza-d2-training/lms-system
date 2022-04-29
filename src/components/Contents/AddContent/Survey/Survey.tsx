@@ -56,10 +56,9 @@ const Survey = () => {
   };
   const schema: Yup.SchemaOf<ContentForm> = Yup.object().shape({
     name: Yup.string().max(80).required(),
-    questions: Yup.array().min(
-      1,
-      'You must specify at least one possible question'
-    ).required()
+    questions: Yup.array()
+      .min(1, 'You must specify at least one possible question')
+      .required()
   });
 
   const validate = makeValidate(schema);
@@ -273,13 +272,14 @@ const Survey = () => {
           );
         }}
       />
-      <CreateQuestionDialog
-        type={type}
-        id={NaN}
-        onCreated={(qId) => qId}
-        handleClose={() => setOpenPopup(false)}
-        openPopup={openPopup}
-      />
+      {openPopup && (
+        <CreateQuestionDialog
+          type={type}
+          id={NaN}
+          onCreated={(qId) => qId}
+          handleClose={() => setOpenPopup(false)}
+        />
+      )}
     </Box>
   );
 };
