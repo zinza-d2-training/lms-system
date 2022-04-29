@@ -14,9 +14,11 @@ import ListCoursesRender from './components/Courses/ListCourses/ListCourses';
 import { UserRole } from './types/users';
 import { ManagementUser } from './components/ManagementUser/ManagementUser';
 import CourseDetail from './components/Courses/CourseDetail';
+
 import Contents from './components/Contents/Contents';
 import AddContent from './components/Contents/AddContent/index';
 import ManagerFiles from './components/ManagerFiles/ManagerFiles';
+
 
 function App() {
   return (
@@ -111,6 +113,14 @@ function App() {
                 }
               />
             </Route>
+            <Route
+              path=":id/files"
+              element={
+                <PrivateRoute roles={[UserRole.Instructor]}>
+                  <ManagerFiles />
+                </PrivateRoute>
+              }
+            />
           </Route>
         </Routes>
       </SnackbarProvider>
