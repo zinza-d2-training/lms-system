@@ -7,10 +7,6 @@ import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { CompletedMethod, Content } from '../../../../types/contents';
 import { EditorField } from '../../Editer/EditorField';
-import AudioContent from '../AudioContent';
-import IframeContent from '../IframeContent';
-import VideoContent from '../VideoContent';
-import WebContent from '../WebContent';
 import { CompletedMethodFinalFormInput } from './CompletedMethodFinalFormInput';
 import './StyleTabBasicContent.css';
 
@@ -20,7 +16,7 @@ type BasicContentForm = Pick<
 >;
 
 const RenderBasicContent = () => {
-  const { id, type } = useParams() as { id: string; type: string };
+  const { id } = useParams() as { id: string };
   const schema: Yup.SchemaOf<BasicContentForm> = Yup.object().shape({
     name: Yup.string().max(80).required('Error : Name is a required field'),
     completedMethod: Yup.mixed().oneOf([1, 2, 3]),
@@ -77,25 +73,9 @@ const RenderBasicContent = () => {
                   label="How to complete it"
                 />
                 <Box py={2}>
-                  {(() => {
-                    switch (type) {
-                      case 'video':
-                        return <VideoContent />;
-
-                      case 'web':
-                        return <WebContent />;
-
-                      case 'audio':
-                        return <AudioContent />;
-
-                      case 'iframe':
-                        return <IframeContent />;
-
-                      default:
-                        return <EditorField name="content" />;
-                    }
-                  })()}
-                  <Box></Box>
+                  <Box>
+                    <EditorField name="content" />
+                  </Box>
                   <Box>
                     <Button
                       variant="contained"

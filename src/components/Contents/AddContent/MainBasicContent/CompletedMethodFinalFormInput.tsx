@@ -1,4 +1,5 @@
-import { Box, Button, ButtonGroup, TextField, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Typography } from '@mui/material';
+import { TextField } from 'mui-rff';
 import { useField, UseFieldConfig } from 'react-final-form';
 import 'react-quill/dist/quill.snow.css';
 import { CompletedMethod } from '../../../../types/contents';
@@ -7,24 +8,21 @@ import { SelectQuestionButtonFinalForm } from '../../../SelectQuestionButtonFina
 interface Props {
   name: string;
   questionIdField: string;
-  periodTimeField?: string;
+  periodTimeField: string;
   config?: UseFieldConfig<string>;
   label?: string;
 }
 
 export const CompletedMethodFinalFormInput = ({
-  name ,
-  questionIdField ,
+  name,
+  questionIdField,
   periodTimeField,
   config,
-  label,
+  label
 }: Props) => {
   const {
     input: { value, onChange }
   } = useField(name, config);
-  const {
-    input: { value: questionIdValue, onChange: onChangeQuestionId }
-  } = useField(questionIdField);
 
   const changeValue = (value: CompletedMethod) => {
     onChange(value);
@@ -87,10 +85,7 @@ export const CompletedMethodFinalFormInput = ({
                 marginTop: '12px',
                 marginLeft: '24px'
               }}>
-              <SelectQuestionButtonFinalForm
-              // name = {'completedMethod'}
-              // config = {}
-              />
+              <SelectQuestionButtonFinalForm name={questionIdField} />
             </Box>
           </Box>
         </Box>
@@ -98,7 +93,9 @@ export const CompletedMethodFinalFormInput = ({
       {value === CompletedMethod.AfterPeriodTime && (
         <Box>
           <Box sx={{ display: 'flex', marginLeft: '87px' }}>
-            <Typography className="label-after-of-time font-size-14" sx ={{marginTop : '12px'}}>
+            <Typography
+              className="label-after-of-time font-size-14"
+              sx={{ marginTop: '12px' }}>
               Time limit
             </Typography>
             <Box
@@ -108,9 +105,10 @@ export const CompletedMethodFinalFormInput = ({
               }}>
               <TextField
                 size="small"
+                type="number"
                 placeholder="Seconds"
                 id="filled-basic"
-                name="seconds"
+                name={periodTimeField}
                 className="input-after-of-time"
               />
             </Box>

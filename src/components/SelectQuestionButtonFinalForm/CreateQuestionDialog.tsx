@@ -23,9 +23,11 @@ export interface Props {
   handleClose: () => void;
 }
 
-export const CreateQuestionDialog = ({ type, handleClose }: Props) => {
-  const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
+export const CreateQuestionDialog = ({
+  type,
+  handleClose,
+  onCreated
+}: Props) => {
   const schema: Yup.SchemaOf<QuestionForm> = Yup.object().shape({
     text: Yup.string()
       .max(80)
@@ -34,40 +36,37 @@ export const CreateQuestionDialog = ({ type, handleClose }: Props) => {
   });
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);
-  React.useEffect(() => {
-    if (open) {
-      const { current: descriptionElement } = descriptionElementRef;
-      if (descriptionElement !== null) {
-        descriptionElement.focus();
-      }
-    }
-  }, [open]);
 
   const validate = makeValidate(schema);
 
   const handleSubmit = (value: QuestionForm) => {
+    // @TODO: create question and trigger onCreated
+    onCreated(1);
     console.log(value);
-    setOpen(false);
+    handleClose();
   };
   return (
-    <Dialog className="Container-dialog-question" open scroll={scroll}>
+    <Dialog className="Container-dialog-question" open scroll="paper">
       <DialogTitle id="scroll-dialog-title" sx={{ color: 'red' }}>
         Please write your question :
       </DialogTitle>
-        <Form<QuestionForm>
-          validate={validate}
-          initialValues={{}}
-          onSubmit={handleSubmit}
-          render={({ handleSubmit, errors }) => {
-            return (
-              <form
-                onSubmit={handleSubmit}
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  overflowY: 'auto'
-                }}>
-                  <DialogContent dividers={scroll === 'paper'}>
+      <Form<QuestionForm>
+        validate={validate}
+        initialValues={{
+          text: '',
+          answers: []
+        }}
+        onSubmit={handleSubmit}
+        render={({ handleSubmit, errors }) => {
+          return (
+            <form
+              onSubmit={handleSubmit}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                overflowY: 'auto'
+              }}>
+              <DialogContent dividers>
                 <DialogContentText
                   id="scroll-dialog-description"
                   ref={descriptionElementRef}
@@ -82,22 +81,21 @@ export const CreateQuestionDialog = ({ type, handleClose }: Props) => {
                     <CreateChoiceQuestion name="answers" />
                   )}
                 </DialogContentText>
-
-                  </DialogContent>
-                <DialogActions>
-                  <Button onClick={handleClose}>Cancel</Button>
-                  <Button
-                    size="small"
-                    variant="contained"
-                    color="primary"
-                    type="submit">
-                    Save
-                  </Button>
-                </DialogActions>
-              </form>
-            );
-          }}
-        />{' '}
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleClose}>Cancel</Button>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  type="submit">
+                  Save
+                </Button>
+              </DialogActions>
+            </form>
+          );
+        }}
+      />{' '}
     </Dialog>
   );
 };

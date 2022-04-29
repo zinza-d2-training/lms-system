@@ -16,13 +16,12 @@ interface AnswerFormField {
   isCorrect: boolean;
 }
 export default function AnswerFinalFormField({ name }: Props) {
-  
   const [showErrAnswer, setshowErrAnswer] = React.useState(false);
   const {
     input: { value, onChange },
     meta: { submitFailed, error }
   } = useField<AnswerFormField[]>(name);
-  const [options, setOptions] = React.useState<AnswerFormField[]>(value);
+  const [options, setOptions] = React.useState<AnswerFormField[]>(value || []);
 
   React.useEffect(() => {
     onChange(options.filter((option) => !!option.text));
@@ -97,15 +96,15 @@ export default function AnswerFinalFormField({ name }: Props) {
                   <DeleteOutlineIcon />
                 </Button>
               </Box>
+            </>
+          );
+        })}
+      </FormGroup>
               <Box sx={{ marginLeft: '18px', mt: 1 }}>
                 <Typography variant="body2" color="#d32f2f">
                   {submitFailed && error?.length && error[0]}
                 </Typography>
               </Box>
-            </>
-          );
-        })}
-      </FormGroup>
       <Box>
         <Button
           sx={{ mt: 2 }}
