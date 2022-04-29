@@ -12,10 +12,10 @@ export type Answer = {
   text: string;
   isCorrect?: boolean;
 };
-export type QuestionForm = Pick<Question, 'text' | 'type' | 'answers'>;
+export type QuestionForm = Pick<Question, 'text' | 'answers'>;
 
 export enum QuestionsType {
-  Multiple = 2,
+  Multiple = 1,
   Raw = 2,
   Single = 3,
 }

@@ -6,18 +6,18 @@ import { SelectQuestionButtonFinalForm } from '../../../SelectQuestionButtonFina
 
 interface Props {
   name: string;
-  questionIdField?: string;
+  questionIdField: string;
   periodTimeField?: string;
   config?: UseFieldConfig<string>;
   label?: string;
 }
 
 export const CompletedMethodFinalFormInput = ({
-  name = 'completedMethod',
-  questionIdField = 'question_id',
-  periodTimeField = 'periodTime',
+  name ,
+  questionIdField ,
+  periodTimeField,
   config,
-  label = 'How to complete it'
+  label,
 }: Props) => {
   const {
     input: { value, onChange }

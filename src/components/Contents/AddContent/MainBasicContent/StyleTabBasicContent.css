@@ -68,6 +68,8 @@ body {
     border: 1px solid #cfd8dc !important;
     height: 24px !important;
     padding: 0 !important;
+    margin-left: 8px !important;
+    border: none !important;
 }
 .button-options {
     font-weight: 700 !important;
@@ -78,4 +80,12 @@ body {
 }
 .container-question-select .input-after-of-time{
     margin-top: 14px !important;
+}
+.webContent-input input {
+    padding: 4px !important;
+    width: 350px !important;
+}
+.webContent-input input::placeholder{
+    font-size: 12px;
+
 }

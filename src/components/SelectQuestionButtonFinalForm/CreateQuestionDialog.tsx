@@ -26,14 +26,11 @@ export interface Props {
 export const CreateQuestionDialog = ({ type, handleClose }: Props) => {
   const [open, setOpen] = React.useState(false);
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
-
-  const { id } = useParams() as { id: string };
   const schema: Yup.SchemaOf<QuestionForm> = Yup.object().shape({
     text: Yup.string()
       .max(80)
       .required('Error : Text content is a required field'),
-    type: Yup.mixed().oneOf([1, 2, 3]),
-    answers: Yup.array().required()
+    answers: Yup.array().min(1, 'Error : Need at least one valid field')
   });
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);
@@ -49,16 +46,14 @@ export const CreateQuestionDialog = ({ type, handleClose }: Props) => {
   const validate = makeValidate(schema);
 
   const handleSubmit = (value: QuestionForm) => {
-    // console.log(value);
-    setOpen(false)
-    
+    console.log(value);
+    setOpen(false);
   };
   return (
     <Dialog className="Container-dialog-question" open scroll={scroll}>
       <DialogTitle id="scroll-dialog-title" sx={{ color: 'red' }}>
         Please write your question :
       </DialogTitle>
-      <DialogContent dividers={scroll === 'paper'}>
         <Form<QuestionForm>
           validate={validate}
           initialValues={{}}
@@ -72,13 +67,14 @@ export const CreateQuestionDialog = ({ type, handleClose }: Props) => {
                   flexDirection: 'column',
                   overflowY: 'auto'
                 }}>
+                  <DialogContent dividers={scroll === 'paper'}>
                 <DialogContentText
                   id="scroll-dialog-description"
                   ref={descriptionElementRef}
                   tabIndex={-1}>
                   <Box>
                     <EditorField name="text" />
-                  </Box>                
+                  </Box>
 
                   {type === QuestionType.FreeText ? (
                     <CreateFreeTextQuestion />
@@ -87,6 +83,7 @@ export const CreateQuestionDialog = ({ type, handleClose }: Props) => {
                   )}
                 </DialogContentText>
 
+                  </DialogContent>
                 <DialogActions>
                   <Button onClick={handleClose}>Cancel</Button>
                   <Button
@@ -101,7 +98,6 @@ export const CreateQuestionDialog = ({ type, handleClose }: Props) => {
             );
           }}
         />{' '}
-      </DialogContent>
     </Dialog>
   );
 };
