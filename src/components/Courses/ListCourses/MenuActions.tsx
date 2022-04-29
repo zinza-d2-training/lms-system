@@ -1,15 +1,12 @@
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import EditIcon from '@mui/icons-material/Edit';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { Link, MenuItem } from '@mui/material';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
 import Menu, { MenuProps } from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import { alpha, styled } from '@mui/material/styles';
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { FC } from 'react';
 import './ListCourses.css';
+import { Link as RouterLink } from 'react-router-dom';
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -54,23 +51,29 @@ const StyledMenu = styled((props: MenuProps) => (
   }
 }));
 
-interface LinkProps {
-  linkTo: string;
-  courseDetial: string;
+interface RightMenuItem {
+  to: string;
+  className?: string;
+  icon?: React.ReactElement;
+  label: string;
+  onClick?: () => void;
 }
 
-export default function CustomizedMenus(props: LinkProps) {
+interface Props {
+  items: RightMenuItem[];
+}
+
+export const CustomizedMenus: FC< Props> = ({
+  items
+}) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault();
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleDelete = () => {
-    window.confirm('Bạn có chắc chắn muốn xóa hay không ?');
   };
 
   return (
@@ -94,28 +97,28 @@ export default function CustomizedMenus(props: LinkProps) {
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}>
-        <Link to={props.linkTo} className="option-link">
-          <MenuItem onClick={handleClose} disableRipple>
-            <EditIcon />
-            Edit
-          </MenuItem>
-        </Link>
-
-        <Link to={'#'} className="option-link">
-          <MenuItem onClick={handleDelete} disableRipple>
-            <DeleteForeverIcon />
-            Delete
-          </MenuItem>
-        </Link>
-        <Divider sx={{ my: 0.5 }} />
-
-        <Link to={props.courseDetial} className="option-link">
-          <MenuItem onClick={handleClose} disableRipple>
-            <ExitToAppIcon />
-            Go to course
-          </MenuItem>
-        </Link>
+        {items.map((item) => (
+          <Link
+            component={RouterLink}
+            to={item.to}
+            underline="hover"
+            color="inherit"
+            onClick={
+              item.onClick
+                ? (e) => {
+                    e.preventDefault();
+                    item.onClick && item.onClick();
+                  }
+                : undefined
+            }
+            className={item.className ? item.className : 'option-link'}>
+            <MenuItem disableRipple>
+              {item.icon}
+              Synchronize
+            </MenuItem>
+          </Link>
+        ))}
       </StyledMenu>
     </div>
   );
-}
+};

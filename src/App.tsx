@@ -12,9 +12,13 @@ import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
 import ListCoursesRender from './components/Courses/ListCourses/ListCourses';
 import { UserRole } from './types/users';
+import { ManagementUser } from './components/ManagementUser/ManagementUser';
 import CourseDetail from './components/Courses/CourseDetail';
+
 import Contents from './components/Contents/Contents';
 import AddContent from './components/Contents/AddContent/index';
+
+import ManagerFiles from './components/ManagerFiles/ManagerFiles';
 
 function App() {
   return (
@@ -53,10 +57,18 @@ function App() {
                 }
               />
               <Route
-                path="edit/:id"
+                path=":id/edit"
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
                     <CourseForm />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path=":id/users"
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor]}>
+                    <ManagementUser />
                   </PrivateRoute>
                 }
               />
@@ -93,6 +105,14 @@ function App() {
                 }
               />
             </Route>
+            <Route
+              path=":id/files"
+              element={
+                <PrivateRoute roles={[UserRole.Instructor]}>
+                  <ManagerFiles />
+                </PrivateRoute>
+              }
+            />
           </Route>
         </Routes>
       </SnackbarProvider>

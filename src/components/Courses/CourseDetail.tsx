@@ -97,8 +97,7 @@ const CourseDetail = () => {
   return (
     <Box sx={{ display: 'flex' }}>
       {/* Left content */}
-      <Container
-        sx={{ flex: 3, borderRight: '1px solid #f3f3f3', padding: '5px' }}>
+      <Container sx={{ flex: 3, padding: '5px' }}>
         {/* Course Info */}
         <Box sx={{ display: 'flex' }}>
           <Box sx={{ flex: 1 }}>
@@ -235,7 +234,7 @@ const CourseDetail = () => {
                 sx={btnStyle}>
                 <Link
                   component={RouterLink}
-                  to={`/courses/edit/${id}`}
+                  to={`/courses/${id}/edit`}
                   underline="none"
                   color="inherit">
                   Edit course
