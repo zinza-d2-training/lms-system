@@ -59,7 +59,7 @@ const Survey = () => {
     questions: Yup.array().min(
       1,
       'You must specify at least one possible question'
-    )
+    ).required()
   });
 
   const validate = makeValidate(schema);

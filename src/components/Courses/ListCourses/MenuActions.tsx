@@ -114,7 +114,7 @@ export const CustomizedMenus: FC< Props> = ({
             className={item.className ? item.className : 'option-link'}>
             <MenuItem disableRipple>
               {item.icon}
-              Synchronize
+              {item.label}
             </MenuItem>
           </Link>
         ))}

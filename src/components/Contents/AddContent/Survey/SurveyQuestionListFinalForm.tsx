@@ -99,13 +99,13 @@ const SurveyQuestionListFinalForm = (props: Props) => {
                               {
                                 to: `#`,
                                 label: 'Preview',
-                                icon: <RemoveRedEyeOutlinedIcon />,
-                                onClick:() => handleOnclick(question.type, question.id)
+                                icon: <RemoveRedEyeOutlinedIcon />
                               },
                               {
                                 to: `#`,
                                 label: 'Edit',
-                                icon: <ModeEditOutlinedIcon />
+                                icon: <ModeEditOutlinedIcon />,
+                                onClick:() => handleOnclick(question.type, question.id)
                               },
                               {
                                 to: `#`,
