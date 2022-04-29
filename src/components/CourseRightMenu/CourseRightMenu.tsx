@@ -17,7 +17,7 @@ interface Props {
 }
 const CourseRightMenu = ({ id }: Props) => {
   return (
-    <Box sx={{ flex: 1, padding: '5px' }}>
+    <Box sx={{ flex: 1, padding: '5px', borderLeft: '1px solid #f3f3f3' }}>
       <List>
         <ListItem disablePadding>
           <ListItemButton sx={{ borderRadius: '10px' }}>
@@ -43,6 +43,7 @@ const CourseRightMenu = ({ id }: Props) => {
               underline="hover"
               color={'black'}>
               <Typography>User & Progress</Typography>
+              <p>1 instructor · 0 learners</p>
             </Link>
           </ListItemButton>
         </ListItem>
@@ -55,6 +56,7 @@ const CourseRightMenu = ({ id }: Props) => {
               underline="hover"
               color={'black'}>
               <Typography>Files</Typography>
+              <p>0 files</p>
             </Link>
           </ListItemButton>
         </ListItem>
@@ -64,3 +66,4 @@ const CourseRightMenu = ({ id }: Props) => {
 };
 
 export default CourseRightMenu;
+    
