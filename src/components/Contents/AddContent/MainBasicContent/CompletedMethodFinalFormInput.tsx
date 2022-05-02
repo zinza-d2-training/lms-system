@@ -83,7 +83,7 @@ export const CompletedMethodFinalFormInput = ({
             <Box
               sx={{
                 marginTop: '12px',
-                marginLeft: '24px'
+                marginLeft : '24px'
               }}>
               <SelectQuestionButtonFinalForm name={questionIdField} />
             </Box>

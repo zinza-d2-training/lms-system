@@ -19,7 +19,6 @@ import Contents from './components/Contents/Contents';
 import AddContent from './components/Contents/AddContent/index';
 import ManagerFiles from './components/ManagerFiles/ManagerFiles';
 
-
 function App() {
   return (
     <div className="App">
