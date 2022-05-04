@@ -11,11 +11,11 @@ export enum ContentType {
   Survey = 4,
   Iframe = 5
 }
-export enum QuestionType {
-  MultipleChoice = 1,
-  SingleChoice = 2,
-  FreeText = 3
-}
+// export enum QuestionType {
+//   MultipleChoice = 1,
+//   SingleChoice = 2,
+//   FreeText = 3
+// }
 
 export type Content = {
   id: number;

@@ -1,10 +1,13 @@
 import { Box, Button, ButtonGroup, Typography } from '@mui/material';
-import { TextField } from 'mui-rff';
+import { Autocomplete, TextField } from 'mui-rff';
 import { useField, UseFieldConfig } from 'react-final-form';
 import 'react-quill/dist/quill.snow.css';
 import { CompletedMethod } from '../../../../types/contents';
 import { SelectQuestionButtonFinalForm } from '../../../SelectQuestionButtonFinalForm';
-
+import { Checkbox as MuiCheckbox } from '@material-ui/core';
+import { questions } from '../../../../fakeData/questions';
+import { Question } from '../../../../types/questions';
+import React from 'react';
 interface Props {
   name: string;
   questionIdField: string;
@@ -27,6 +30,11 @@ export const CompletedMethodFinalFormInput = ({
   const changeValue = (value: CompletedMethod) => {
     onChange(value);
   };
+
+  const getQuestions = React.useCallback(() => questions, []);
+  const allQuestions = React.useMemo(() => {
+    return getQuestions();
+  }, [getQuestions]);
 
   return (
     <Box
@@ -71,7 +79,7 @@ export const CompletedMethodFinalFormInput = ({
         </ButtonGroup>
       </Box>
       {value === CompletedMethod.WithQuestion && (
-        <Box className="container-question-select">
+        <Box className="container-question-select" sx={{ mt: 2 }}>
           <Box sx={{ display: 'flex', marginLeft: '42px' }}>
             <Typography
               className="question-select"
@@ -83,9 +91,22 @@ export const CompletedMethodFinalFormInput = ({
             <Box
               sx={{
                 marginTop: '12px',
-                marginLeft : '24px'
+                marginLeft: '24px'
               }}>
               <SelectQuestionButtonFinalForm name={questionIdField} />
+            </Box>
+            <Box>
+              <Autocomplete<number, false, true, false>
+                label="Select a question"
+                name={questionIdField}
+                options={allQuestions.map((item) => item.id)}
+                disableClearable
+                getOptionLabel={(option) =>
+                  allQuestions.find((item) => item.id === option)?.text || ''
+                }
+                size="small"
+                sx={{ width: '300px' }}
+              />
             </Box>
           </Box>
         </Box>

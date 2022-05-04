@@ -6,9 +6,9 @@ import MenuItem from '@mui/material/MenuItem';
 import { alpha, styled } from '@mui/material/styles';
 import * as React from 'react';
 import { useField } from 'react-final-form';
-import { QuestionType } from '../../types/contents';
 import { CreateQuestionDialog } from './CreateQuestionDialog';
 import '../SelectQuestionButtonFinalForm/Modal.css';
+import { QuestionType } from '../../types/questions';
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
     elevation={0}
@@ -73,6 +73,7 @@ export function SelectQuestionButtonFinalForm({ name }: Props) {
     setAnchorEl(null);
   };
   const handleCreated = (id: number) => {
+    setCreatingType(null);
     onChange(1);
   };
 
@@ -103,7 +104,7 @@ export function SelectQuestionButtonFinalForm({ name }: Props) {
             className="font-size-13"
             onClick={() => {
               setAnchorEl(null);
-              setCreatingType(QuestionType.FreeText);
+              setCreatingType(QuestionType.Raw);
             }}>
             Free text
           </MenuItem>
@@ -112,7 +113,7 @@ export function SelectQuestionButtonFinalForm({ name }: Props) {
             className="font-size-13"
             onClick={() => {
               setAnchorEl(null);
-              setCreatingType(QuestionType.MultipleChoice);
+              setCreatingType(QuestionType.Multiple);
             }}>
             Multiple choice
           </MenuItem>
@@ -121,7 +122,7 @@ export function SelectQuestionButtonFinalForm({ name }: Props) {
             className="font-size-13"
             onClick={() => {
               setAnchorEl(null);
-              setCreatingType(QuestionType.SingleChoice);
+              setCreatingType(QuestionType.Single);
             }}>
             Single choice
           </MenuItem>

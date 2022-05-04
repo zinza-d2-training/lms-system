@@ -16,7 +16,10 @@ export const EditorField = ({ name, config }: Props) => {
   } = useField(name, config);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        minHeight: '330px'
+      }}>
       <ReactQuill
         theme="snow"
         value={value}

@@ -23,7 +23,7 @@ const RenderBasicContent = () => {
       CompletedMethod.WithCheckBox,
       CompletedMethod.WithQuestion,
       CompletedMethod.AfterPeriodTime
-    ]), // instead of using number
+    ]),
     content: Yup.string().required('Error : Content is a required field'),
     completedQuestionId: Yup.number(),
     periodTime: Yup.number()

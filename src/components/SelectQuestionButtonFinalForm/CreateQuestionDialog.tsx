@@ -6,17 +6,14 @@ import {
   DialogContentText,
   DialogTitle
 } from '@mui/material';
-import Dialog, { DialogProps } from '@mui/material/Dialog';
+import Dialog from '@mui/material/Dialog';
 import { makeValidate } from 'mui-rff';
 import * as React from 'react';
 import { Form } from 'react-final-form';
-import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
-import { QuestionType } from '../../types/contents';
-import { QuestionForm } from '../../types/questions';
+import { QuestionForm, QuestionType } from '../../types/questions';
 import { EditorField } from '../Contents/Editer/EditorField';
-import CreateChoiceQuestion from './AnswerFinalFormField';
-import CreateFreeTextQuestion from './CreateFreeTextQuestion';
+import AnswerFinalFormField from './AnswerFinalFormField';
 export interface Props {
   type: QuestionType;
   onCreated: (id: number) => void;
@@ -28,11 +25,33 @@ export const CreateQuestionDialog = ({
   handleClose,
   onCreated
 }: Props) => {
+  Yup.addMethod(Yup.array, 'answers', function (errorMessage) {
+    return this.test(`answers`, errorMessage, function (value) {
+      console.log(value);
+
+      return true;
+    });
+  });
   const schema: Yup.SchemaOf<QuestionForm> = Yup.object().shape({
     text: Yup.string()
       .max(80)
       .required('Error : Text content is a required field'),
-    answers: Yup.array().min(1, 'Error : Need at least one valid field')
+    answers: Yup.array()
+      .min(
+        type === QuestionType.Raw ? 0 : 1,
+        'Error : Need at least one valid field'
+      )
+      .test(
+        'atleast-one-correct',
+        'You must specify at least one correct answer',
+        (value) => {
+          if (type === QuestionType.Raw) return true;
+          if (!value?.length) {
+            return true;
+          }
+          return !!value?.some((item) => item.isCorrect);
+        }
+      )
   });
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);
@@ -41,9 +60,9 @@ export const CreateQuestionDialog = ({
 
   const handleSubmit = (value: QuestionForm) => {
     // @TODO: create question and trigger onCreated
-    onCreated(1);
     console.log(value);
-    handleClose();
+    onCreated(1);
+    // handleClose();
   };
   return (
     <Dialog className="Container-dialog-question" open scroll="paper">
@@ -75,10 +94,8 @@ export const CreateQuestionDialog = ({
                     <EditorField name="text" />
                   </Box>
 
-                  {type === QuestionType.FreeText ? (
-                    <CreateFreeTextQuestion />
-                  ) : (
-                    <CreateChoiceQuestion name="answers" />
+                  {type !== QuestionType.Raw && (
+                    <AnswerFinalFormField name="answers" type={type} />
                   )}
                 </DialogContentText>
               </DialogContent>
