@@ -156,16 +156,6 @@ const CourseDetail = () => {
                     Content
                   </Link>
                 </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                  <Link
-                    component={RouterLink}
-                    to={`/courses/${id}/contents/add/${ContentType.Web}`}
-                    underline="none"
-                    color="inherit">
-                    <ContentIconsByType type={ContentType.Web} />
-                    Web content
-                  </Link>
-                </MenuItem>
                 <Divider sx={{ my: 0.5 }} />
                 <MenuItem onClick={handleClose} disableRipple>
                   <Link

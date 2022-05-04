@@ -18,7 +18,7 @@ import React, { useMemo, useState } from 'react';
 import { useField } from 'react-final-form';
 import { Question, QuestionType } from '../../../../types/questions';
 import { CustomizedMenus } from '../../../Courses/ListCourses/MenuActions';
-import { CreateQuestionDialog } from '../../../SelectQuestionButtonFinalForm/CreateQuestionDialog';
+import { QuestionDialogForm } from '../../../SelectQuestionButtonFinalForm/QuestionDialogForm';
 import { QuestionIconsByType } from '../../../common/IconsType';
 
 interface Props {
@@ -139,9 +139,10 @@ const SurveyQuestionListFinalForm = (props: Props) => {
       </Box>
       <Divider />
       {openPopup && (
-        <CreateQuestionDialog
+        <QuestionDialogForm
           type={type}
           id={questionId}
+          forSurvey
           onCreated={(qId) => qId}
           handleClose={() => setOpenPopup(false)}
         />

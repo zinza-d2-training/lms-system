@@ -7,7 +7,8 @@ import { alpha, styled } from '@mui/material/styles';
 import * as React from 'react';
 import { QuestionType } from '../../types/questions';
 import '../SelectQuestionButtonFinalForm/Modal.css';
-import { CreateQuestionDialog } from './CreateQuestionDialog';
+import { QuestionDialogForm } from './QuestionDialogForm';
+import { useField } from 'react-final-form';
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
     elevation={0}
@@ -51,14 +52,17 @@ const StyledMenu = styled((props: MenuProps) => (
   }
 }));
 
-export function SelectQuestionButtonFinalForm() {
-  // { name, config }: Props
+interface Props {
+  name: string;
+}
+
+export function SelectQuestionButtonFinalForm({ name }: Props) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  // const {
-  //   input: { value, onChange }
-  // } = useField(name, config);
+  const {
+    input: { onChange }
+  } = useField(name);
 
   const [creatingType, setCreatingType] = React.useState<QuestionType | null>();
 
@@ -69,8 +73,8 @@ export function SelectQuestionButtonFinalForm() {
     setAnchorEl(null);
   };
   const handleCreated = (id: number) => {
-    // return onChange(id);
-    return id;
+    setCreatingType(null);
+    onChange(1);
   };
 
   return (
@@ -125,8 +129,7 @@ export function SelectQuestionButtonFinalForm() {
         </StyledMenu>
       </Link>
       {creatingType && (
-        <CreateQuestionDialog
-          id={NaN}
+        <QuestionDialogForm
           type={creatingType}
           onCreated={handleCreated}
           handleClose={() => setCreatingType(null)}

@@ -25,7 +25,7 @@ import {
 import { ContentType } from '../../../../types/contents';
 import { QuestionType } from '../../../../types/questions';
 import TabPanel, { a11yProps } from '../../../Layout/Header/TabPanel';
-import { CreateQuestionDialog } from '../../../SelectQuestionButtonFinalForm/CreateQuestionDialog';
+import { QuestionDialogForm } from '../../../SelectQuestionButtonFinalForm/QuestionDialogForm';
 import { useContentInfo } from '../../hook';
 import { useQuestion } from './hook';
 import SurveyOrderQuestion from './SurveyOrderQuestion';
@@ -269,9 +269,10 @@ const Survey = () => {
         }}
       />
       {openPopup && (
-        <CreateQuestionDialog
+        <QuestionDialogForm
           type={type}
           id={NaN}
+          forSurvey
           onCreated={(qId) => qId}
           handleClose={() => setOpenPopup(false)}
         />

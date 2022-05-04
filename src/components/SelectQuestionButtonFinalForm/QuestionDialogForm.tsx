@@ -6,7 +6,7 @@ import {
   DialogContentText,
   DialogTitle
 } from '@mui/material';
-import Dialog, { DialogProps } from '@mui/material/Dialog';
+import Dialog from '@mui/material/Dialog';
 import { makeValidate } from 'mui-rff';
 import * as React from 'react';
 import { Form } from 'react-final-form';
@@ -15,16 +15,16 @@ import { QuestionForm, QuestionType } from '../../types/questions';
 import { useQuestionInfo } from '../Contents/AddContent/Survey/hook';
 import { EditorField } from '../Contents/Editor/EditorField';
 import AnswerFinalFormField from './AnswerFinalFormField';
-import CreateFreeTextQuestion from './CreateFreeTextQuestion';
 
 export interface Props {
   type: QuestionType;
-  id: number;
+  id?: number;
+  forSurvey?: boolean;
   onCreated: (id: number) => void;
   handleClose: () => void;
 }
 
-export const CreateQuestionDialog = (props: Props) => {
+export const QuestionDialogForm = (props: Props) => {
   const { questionInfo } = useQuestionInfo(props.id);
 
   const initialValues = React.useMemo<QuestionForm>(() => {
@@ -34,9 +34,8 @@ export const CreateQuestionDialog = (props: Props) => {
     };
   }, [questionInfo?.answers, questionInfo?.text]);
 
-  const [open, setOpen] = React.useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
+  const [open, setOpen] = React.useState(false);
 
   const type = questionInfo?.type || props.type;
 
@@ -44,10 +43,22 @@ export const CreateQuestionDialog = (props: Props) => {
     text: Yup.string()
       .max(80)
       .required('Error : Text content is a required field'),
-    answers: Yup.array().min(
-      type === QuestionType.Raw ? 0 : 1,
-      'You must specify at least one possible question'
-    )
+    answers: Yup.array()
+      .min(
+        type === QuestionType.Raw ? 0 : 1,
+        'Error : Need at least one valid field'
+      )
+      .test(
+        'atleast-one-correct',
+        'You must specify at least one correct answer',
+        (value) => {
+          if (type === QuestionType.Raw || props.forSurvey) return true;
+          if (!value?.length) {
+            return true;
+          }
+          return !!value?.some((item) => item.isCorrect);
+        }
+      )
   });
   const descriptionElementRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
@@ -62,19 +73,21 @@ export const CreateQuestionDialog = (props: Props) => {
   const validate = makeValidate(schema);
 
   const handleSubmit = (value: QuestionForm) => {
-    setOpen(false);
-    console.log('', value);
+    // @TODO: create question and trigger onCreated
+    console.log(value);
+    props.onCreated(1);
+    // handleClose();
   };
   return (
-    <Dialog className="Container-dialog-question" open scroll={scroll}>
+    <Dialog className="Container-dialog-question" open scroll="paper">
       <DialogTitle id="scroll-dialog-title" sx={{ color: 'red' }}>
         Please write your question :
       </DialogTitle>
       <Form<QuestionForm>
         validate={validate}
-        initialValues={initialValues}
         onSubmit={handleSubmit}
-        render={({ handleSubmit }) => {
+        initialValues={initialValues}
+        render={({ handleSubmit, errors }) => {
           return (
             <form
               onSubmit={handleSubmit}
@@ -83,7 +96,7 @@ export const CreateQuestionDialog = (props: Props) => {
                 flexDirection: 'column',
                 overflowY: 'auto'
               }}>
-              <DialogContent dividers={scroll === 'paper'}>
+              <DialogContent dividers>
                 <DialogContentText
                   id="scroll-dialog-description"
                   ref={descriptionElementRef}
@@ -92,10 +105,12 @@ export const CreateQuestionDialog = (props: Props) => {
                     <EditorField name="text" />
                   </Box>
 
-                  {props.type === QuestionType.Raw ? (
-                    <CreateFreeTextQuestion />
-                  ) : (
-                    <AnswerFinalFormField name="answers" />
+                  {type !== QuestionType.Raw && (
+                    <AnswerFinalFormField
+                      name="answers"
+                      type={type}
+                      forSurvey={props.forSurvey}
+                    />
                   )}
                 </DialogContentText>
               </DialogContent>

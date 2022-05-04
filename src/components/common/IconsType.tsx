@@ -1,6 +1,5 @@
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
-import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
 import CodeIcon from '@mui/icons-material/Code';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
@@ -78,13 +77,6 @@ export const ContentIconsByType = (props: { type: ContentType }) => {
           case ContentType.Iframe:
             return (
               <CodeIcon
-                fontSize="small"
-                sx={{ border: 'unset', marginRight: '5px' }}
-              />
-            );
-          case ContentType.Web:
-            return (
-              <CloudOutlinedIcon
                 fontSize="small"
                 sx={{ border: 'unset', marginRight: '5px' }}
               />

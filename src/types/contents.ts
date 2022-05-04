@@ -11,8 +11,7 @@ export enum ContentType {
   Video = 2,
   Audio = 3,
   Survey = 4,
-  Iframe = 5,
-  Web = 6
+  Iframe = 5
 }
 
 export type Content = {
@@ -25,6 +24,8 @@ export type Content = {
   type: ContentType;
   link?: string;
   questions?: Array<Question>;
+  completedQuestionId?: number;
+  periodTime?: number;
 };
 
 export type ContentFormData = Omit<
@@ -34,3 +35,5 @@ export type ContentFormData = Omit<
   questions?: Array<number>;
   courseId?: number;
 };
+
+export type ContentInfo = Omit<Content, 'id' | 'sequence'>;

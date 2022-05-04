@@ -7,18 +7,18 @@ import FormGroup from '@mui/material/FormGroup';
 import { cloneDeep } from 'lodash';
 import * as React from 'react';
 import { useField } from 'react-final-form';
-import { useParams } from 'react-router-dom';
-import { ContentType } from '../../types/contents';
+import { QuestionType } from '../../types/questions';
 import '../SelectQuestionButtonFinalForm/Modal.css';
 interface Props {
   name: string;
+  forSurvey?: boolean;
+  type: QuestionType;
 }
 interface AnswerFormField {
   text: string;
   isCorrect: boolean;
 }
-export default function AnswerFinalFormField({ name }: Props) {
-  const { type: contentType } = useParams<{ type: string }>();
+export default function AnswerFinalFormField({ name, forSurvey, type }: Props) {
   const {
     input: { onChange },
     meta
@@ -42,6 +42,7 @@ export default function AnswerFinalFormField({ name }: Props) {
           width: '100%'
         }}>
         {options.map((item, index) => {
+          const correctAnswerIdx = options.findIndex((item) => item.isCorrect); // using for single choice
           return (
             <>
               <Box
@@ -70,11 +71,16 @@ export default function AnswerFinalFormField({ name }: Props) {
                   id="outlined-disabled"
                   label="Answer"
                 />
-                {ContentType.Survey.toString() !== contentType ? (
+                {!forSurvey ? (
                   <FormControlLabel
                     sx={{
                       marginRight: '-12px'
                     }}
+                    disabled={
+                      correctAnswerIdx !== -1 &&
+                      correctAnswerIdx !== index &&
+                      type === QuestionType.Single
+                    }
                     control={
                       <Checkbox
                         defaultChecked={item.isCorrect}
@@ -96,9 +102,7 @@ export default function AnswerFinalFormField({ name }: Props) {
                     }
                     label="Correct"
                   />
-                ) : (
-                  <></>
-                )}
+                ) : null}
                 <Button
                   onClick={() => {
                     setOptions(options.filter((opt, i) => index !== i));

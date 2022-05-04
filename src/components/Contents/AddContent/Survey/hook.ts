@@ -23,11 +23,11 @@ export const useQuestion = () => {
   };
 };
 
-export const useQuestionInfo = (questionId: number) => {
+export const useQuestionInfo = (questionId?: number) => {
   const [questionInfo, setQuestionInfo] = useState<Question | undefined>();
 
   useEffect(() => {
-    const getQuestion = async (questionId: number) => {
+    const getQuestion = async (questionId?: number) => {
       if (questionId) {
         const info = await getQuestionInfo(questionId);
         setQuestionInfo(info);
