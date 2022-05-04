@@ -31,3 +31,4 @@ export type Content = {
 };
 
 export type ContentInfo = Omit<Content, 'id' | 'sequence'>;
+

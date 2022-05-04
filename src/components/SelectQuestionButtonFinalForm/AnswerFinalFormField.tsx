@@ -16,7 +16,6 @@ interface AnswerFormField {
   isCorrect: boolean;
 }
 export default function AnswerFinalFormField({ name }: Props) {
-  const [showErrAnswer, setshowErrAnswer] = React.useState(false);
   const {
     input: { value, onChange },
     meta: { submitFailed, error }

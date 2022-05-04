@@ -19,7 +19,11 @@ const RenderBasicContent = () => {
   const { id } = useParams() as { id: string };
   const schema: Yup.SchemaOf<BasicContentForm> = Yup.object().shape({
     name: Yup.string().max(80).required('Error : Name is a required field'),
-    completedMethod: Yup.mixed().oneOf([1, 2, 3]),
+    completedMethod: Yup.mixed().oneOf([
+      CompletedMethod.WithCheckBox,
+      CompletedMethod.WithQuestion,
+      CompletedMethod.AfterPeriodTime
+    ]), // instead of using number
     content: Yup.string().required('Error : Content is a required field'),
     completedQuestionId: Yup.number(),
     periodTime: Yup.number()
