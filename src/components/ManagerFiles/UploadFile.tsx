@@ -5,10 +5,8 @@ import { useEffect } from 'react';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 
 const UploadFile = () => {
-  const [selectedFiles, setSelectedFiles] = useState<File | undefined>(
-    undefined
-  );
-  const onDrop = useCallback((acceptedFiles) => {
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const onDrop = useCallback((acceptedFiles: File[]) => {
     setSelectedFiles(acceptedFiles);
   }, []);
 

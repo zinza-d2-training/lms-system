@@ -9,14 +9,11 @@
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@material-ui/pickers": "3.x.x",
     "@mui/icons-material": "^5.6.0",
+    "@mui/lab": "^5.0.0-alpha.80",
     "@mui/material": "^5.0.4",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
-    "@types/react": "^17.0.20",
-    "@types/react-dom": "^17.0.9",
     "cors": "^2.8.5",
     "date-fns": "^2.28.0",
     "express": "^4.17.1",
@@ -47,9 +44,9 @@
     "eject": "react-scripts eject",
     "eslint": "eslint --ext .js,.jsx,.ts,.tsx src/",
     "eslint:fix": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix",
-    "prettier": "prettier --check src/*.{ts,js,tsx}",
-    "prettier:fix": "prettier --write src/*.{ts,js,tsx}",
-    "prettier:quick": "pretty-quick --pattern src/*.{ts,js,tsx}"
+    "prettier": "prettier --check src/**/*.{ts,js,tsx}",
+    "prettier:fix": "prettier --write src/**/*.{ts,js,tsx}",
+    "prettier:quick": "pretty-quick --pattern src/**/*.{ts,js,tsx}"
   },
   "eslintConfig": {
     "extends": [
@@ -75,6 +72,10 @@
     "@types/react-router-dom": "^5.3.3",
     "eslint-plugin": "^1.0.1",
     "prettier": "^2.6.1",
-    "yarn": "^1.22.18"
+    "yarn": "^1.22.18",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^16.7.13",
+    "@types/react": "^18.0.8",
+    "@types/react-dom": "^17.0.9"
   }
 }

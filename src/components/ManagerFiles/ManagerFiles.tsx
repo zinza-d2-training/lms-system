@@ -46,8 +46,8 @@ const ManagerFiles = () => {
                   sx={{ fontSize: '12px' }}
                   onChange={handleChange}
                   aria-label="lab API tabs example">
-                  <Tab label="Course users" value="1" />
-                  <Tab label="Enroll users" value="2" />
+                  <Tab label="Upload file" value="1" />
+                  <Tab label="Use link" value="2" />
                 </TabList>
               </Box>
               <TabPanel value="1">

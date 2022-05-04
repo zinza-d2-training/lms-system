@@ -4,9 +4,7 @@ import { useField, UseFieldConfig } from 'react-final-form';
 import 'react-quill/dist/quill.snow.css';
 import { CompletedMethod } from '../../../../types/contents';
 import { SelectQuestionButtonFinalForm } from '../../../SelectQuestionButtonFinalForm';
-import { Checkbox as MuiCheckbox } from '@material-ui/core';
 import { questions } from '../../../../fakeData/questions';
-import { Question } from '../../../../types/questions';
 import React from 'react';
 interface Props {
   name: string;

@@ -11,19 +11,26 @@ import { QuestionType } from '../../types/questions';
 import '../SelectQuestionButtonFinalForm/Modal.css';
 interface Props {
   name: string;
+  forSurvey?: boolean;
   type: QuestionType;
 }
 interface AnswerFormField {
   text: string;
   isCorrect: boolean;
 }
-export default function AnswerFinalFormField({ name, type }: Props) {
+export default function AnswerFinalFormField({ name, forSurvey, type }: Props) {
   const {
-    input: { value, onChange },
-    meta: { submitFailed, error }
+    input: { onChange },
+    meta
   } = useField<AnswerFormField[]>(name);
-  const [options, setOptions] = React.useState<AnswerFormField[]>(value || []);
+  const { submitFailed, error, initial } = meta;
 
+  const [options, setOptions] = React.useState<AnswerFormField[]>([]);
+  React.useEffect(() => {
+    if (initial) {
+      setOptions(initial);
+    }
+  }, [initial]);
   React.useEffect(() => {
     onChange(options.filter((option) => !!option.text));
   }, [onChange, options]);
@@ -64,37 +71,38 @@ export default function AnswerFinalFormField({ name, type }: Props) {
                   id="outlined-disabled"
                   label="Answer"
                 />
-                <FormControlLabel
-                  sx={{
-                    marginRight: '-12px'
-                  }}
-                  disabled={
-                    correctAnswerIdx !== -1 &&
-                    correctAnswerIdx !== index &&
-                    type === QuestionType.Single
-                  }
-                  control={
-                    <Checkbox
-                      defaultChecked={item.isCorrect}
-                      onChange={(e) => {
-                        const val = e.target.checked;
-                        setOptions(
-                          options.map((answer, i) => {
-                            if (index === i) {
-                              return {
-                                text: answer.text,
-                                isCorrect: val
-                              };
-                            }
-                            return answer;
-                          })
-                        );
-                      }}
-                    />
-                  }
-                  label="Correct"
-                />
-
+                {!forSurvey ? (
+                  <FormControlLabel
+                    sx={{
+                      marginRight: '-12px'
+                    }}
+                    disabled={
+                      correctAnswerIdx !== -1 &&
+                      correctAnswerIdx !== index &&
+                      type === QuestionType.Single
+                    }
+                    control={
+                      <Checkbox
+                        defaultChecked={item.isCorrect}
+                        onChange={(e) => {
+                          const val = e.target.checked;
+                          setOptions(
+                            options.map((answer, i) => {
+                              if (index === i) {
+                                return {
+                                  text: answer.text,
+                                  isCorrect: val
+                                };
+                              }
+                              return answer;
+                            })
+                          );
+                        }}
+                      />
+                    }
+                    label="Correct"
+                  />
+                ) : null}
                 <Button
                   onClick={() => {
                     setOptions(options.filter((opt, i) => index !== i));
@@ -107,7 +115,7 @@ export default function AnswerFinalFormField({ name, type }: Props) {
         })}
       </FormGroup>
       <Box sx={{ marginLeft: '18px', mt: 1 }}>
-        <Typography variant="body2" color="#d32f2f">
+        <Typography variant="body2" color="#D32F2F">
           {submitFailed && error?.length && error[0]}
         </Typography>
       </Box>

@@ -1,14 +1,8 @@
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
-import CloudOutlinedIcon from '@mui/icons-material/CloudOutlined';
-import CodeIcon from '@mui/icons-material/Code';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import HeightIcon from '@mui/icons-material/Height';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import SlowMotionVideoOutlinedIcon from '@mui/icons-material/SlowMotionVideoOutlined';
-import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import {
   Box,
   Button,
@@ -30,9 +24,11 @@ import {
 } from 'react-beautiful-dnd';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import { reorderCourseContents } from '../../services/ContentService';
+import { ContentType } from '../../types/contents';
+import { ContentIconsByType } from '../common/IconsType';
+import CourseRightMenu from '../CourseRightMenu/CourseRightMenu';
 import { useContentData, useCourseData } from './hook';
 import { StyledMenu } from './StyledMenu';
-import CourseRightMenu from '../CourseRightMenu/CourseRightMenu';
 
 const btnStyle = {
   backgroundColor: '#000FE3',
@@ -73,7 +69,7 @@ const CourseDetail = () => {
     items.forEach((item, index) => {
       reOrderMapping[item.sequence] = index + 1;
     });
-    const contents = await reorderCourseContents(reOrderMapping);
+    const contents = await reorderCourseContents(id, reOrderMapping);
     setTodo(contents);
   };
   useEffect(() => {
@@ -153,41 +149,31 @@ const CourseDetail = () => {
                 <MenuItem onClick={handleClose} disableRipple>
                   <Link
                     component={RouterLink}
-                    to={`/courses/${id}/contents/add/basic`}
+                    to={`/courses/${id}/contents/add/${ContentType.Basic}`}
                     underline="none"
                     color="inherit">
-                    <ArticleOutlinedIcon />
+                    <ContentIconsByType type={ContentType.Basic} />
                     Content
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={handleClose} disableRipple>
-                  <Link
-                    component={RouterLink}
-                    to={`/courses/${id}/contents/add/web`}
-                    underline="none"
-                    color="inherit">
-                    <CloudOutlinedIcon />
-                    Web content
                   </Link>
                 </MenuItem>
                 <Divider sx={{ my: 0.5 }} />
                 <MenuItem onClick={handleClose} disableRipple>
                   <Link
                     component={RouterLink}
-                    to={`/courses/${id}/contents/add/video`}
+                    to={`/courses/${id}/contents/add/${ContentType.Video}`}
                     underline="none"
                     color="inherit">
-                    <SlowMotionVideoOutlinedIcon />
+                    <ContentIconsByType type={ContentType.Video} />
                     Video
                   </Link>
                 </MenuItem>
                 <MenuItem onClick={handleClose} disableRipple>
                   <Link
                     component={RouterLink}
-                    to={`/courses/${id}/contents/add/audio`}
+                    to={`/courses/${id}/contents/add/${ContentType.Audio}`}
                     underline="none"
                     color="inherit">
-                    <VolumeUpIcon />
+                    <ContentIconsByType type={ContentType.Audio} />
                     Audio
                   </Link>
                 </MenuItem>
@@ -195,10 +181,10 @@ const CourseDetail = () => {
                 <MenuItem onClick={handleClose} disableRipple>
                   <Link
                     component={RouterLink}
-                    to={`/courses/${id}/contents/add/iframe`}
+                    to={`/courses/${id}/contents/add/${ContentType.Iframe}`}
                     underline="none"
                     color="inherit">
-                    <CodeIcon />
+                    <ContentIconsByType type={ContentType.Iframe} />
                     Iframe
                   </Link>
                 </MenuItem>
@@ -206,10 +192,10 @@ const CourseDetail = () => {
                 <MenuItem onClick={handleClose} disableRipple>
                   <Link
                     component={RouterLink}
-                    to={`/courses/${id}/contents/add/survey`}
+                    to={`/courses/${id}/contents/add/${ContentType.Survey}`}
                     underline="none"
                     color="inherit">
-                    <CheckBoxOutlinedIcon />
+                    <ContentIconsByType type={ContentType.Survey} />
                     Survey
                   </Link>
                 </MenuItem>
@@ -323,6 +309,7 @@ const CourseDetail = () => {
                         opacity: 1
                       }
                     }}>
+                    <ContentIconsByType type={item.type} />
                     <Link
                       component={RouterLink}
                       to={`/courses/${id}/unit/view/${item.id}`}

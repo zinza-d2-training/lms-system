@@ -63,9 +63,7 @@ interface Props {
   items: RightMenuItem[];
 }
 
-export const CustomizedMenus: FC< Props> = ({
-  items
-}) => {
+export const CustomizedMenus: FC<Props> = ({ items }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -114,7 +112,7 @@ export const CustomizedMenus: FC< Props> = ({
             className={item.className ? item.className : 'option-link'}>
             <MenuItem disableRipple>
               {item.icon}
-              Synchronize
+              {item.label}
             </MenuItem>
           </Link>
         ))}

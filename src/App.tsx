@@ -2,22 +2,21 @@ import { SnackbarProvider } from 'notistack';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/common/PrivateRoute';
+import AddContent from './components/Contents/AddContent/index';
+import Contents from './components/Contents/Contents';
+import { Courses as CourseIndex } from './components/Courses';
+import CourseDetail from './components/Courses/CourseDetail';
 import CourseForm from './components/Courses/CourseForm';
 import Courses from './components/Courses/Courses';
-import { Courses as CourseIndex } from './components/Courses';
+import ListCoursesRender from './components/Courses/ListCourses/ListCourses';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
+import { ManagementUser } from './components/ManagementUser/ManagementUser';
+import ManagerFiles from './components/ManagerFiles/ManagerFiles';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
-import ListCoursesRender from './components/Courses/ListCourses/ListCourses';
 import { UserRole } from './types/users';
-import { ManagementUser } from './components/ManagementUser/ManagementUser';
-import CourseDetail from './components/Courses/CourseDetail';
-
-import Contents from './components/Contents/Contents';
-import AddContent from './components/Contents/AddContent/index';
-import ManagerFiles from './components/ManagerFiles/ManagerFiles';
 
 function App() {
   return (
@@ -90,7 +89,7 @@ function App() {
               <Route
                 path=":id/contents/view/:contentId"
                 element={
-                  <PrivateRoute roles={[UserRole.Instructor]}>
+                  <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
                     <Contents />
                   </PrivateRoute>
                 }
@@ -101,8 +100,7 @@ function App() {
                   <PrivateRoute roles={[UserRole.Instructor]}>
                     <AddContent />
                   </PrivateRoute>
-                }
-              />
+                }></Route>
               <Route
                 path=":id/contents/add/:type"
                 element={

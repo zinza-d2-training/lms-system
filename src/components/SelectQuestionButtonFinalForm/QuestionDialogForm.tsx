@@ -12,19 +12,33 @@ import * as React from 'react';
 import { Form } from 'react-final-form';
 import * as Yup from 'yup';
 import { QuestionForm, QuestionType } from '../../types/questions';
-import { EditorField } from '../Contents/Editer/EditorField';
+import { useQuestionInfo } from '../Contents/AddContent/Survey/hook';
+import { EditorField } from '../Contents/Editor/EditorField';
 import AnswerFinalFormField from './AnswerFinalFormField';
+
 export interface Props {
   type: QuestionType;
+  id?: number;
+  forSurvey?: boolean;
   onCreated: (id: number) => void;
   handleClose: () => void;
 }
 
-export const CreateQuestionDialog = ({
-  type,
-  handleClose,
-  onCreated
-}: Props) => {
+export const QuestionDialogForm = (props: Props) => {
+  const { questionInfo } = useQuestionInfo(props.id);
+
+  const initialValues = React.useMemo<QuestionForm>(() => {
+    return {
+      text: questionInfo?.text || '',
+      answers: (questionInfo?.answers || []).map((item) => item)
+    };
+  }, [questionInfo?.answers, questionInfo?.text]);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [open, setOpen] = React.useState(false);
+
+  const type = questionInfo?.type || props.type;
+
   const schema: Yup.SchemaOf<QuestionForm> = Yup.object().shape({
     text: Yup.string()
       .max(80)
@@ -38,7 +52,7 @@ export const CreateQuestionDialog = ({
         'atleast-one-correct',
         'You must specify at least one correct answer',
         (value) => {
-          if (type === QuestionType.Raw) return true;
+          if (type === QuestionType.Raw || props.forSurvey) return true;
           if (!value?.length) {
             return true;
           }
@@ -46,15 +60,22 @@ export const CreateQuestionDialog = ({
         }
       )
   });
-
   const descriptionElementRef = React.useRef<HTMLElement>(null);
+  React.useEffect(() => {
+    if (open) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [open]);
 
   const validate = makeValidate(schema);
 
   const handleSubmit = (value: QuestionForm) => {
     // @TODO: create question and trigger onCreated
     console.log(value);
-    onCreated(1);
+    props.onCreated(1);
     // handleClose();
   };
   return (
@@ -64,11 +85,8 @@ export const CreateQuestionDialog = ({
       </DialogTitle>
       <Form<QuestionForm>
         validate={validate}
-        initialValues={{
-          text: '',
-          answers: []
-        }}
         onSubmit={handleSubmit}
+        initialValues={initialValues}
         render={({ handleSubmit, errors }) => {
           return (
             <form
@@ -88,12 +106,16 @@ export const CreateQuestionDialog = ({
                   </Box>
 
                   {type !== QuestionType.Raw && (
-                    <AnswerFinalFormField name="answers" type={type} />
+                    <AnswerFinalFormField
+                      name="answers"
+                      type={type}
+                      forSurvey={props.forSurvey}
+                    />
                   )}
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose}>Cancel</Button>
+                <Button onClick={props.handleClose}>Cancel</Button>
                 <Button
                   size="small"
                   variant="contained"
@@ -105,7 +127,7 @@ export const CreateQuestionDialog = ({
             </form>
           );
         }}
-      />{' '}
+      />
     </Dialog>
   );
 };

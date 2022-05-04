@@ -1,7 +1,7 @@
-import { Files } from '../types/files';
+import { File } from '../types/files';
 import { formatDateTime } from '../utils/datetime';
 
-export const files: Files[] = [
+export const files: File[] = [
   {
     id: 1,
     name: 'The different roles.mp4',

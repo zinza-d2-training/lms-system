@@ -29,8 +29,6 @@ import { changeRole, logout } from '../../../services/AuthService';
 import { UserRole } from '../../../types/users';
 import TabPanel, { a11yProps } from './TabPanel';
 
-
-
 const paper = {
   elevation: 0,
   sx: {
@@ -302,7 +300,7 @@ const Header = () => {
                       <Tab label="Item Three" {...a11yProps(2)} />
                       <Tab label="Item Four" {...a11yProps(3)} />
                     </Tabs>
-                    <TabPanel value={value} index={0} height='390px'>
+                    <TabPanel value={value} index={0} height="390px">
                       <TextField placeholder={'search'} size="small" />
                       <p>
                         Item One Lorem ipsum, dolor sit amet consectetur
@@ -312,13 +310,13 @@ const Header = () => {
                         laudantium voluptatibus dolorem.
                       </p>
                     </TabPanel>
-                    <TabPanel value={value} index={1} height='390px'>
+                    <TabPanel value={value} index={1} height="390px">
                       Item Two
                     </TabPanel>
-                    <TabPanel value={value} index={2} height='390px'>
+                    <TabPanel value={value} index={2} height="390px">
                       Item Three
                     </TabPanel>
-                    <TabPanel value={value} index={3} height='390px'>
+                    <TabPanel value={value} index={3} height="390px">
                       Item Four
                     </TabPanel>
                   </Box>

@@ -27,7 +27,7 @@ const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
 const validate = makeValidate(schema);
 
 const CourseForm = () => {
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
   const { id: courseId } = useParams() as { id: string };
   const id =
     courseId && !isNaN(parseInt(courseId)) ? parseInt(courseId) : undefined;
@@ -41,17 +41,16 @@ const CourseForm = () => {
         await updateCourse(id, courseInfo);
         enqueueSnackbar('Success!', {
           variant: 'success'
-        })
+        });
       } else {
         await createCourse(courseInfo);
       }
     } catch (error) {
-      enqueueSnackbar({'Error': error}, {
+      enqueueSnackbar(String(error), {
         variant: 'error'
-      })
+      });
     }
   };
-
 
   return loading ? (
     <>loading...</>
@@ -153,7 +152,7 @@ const CourseForm = () => {
 
                     <Box
                       sx={{
-                        marginTop:'20px',
+                        marginTop: '20px',
                         flex: 1,
                         textAlign: 'center'
                       }}>

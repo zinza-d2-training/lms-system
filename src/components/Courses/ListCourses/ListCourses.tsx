@@ -1,6 +1,5 @@
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import ReplyIcon from '@mui/icons-material/Reply';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
@@ -12,8 +11,6 @@ import {
   TableContainer,
   TextField
 } from '@mui/material';
-import Divider from '@mui/material/Divider';
-import MenuItem from '@mui/material/MenuItem';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -22,12 +19,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { Link as RouterLink } from 'react-router-dom';
 import { courses } from '../../../fakeData/courses';
+import './ListCourses.css';
 import { CustomizedMenus } from './MenuActions';
 
-import './ListCourses.css';
-
 const ListCoursesRender = () => {
-  // console.log(ListCourses);
   const handleDelete = () => {};
   return (
     <>

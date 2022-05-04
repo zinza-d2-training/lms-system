@@ -1,3 +1,5 @@
+import { Question } from './questions';
+
 export enum CompletedMethod {
   WithCheckBox = 1,
   WithQuestion = 2,
@@ -11,24 +13,27 @@ export enum ContentType {
   Survey = 4,
   Iframe = 5
 }
-// export enum QuestionType {
-//   MultipleChoice = 1,
-//   SingleChoice = 2,
-//   FreeText = 3
-// }
 
 export type Content = {
   id: number;
   name: string;
   courseId: number;
-  completedMethod: CompletedMethod;
+  completedMethod?: CompletedMethod;
   content?: string;
   sequence: number;
   type: ContentType;
   link?: string;
+  questions?: Array<Question>;
   completedQuestionId?: number;
   periodTime?: number;
 };
 
-export type ContentInfo = Omit<Content, 'id' | 'sequence'>;
+export type ContentFormData = Omit<
+  Content,
+  'id' | 'sequence' | 'questions' | 'courseId'
+> & {
+  questions?: Array<number>;
+  courseId?: number;
+};
 
+export type ContentInfo = Omit<Content, 'id' | 'sequence'>;

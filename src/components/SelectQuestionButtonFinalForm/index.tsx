@@ -5,10 +5,10 @@ import Menu, { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { alpha, styled } from '@mui/material/styles';
 import * as React from 'react';
-import { useField } from 'react-final-form';
-import { CreateQuestionDialog } from './CreateQuestionDialog';
-import '../SelectQuestionButtonFinalForm/Modal.css';
 import { QuestionType } from '../../types/questions';
+import '../SelectQuestionButtonFinalForm/Modal.css';
+import { QuestionDialogForm } from './QuestionDialogForm';
+import { useField } from 'react-final-form';
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
     elevation={0}
@@ -61,7 +61,7 @@ export function SelectQuestionButtonFinalForm({ name }: Props) {
   const open = Boolean(anchorEl);
 
   const {
-    input: { value, onChange }
+    input: { onChange }
   } = useField(name);
 
   const [creatingType, setCreatingType] = React.useState<QuestionType | null>();
@@ -129,7 +129,7 @@ export function SelectQuestionButtonFinalForm({ name }: Props) {
         </StyledMenu>
       </Link>
       {creatingType && (
-        <CreateQuestionDialog
+        <QuestionDialogForm
           type={creatingType}
           onCreated={handleCreated}
           handleClose={() => setCreatingType(null)}

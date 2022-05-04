@@ -5,7 +5,7 @@ interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
-  height: string
+  height: string;
 }
 export function a11yProps(index: number) {
   return {
@@ -14,7 +14,7 @@ export function a11yProps(index: number) {
   };
 }
 const TabPanel = (props: TabPanelProps) => {
-  const { children, value, index, height,...other } = props;
+  const { children, value, index, height, ...other } = props;
 
   return (
     <div
@@ -24,7 +24,7 @@ const TabPanel = (props: TabPanelProps) => {
       aria-labelledby={`vertical-tab-${index}`}
       {...other}>
       {value === index && (
-        <Box sx={{ p: 3, Height:{height}, boxSizing: 'border-box' }}>
+        <Box sx={{ p: 3, Height: { height }, boxSizing: 'border-box' }}>
           <Typography>{children}</Typography>
         </Box>
       )}

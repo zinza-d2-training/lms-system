@@ -1,4 +1,4 @@
-export type Files = {
+export type File = {
   id: number;
   name: string;
   size: string;

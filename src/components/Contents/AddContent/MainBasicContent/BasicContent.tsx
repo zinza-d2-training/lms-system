@@ -3,10 +3,9 @@ import Typography from '@mui/material/Typography';
 import { makeValidate, TextField } from 'mui-rff';
 import * as React from 'react';
 import { Form } from 'react-final-form';
-import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { CompletedMethod, Content } from '../../../../types/contents';
-import { EditorField } from '../../Editer/EditorField';
+import { EditorField } from '../../Editor/EditorField';
 import { CompletedMethodFinalFormInput } from './CompletedMethodFinalFormInput';
 import './StyleTabBasicContent.css';
 
@@ -16,7 +15,6 @@ type BasicContentForm = Pick<
 >;
 
 const RenderBasicContent = () => {
-  const { id } = useParams() as { id: string };
   const schema: Yup.SchemaOf<BasicContentForm> = Yup.object().shape({
     name: Yup.string().max(80).required('Error : Name is a required field'),
     completedMethod: Yup.mixed().oneOf([
