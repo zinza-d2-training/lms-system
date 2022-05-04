@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import { useField, UseFieldConfig } from 'react-final-form';
 import ReactQuill from 'react-quill';
+import React from 'react';
 import 'react-quill/dist/quill.snow.css';
 import './style.css';
 

@@ -77,12 +77,9 @@ const Survey = () => {
         await createContent(parseInt(id), newContent);
       }
     } catch (error) {
-      enqueueSnackbar(
-        { Error: error },
-        {
-          variant: 'error'
-        }
-      );
+      enqueueSnackbar(String(error), {
+        variant: 'error'
+      });
     }
   };
   const handleOnclick = (e: React.MouseEvent<HTMLButtonElement>) => {

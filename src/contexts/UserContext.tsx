@@ -1,4 +1,4 @@
-import { createContext, FC, useEffect, useState } from 'react';
+import React, { createContext, FC, useEffect, useState } from 'react';
 import { getCurrentUser } from '../services/AuthService';
 import { User, UserRole } from '../types/users';
 
@@ -12,7 +12,11 @@ export const UserContext = createContext<defaultUserContext>({
   role: undefined
 });
 
-export const UserProvider: FC = ({ children }) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+export const UserProvider: FC<Props> = ({ children }) => {
   const [user, setUser] = useState<Pick<User, 'id' | 'email'>>();
   const [role, setRole] = useState<UserRole>();
   const [loading, setLoading] = useState<boolean>(true);

@@ -46,12 +46,9 @@ const CourseForm = () => {
         await createCourse(courseInfo);
       }
     } catch (error) {
-      enqueueSnackbar(
-        { Error: error },
-        {
-          variant: 'error'
-        }
-      );
+      enqueueSnackbar(String(error), {
+        variant: 'error'
+      });
     }
   };
 

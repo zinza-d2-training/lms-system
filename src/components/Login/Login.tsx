@@ -45,12 +45,9 @@ const Login = () => {
           variant: 'success'
         });
       } catch (e) {
-        enqueueSnackbar(
-          { Error: e },
-          {
-            variant: 'error'
-          }
-        );
+        enqueueSnackbar(String(e), {
+          variant: 'error'
+        });
       }
     }
   };
