@@ -17,7 +17,6 @@ import CourseDetail from './components/Courses/CourseDetail';
 
 import Contents from './components/Contents/Contents';
 import AddContent from './components/Contents/AddContent/index';
-
 import ManagerFiles from './components/ManagerFiles/ManagerFiles';
 
 function App() {
@@ -69,6 +68,14 @@ function App() {
                 element={
                   <PrivateRoute roles={[UserRole.Instructor]}>
                     <ManagementUser />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path=":id/files"
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor]}>
+                    <ManagerFiles />
                   </PrivateRoute>
                 }
               />
