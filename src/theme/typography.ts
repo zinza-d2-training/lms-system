@@ -1,4 +1,4 @@
-import { ThemeOptions } from "@mui/material";
+import { ThemeOptions } from '@mui/material';
 
 const typography: ThemeOptions['typography'] = (palette) => ({
   large: {

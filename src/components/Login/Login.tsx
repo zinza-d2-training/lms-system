@@ -21,7 +21,7 @@ const schema: Yup.SchemaOf<LoginFormData> = Yup.object().shape({
 
 const validate = makeValidate<LoginFormData>(schema);
 const Login = () => {
-  const { enqueueSnackbar } = useSnackbar()
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
   const location = useLocation();
@@ -43,11 +43,14 @@ const Login = () => {
         );
         enqueueSnackbar('Success!', {
           variant: 'success'
-        })
+        });
       } catch (e) {
-        enqueueSnackbar({'Error': e}, {
-          variant: 'error'
-        })
+        enqueueSnackbar(
+          { Error: e },
+          {
+            variant: 'error'
+          }
+        );
       }
     }
   };
@@ -107,7 +110,13 @@ const Login = () => {
                     Login
                   </Button>
                   <Typography sx={{ textAlign: 'center' }}>
-                    Forgot your <Link underline='none' to={'/forgot'} component={RouterLink}>password?</Link>
+                    Forgot your{' '}
+                    <Link
+                      underline="none"
+                      to={'/forgot'}
+                      component={RouterLink}>
+                      password?
+                    </Link>
                   </Typography>
                 </form>
               );

@@ -68,7 +68,9 @@ export const Courses = () => {
                       />
                       <Box className="courses-item-container">
                         <button className="courses-item-left">
-                          <Link component={RouterLink} to={`/courses/${course.id}`}>
+                          <Link
+                            component={RouterLink}
+                            to={`/courses/${course.id}`}>
                             <ModeEditIcon />
                           </Link>
                         </button>

@@ -1,4 +1,4 @@
- import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';

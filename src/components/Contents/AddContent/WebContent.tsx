@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const WebContent = () => {
-  return (
-    <div>WebContent</div>
-  )
-}
+  return <div>WebContent</div>;
+};
 
-export default WebContent
+export default WebContent;

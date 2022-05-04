@@ -28,7 +28,7 @@ const Contents = () => {
   const { contentId } = useParams() as { contentId: string };
   const { contentInfo: initialValues } = useContentInfo(parseInt(contentId));
 
-  const handleSubmit = () => {}
+  const handleSubmit = () => {};
   return (
     <>
       <Box component="form">
@@ -39,50 +39,48 @@ const Contents = () => {
           render={({ handleSubmit, invalid, submitting }) => {
             return (
               <form onSubmit={handleSubmit}>
-                <Box sx={{display: 'flex'}}>
-                  <Typography>
-                    Unit name
-                  </Typography>
+                <Box sx={{ display: 'flex' }}>
+                  <Typography>Unit name</Typography>
                   <TextField
-                  required
-                  name='name'
-                  type='text'
-                  id='name'
-                  size='small'
-                  placeholder='name...'
+                    required
+                    name="name"
+                    type="text"
+                    id="name"
+                    size="small"
+                    placeholder="name..."
                   />
                 </Box>
                 <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'start',
+                    alignItems: 'center'
+                  }}>
+                  <Button
+                    disabled={invalid || submitting}
+                    type="submit"
+                    fullWidth
+                    variant="contained"
                     sx={{
-                      display: 'flex',
-                      justifyContent: 'start',
-                      alignItems: 'center'
+                      mt: 3,
+                      mb: 2,
+                      height: '38px',
+                      backgroundColor: '#000FE6',
+                      width: '15%',
+                      marginLeft: '210px'
                     }}>
-                    <Button
-                      disabled={invalid || submitting}
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      sx={{
-                        mt: 3,
-                        mb: 2,
-                        height: '38px',
-                        backgroundColor: '#000FE6',
-                        width: '15%',
-                        marginLeft: '210px'
-                      }}>
-                      {contentId ? 'Update' : 'Save'}
-                    </Button>
-                    <Link
-                      component={RouterLink}
-                      underline="hover"
-                      to="/courses"
-                      sx={{
-                        marginLeft: '15px'
-                      }}>
-                      <Typography>Cancel</Typography>
-                    </Link>
-                    </Box>
+                    {contentId ? 'Update' : 'Save'}
+                  </Button>
+                  <Link
+                    component={RouterLink}
+                    underline="hover"
+                    to="/courses"
+                    sx={{
+                      marginLeft: '15px'
+                    }}>
+                    <Typography>Cancel</Typography>
+                  </Link>
+                </Box>
               </form>
             );
           }}

@@ -48,9 +48,9 @@
     "eject": "react-scripts eject",
     "eslint": "eslint --ext .js,.jsx,.ts,.tsx src/",
     "eslint:fix": "eslint --ext .js,.jsx,.ts,.tsx src/ --fix",
-    "prettier": "prettier --check src/*.{ts,js,tsx}",
-    "prettier:fix": "prettier --write src/*.{ts,js,tsx}",
-    "prettier:quick": "pretty-quick --pattern src/*.{ts,js,tsx}"
+    "prettier": "prettier --check src/**/*.{ts,js,tsx}",
+    "prettier:fix": "prettier --write src/**/*.{ts,js,tsx}",
+    "prettier:quick": "pretty-quick --pattern src/**/*.{ts,js,tsx}"
   },
   "eslintConfig": {
     "extends": [

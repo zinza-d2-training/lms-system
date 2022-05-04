@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const IframeContent = () => {
-  return (
-    <div>IframeContent</div>
-  )
-}
+  return <div>IframeContent</div>;
+};
 
-export default IframeContent
+export default IframeContent;

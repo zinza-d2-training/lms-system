@@ -10,16 +10,17 @@ import React from 'react';
 import { ContentType } from '../../types/contents';
 import { QuestionType } from '../../types/questions';
 
-export const QuestionIconsByType = (props: {
-  type: QuestionType;
-}) => {
+export const QuestionIconsByType = (props: { type: QuestionType }) => {
   return (
     <>
       {(() => {
         switch (props.type) {
           case QuestionType.Raw:
             return (
-              <EditOutlinedIcon fontSize="small" sx={{ border: 'unset', marginRight: '5px' }} />
+              <EditOutlinedIcon
+                fontSize="small"
+                sx={{ border: 'unset', marginRight: '5px' }}
+              />
             );
           case QuestionType.Single:
             return (
@@ -30,7 +31,10 @@ export const QuestionIconsByType = (props: {
             );
           default:
             return (
-              <CheckBoxOutlinedIcon fontSize="small" sx={{ border: 'unset', marginRight: '5px' }} />
+              <CheckBoxOutlinedIcon
+                fontSize="small"
+                sx={{ border: 'unset', marginRight: '5px' }}
+              />
             );
         }
       })()}
@@ -38,14 +42,11 @@ export const QuestionIconsByType = (props: {
   );
 };
 
-export const ContentIconsByType = (props: {
-  type: ContentType;
-}) => {
+export const ContentIconsByType = (props: { type: ContentType }) => {
   return (
     <>
       {(() => {
         switch (props.type) {
-
           case ContentType.Video:
             return (
               <PlayCircleFilledWhiteOutlinedIcon
@@ -55,23 +56,45 @@ export const ContentIconsByType = (props: {
             );
           case ContentType.Basic:
             return (
-              <ArticleOutlinedIcon fontSize="small" sx={{ border: 'unset', marginRight: '5px' }} />
+              <ArticleOutlinedIcon
+                fontSize="small"
+                sx={{ border: 'unset', marginRight: '5px' }}
+              />
             );
           case ContentType.Audio:
-            return <VolumeUpIcon fontSize="small" sx={{ border: 'unset', marginRight: '5px' }} />;
+            return (
+              <VolumeUpIcon
+                fontSize="small"
+                sx={{ border: 'unset', marginRight: '5px' }}
+              />
+            );
           case ContentType.Survey:
             return (
-              <CheckBoxOutlinedIcon fontSize="small" sx={{ border: 'unset', marginRight: '5px' }} />
+              <CheckBoxOutlinedIcon
+                fontSize="small"
+                sx={{ border: 'unset', marginRight: '5px' }}
+              />
             );
           case ContentType.Iframe:
-            return <CodeIcon fontSize="small" sx={{ border: 'unset', marginRight: '5px' }} />;
+            return (
+              <CodeIcon
+                fontSize="small"
+                sx={{ border: 'unset', marginRight: '5px' }}
+              />
+            );
           case ContentType.Web:
             return (
-              <CloudOutlinedIcon fontSize="small" sx={{ border: 'unset', marginRight: '5px' }} />
+              <CloudOutlinedIcon
+                fontSize="small"
+                sx={{ border: 'unset', marginRight: '5px' }}
+              />
             );
           default:
             return (
-              <CheckBoxOutlinedIcon fontSize="small" sx={{ border: 'unset', marginRight: '5px' }} />
+              <CheckBoxOutlinedIcon
+                fontSize="small"
+                sx={{ border: 'unset', marginRight: '5px' }}
+              />
             );
         }
       })()}

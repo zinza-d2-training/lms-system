@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { getQuestionInfo, getQuestions } from '../../../../services/QuestionService';
+import {
+  getQuestionInfo,
+  getQuestions
+} from '../../../../services/QuestionService';
 import { Question } from '../../../../types/questions';
 
 export const useQuestion = () => {
@@ -21,21 +24,21 @@ export const useQuestion = () => {
 };
 
 export const useQuestionInfo = (questionId: number) => {
-  const [questionInfo, setQuestionInfo] = useState<Question | undefined>()
+  const [questionInfo, setQuestionInfo] = useState<Question | undefined>();
 
   useEffect(() => {
     const getQuestion = async (questionId: number) => {
       if (questionId) {
-        const info = await getQuestionInfo(questionId)
-        setQuestionInfo(info)
+        const info = await getQuestionInfo(questionId);
+        setQuestionInfo(info);
       }
-    }
-    getQuestion(questionId)
+    };
+    getQuestion(questionId);
 
-    return () => {}
-  }, [questionId])
+    return () => {};
+  }, [questionId]);
 
   return {
     questionInfo
-  }
-}
+  };
+};

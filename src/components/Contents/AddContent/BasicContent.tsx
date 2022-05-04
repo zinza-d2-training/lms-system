@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const BasicContent = () => {
-  return (
-    <div>BasicContent</div>
-  )
-}
+  return <div>BasicContent</div>;
+};
 
-export default BasicContent
+export default BasicContent;
