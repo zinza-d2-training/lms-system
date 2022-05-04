@@ -25,13 +25,6 @@ export const CreateQuestionDialog = ({
   handleClose,
   onCreated
 }: Props) => {
-  Yup.addMethod(Yup.array, 'answers', function (errorMessage) {
-    return this.test(`answers`, errorMessage, function (value) {
-      console.log(value);
-
-      return true;
-    });
-  });
   const schema: Yup.SchemaOf<QuestionForm> = Yup.object().shape({
     text: Yup.string()
       .max(80)
