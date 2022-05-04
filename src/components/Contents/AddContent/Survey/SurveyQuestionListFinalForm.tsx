@@ -19,7 +19,7 @@ import { useField } from 'react-final-form';
 import { Question, QuestionType } from '../../../../types/questions';
 import { CustomizedMenus } from '../../../Courses/ListCourses/MenuActions';
 import { CreateQuestionDialog } from '../../../SelectQuestionButtonFinalForm/CreateQuestionDialog';
-import IconsType from '../../../common/IconsType';
+import { QuestionIconsByType } from '../../../common/IconsType';
 
 interface Props {
   questions: Question[];
@@ -83,12 +83,12 @@ const SurveyQuestionListFinalForm = (props: Props) => {
                                   : [...value, question.id]
                               );
                             }}
-                            type="submit">
+                            type="button">
                             {checked ? 'Added' : 'Add'}
                           </Button>
                         </TableCell>
                         <TableCell component="th" scope="row" align="left">
-                          <IconsType type={question.type} />
+                          <QuestionIconsByType type={question.type} />
                         </TableCell>
                         <TableCell align="center">{question.text}</TableCell>
                         <TableCell align="right">

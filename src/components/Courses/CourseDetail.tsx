@@ -25,7 +25,7 @@ import {
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import { reorderCourseContents } from '../../services/ContentService';
 import { ContentType } from '../../types/contents';
-import IconsType from '../common/IconsType';
+import { ContentIconsByType } from '../common/IconsType';
 import CourseRightMenu from '../CourseRightMenu/CourseRightMenu';
 import { useContentData, useCourseData } from './hook';
 import { StyledMenu } from './StyledMenu';
@@ -152,7 +152,7 @@ const CourseDetail = () => {
                     to={`/courses/${id}/contents/add/${ContentType.Basic}`}
                     underline="none"
                     color="inherit">
-                    <IconsType type={ContentType.Basic}/>
+                    <ContentIconsByType type={ContentType.Basic} />
                     Content
                   </Link>
                 </MenuItem>
@@ -162,7 +162,7 @@ const CourseDetail = () => {
                     to={`/courses/${id}/contents/add/${ContentType.Web}`}
                     underline="none"
                     color="inherit">
-                    <IconsType type={ContentType.Web}/>
+                    <ContentIconsByType type={ContentType.Web} />
                     Web content
                   </Link>
                 </MenuItem>
@@ -173,7 +173,7 @@ const CourseDetail = () => {
                     to={`/courses/${id}/contents/add/${ContentType.Video}`}
                     underline="none"
                     color="inherit">
-                    <IconsType type={ContentType.Video}/>
+                    <ContentIconsByType type={ContentType.Video} />
                     Video
                   </Link>
                 </MenuItem>
@@ -183,7 +183,7 @@ const CourseDetail = () => {
                     to={`/courses/${id}/contents/add/${ContentType.Audio}`}
                     underline="none"
                     color="inherit">
-                    <IconsType type={ContentType.Audio}/>
+                    <ContentIconsByType type={ContentType.Audio} />
                     Audio
                   </Link>
                 </MenuItem>
@@ -194,7 +194,7 @@ const CourseDetail = () => {
                     to={`/courses/${id}/contents/add/${ContentType.Iframe}`}
                     underline="none"
                     color="inherit">
-                    <IconsType type={ContentType.Iframe}/>
+                    <ContentIconsByType type={ContentType.Iframe} />
                     Iframe
                   </Link>
                 </MenuItem>
@@ -205,7 +205,7 @@ const CourseDetail = () => {
                     to={`/courses/${id}/contents/add/${ContentType.Survey}`}
                     underline="none"
                     color="inherit">
-                    <IconsType type={ContentType.Survey}/>
+                    <ContentIconsByType type={ContentType.Survey} />
                     Survey
                   </Link>
                 </MenuItem>
@@ -319,7 +319,7 @@ const CourseDetail = () => {
                         opacity: 1
                       }
                     }}>
-                    <IconsType type={item.type}/>
+                    <ContentIconsByType type={item.type} />
                     <Link
                       component={RouterLink}
                       to={`/courses/${id}/unit/view/${item.id}`}

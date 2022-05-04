@@ -38,17 +38,17 @@ export const CreateQuestionDialog = (props: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [scroll, setScroll] = React.useState<DialogProps['scroll']>('paper');
 
+  const type = questionInfo?.type || props.type;
+
   const schema: Yup.SchemaOf<QuestionForm> = Yup.object().shape({
     text: Yup.string()
       .max(80)
       .required('Error : Text content is a required field'),
     answers: Yup.array().min(
-      1,
+      type === QuestionType.Raw ? 0 : 1,
       'You must specify at least one possible question'
     )
   });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const type = questionInfo?.type || props.type;
   const descriptionElementRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
     if (open) {
@@ -63,6 +63,7 @@ export const CreateQuestionDialog = (props: Props) => {
 
   const handleSubmit = (value: QuestionForm) => {
     setOpen(false);
+    console.log('', value);
   };
   return (
     <Dialog className="Container-dialog-question" open scroll={scroll}>

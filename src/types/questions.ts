@@ -15,7 +15,7 @@ export type Answer = {
 export type QuestionForm = Partial<Pick<Question, 'text' | 'answers'>>;
 
 export enum QuestionType {
-  Multiple = '1',
-  Raw = '2',
-  Single = '3'
+  Multiple = 1,
+  Raw = 2,
+  Single = 3
 }

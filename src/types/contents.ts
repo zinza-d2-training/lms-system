@@ -27,8 +27,6 @@ export type Content = {
   questions?: Array<Question>;
 };
 
-export type ContentInfo = Omit<Content, 'id' | 'sequence'>;
-
 export type ContentFormData = Omit<
   Content,
   'id' | 'sequence' | 'questions' | 'courseId'

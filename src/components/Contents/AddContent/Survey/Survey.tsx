@@ -87,7 +87,7 @@ const Survey = () => {
   };
   const handleOnclick = (e: React.MouseEvent<HTMLButtonElement>) => {
     setOpenPopup(true);
-    setType(e.currentTarget.value as QuestionType);
+    setType(parseInt(e.currentTarget.value) as QuestionType);
   };
   return (
     <Box sx={{ padding: '5px' }}>
@@ -106,7 +106,6 @@ const Survey = () => {
                   flexDirection: 'column'
                 }}>
                 <TextField
-                  required
                   name="name"
                   type="text"
                   id="name"

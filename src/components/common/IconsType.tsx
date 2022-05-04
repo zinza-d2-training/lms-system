@@ -10,11 +10,9 @@ import React from 'react';
 import { ContentType } from '../../types/contents';
 import { QuestionType } from '../../types/questions';
 
-interface Props {
-  type: QuestionType | ContentType;
-}
-
-const IconsType = (props: Props) => {
+export const QuestionIconsByType = (props: {
+  type: QuestionType;
+}) => {
   return (
     <>
       {(() => {
@@ -30,6 +28,24 @@ const IconsType = (props: Props) => {
                 sx={{ border: 'unset', marginRight: '5px' }}
               />
             );
+          default:
+            return (
+              <CheckBoxOutlinedIcon fontSize="small" sx={{ border: 'unset', marginRight: '5px' }} />
+            );
+        }
+      })()}
+    </>
+  );
+};
+
+export const ContentIconsByType = (props: {
+  type: ContentType;
+}) => {
+  return (
+    <>
+      {(() => {
+        switch (props.type) {
+
           case ContentType.Video:
             return (
               <PlayCircleFilledWhiteOutlinedIcon
@@ -62,5 +78,3 @@ const IconsType = (props: Props) => {
     </>
   );
 };
-
-export default IconsType;
