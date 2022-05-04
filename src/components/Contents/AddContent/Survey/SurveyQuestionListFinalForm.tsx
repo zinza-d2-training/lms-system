@@ -19,7 +19,7 @@ import { useField } from 'react-final-form';
 import { Question, QuestionType } from '../../../../types/questions';
 import { CustomizedMenus } from '../../../Courses/ListCourses/MenuActions';
 import { CreateQuestionDialog } from '../../../SelectQuestionButtonFinalForm/CreateQuestionDialog';
-import IconsType from '../IconsType';
+import IconsType from '../../../common/IconsType';
 
 interface Props {
   questions: Question[];

@@ -6,9 +6,11 @@ import CourseRightMenu from '../CourseRightMenu/CourseRightMenu';
 import { TabCoursesUser } from './TabCoursesUser/TabCoursesUser';
 import { TabEnrollUser } from './TabEnrollUser/TabEnrollUser';
 export const ManagementUser = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const { id: courseId } = useParams() as { id: string };
   const id = parseInt(courseId);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number

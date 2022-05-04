@@ -5,10 +5,9 @@ import Menu, { MenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { alpha, styled } from '@mui/material/styles';
 import * as React from 'react';
-import { UseFieldConfig } from 'react-final-form';
 import { QuestionType } from '../../types/questions';
-import { CreateQuestionDialog } from './CreateQuestionDialog';
 import '../SelectQuestionButtonFinalForm/Modal.css';
+import { CreateQuestionDialog } from './CreateQuestionDialog';
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
     elevation={0}
@@ -51,11 +50,6 @@ const StyledMenu = styled((props: MenuProps) => (
     }
   }
 }));
-
-interface Props {
-  name: string;
-  config?: UseFieldConfig<string>;
-}
 
 export function SelectQuestionButtonFinalForm() {
   // { name, config }: Props
