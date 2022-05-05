@@ -8,7 +8,7 @@ import { SelectQuestionButtonFinalForm } from '../../../SelectQuestionButtonFina
 import { questions } from '../../../../fakeData/questions';
 interface Props {
   name: string;
-  type: string;
+
   questionIdField: string;
   periodTimeField: string;
   config?: UseFieldConfig<string>;
@@ -17,7 +17,6 @@ interface Props {
 
 export const CompletedMethodFinalFormInput = ({
   name,
-  type,
   questionIdField,
   periodTimeField,
   config,
@@ -95,21 +94,20 @@ export const CompletedMethodFinalFormInput = ({
               }}>
               <SelectQuestionButtonFinalForm name={questionIdField} />
             </Box>
-            {parseInt(type) === ContentType.Basic && (
-              <Box>
-                <Autocomplete<number, false, true, false>
-                  label="Select a question"
-                  name={questionIdField}
-                  options={allQuestions.map((item) => item.id)}
-                  disableClearable
-                  getOptionLabel={(option) =>
-                    allQuestions.find((item) => item.id === option)?.text || ''
-                  }
-                  size="small"
-                  sx={{ width: '300px' }}
-                />
-              </Box>
-            )}
+
+            <Box>
+              <Autocomplete<number, false, true, false>
+                label="Select a question"
+                name={questionIdField}
+                options={allQuestions.map((item) => item.id)}
+                disableClearable
+                getOptionLabel={(option) =>
+                  allQuestions.find((item) => item.id === option)?.text || ''
+                }
+                size="small"
+                sx={{ width: '300px' }}
+              />
+            </Box>
           </Box>
         </Box>
       )}

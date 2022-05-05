@@ -55,8 +55,18 @@ const RenderBasicContent = () => {
     validateObject.link = Yup.string().url().required();
     validateObject.content = Yup.string();
     validateObject.showAs = Yup.mixed().oneOf([ShowAs.Embedded, ShowAs.PopUp]);
-    validateObject.popUpWidth = Yup.number().required();
-    validateObject.popUpHeight = Yup.number().required();
+
+    // Validate when showAs is Embedded
+    validateObject.popUpWidth = Yup.string().when('showAs', {
+      is: ShowAs.Embedded,
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema.nullable()
+    });
+    validateObject.popUpHeight = Yup.number().when('showAs', {
+      is: ShowAs.Embedded,
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema.nullable()
+    });
   }
   const schema: Yup.SchemaOf<BasicContentForm> =
     Yup.object().shape(validateObject);
@@ -65,7 +75,6 @@ const RenderBasicContent = () => {
   const handleSubmit = async (value: BasicContentForm) => {
     console.log(value);
   };
-
   return (
     <Form<BasicContentForm>
       validate={validate}
@@ -104,7 +113,6 @@ const RenderBasicContent = () => {
             <Box sx={{ display: 'flex' }}>
               <Box sx={{ width: '100%' }}>
                 <CompletedMethodFinalFormInput
-                  type={type}
                   name="completedMethod"
                   questionIdField="completedQuestionId"
                   periodTimeField="periodTime"

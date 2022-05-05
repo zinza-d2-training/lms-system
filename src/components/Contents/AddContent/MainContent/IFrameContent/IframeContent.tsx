@@ -76,7 +76,7 @@ const IframeContent = ({
       </Box>
 
       {show && (
-        <Box sx={{ display: 'flex', mt: 4 }}>
+        <Box sx={{ display: 'flex', mt: 6 }}>
           <Typography
             sx={{
               fontSize: ' 14px',
@@ -94,6 +94,7 @@ const IframeContent = ({
             id="filled-basic"
             name={popUpWidth}
             label="Width"
+            type="number"
             className="input-name iframe-input-size"
           />
 
@@ -103,6 +104,7 @@ const IframeContent = ({
             id="filled-basic"
             name={popUpHeight}
             label="Height"
+            type="number"
             className="input-name iframe-input-size"
           />
         </Box>
