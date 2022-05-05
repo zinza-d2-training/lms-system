@@ -18,7 +18,7 @@ import { CompletedMethodFinalFormInput } from './CompletedMethodFinalFormInput';
 import IframeContent from './IFrameContent/IframeContent';
 import { useContentInfo } from '../../hook';
 import './StyleTabBasicContent.css';
-import { SelectVideoForm } from './SelectVideoForm';
+import { VideoContent } from './VideoContent';
 
 type BasicContentForm = Partial<
   Pick<
@@ -189,7 +189,7 @@ const MainContent = () => {
                         return <AudioContent />;
                       case ContentType.Video.toString():
                         return (
-                          <SelectVideoForm
+                          <VideoContent
                             name="videoType"
                             fileIdField="fileId"
                             linkField="link"

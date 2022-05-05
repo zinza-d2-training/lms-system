@@ -19,7 +19,7 @@ enum UseVideoBy {
   File = 2
 }
 
-export const SelectVideoForm = ({
+export const VideoContent = ({
   name,
   fileIdField,
   linkField,
