@@ -30,6 +30,7 @@ export type Content = {
   questions?: Array<Question>;
   completedQuestionId?: number;
   periodTime?: number;
+  fileId?: number;
   showAs?: ShowAs;
   popUpWidth?: number;
   popUpHeight?: number;

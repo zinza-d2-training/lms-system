@@ -29,6 +29,7 @@ type BasicContentForm = Partial<
     | 'showAs'
     | 'popUpWidth'
     | 'popUpHeight'
+    | 'fileId'
   >
 >;
 
@@ -47,6 +48,7 @@ const MainContent = () => {
     completedQuestionId: Yup.number(),
     periodTime: Yup.number(),
     link: Yup.string(),
+    fileId: Yup.number(),
     popUpWidth: Yup.number(),
     popUpHeight: Yup.number()
   };
@@ -67,6 +69,11 @@ const MainContent = () => {
     validateObject.link = Yup.string().url().required();
     validateObject.content = Yup.string();
     validateObject.showAs = Yup.mixed().oneOf([ShowAs.Embedded, ShowAs.PopUp]);
+  }
+
+  if (type === ContentType.Audio.toString()) {
+    validateObject.content = Yup.string();
+    validateObject.fileId = Yup.number().required();
   }
 
   const schema: Yup.SchemaOf<BasicContentForm> =
@@ -132,7 +139,7 @@ const MainContent = () => {
                           />
                         );
                       case ContentType.Audio.toString():
-                        return <AudioContent />;
+                        return <AudioContent name="fileId" />;
 
                       default:
                         return <EditorField name="content" />;
