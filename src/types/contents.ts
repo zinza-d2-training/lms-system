@@ -14,6 +14,11 @@ export enum ContentType {
   Iframe = 5
 }
 
+export enum VideoType {
+  Link = 1,
+  File = 2
+}
+
 export type Content = {
   id: number;
   name: string;
@@ -26,6 +31,8 @@ export type Content = {
   questions?: Array<Question>;
   completedQuestionId?: number;
   periodTime?: number;
+  fileId?: number;
+  videoType?: VideoType
 };
 
 export type ContentFormData = Omit<
