@@ -16,7 +16,6 @@ import AudioContent from './AudioContent/AudioContent';
 import { CompletedMethodFinalFormInput } from './CompletedMethodFinalFormInput';
 import IframeContent from './IFrameContent/IframeContent';
 import './StyleTabBasicContent.css';
-import VideoContent from './VideoContent/VideoContent';
 
 type BasicContentForm = Partial<
   Pick<
@@ -51,23 +50,25 @@ const RenderBasicContent = () => {
     popUpWidth: Yup.number(),
     popUpHeight: Yup.number()
   };
+
+  validateObject.completedQuestionId = Yup.string().when('completedMethod', {
+    is: CompletedMethod.WithQuestion,
+    then: (schema) => schema.required(),
+    otherwise: (schema) => schema.nullable()
+  });
+
+  validateObject.periodTime = Yup.string().when('completedMethod', {
+    is: CompletedMethod.AfterPeriodTime,
+    then: (schema) => schema.required(),
+    otherwise: (schema) => schema.nullable()
+  });
+
   if (type === ContentType.Iframe.toString()) {
     validateObject.link = Yup.string().url().required();
     validateObject.content = Yup.string();
     validateObject.showAs = Yup.mixed().oneOf([ShowAs.Embedded, ShowAs.PopUp]);
-
-    // Validate when showAs is Embedded
-    validateObject.popUpWidth = Yup.string().when('showAs', {
-      is: ShowAs.Embedded,
-      then: (schema) => schema.required(),
-      otherwise: (schema) => schema.nullable()
-    });
-    validateObject.popUpHeight = Yup.number().when('showAs', {
-      is: ShowAs.Embedded,
-      then: (schema) => schema.required(),
-      otherwise: (schema) => schema.nullable()
-    });
   }
+
   const schema: Yup.SchemaOf<BasicContentForm> =
     Yup.object().shape(validateObject);
   const validate = makeValidate(schema);
@@ -132,8 +133,7 @@ const RenderBasicContent = () => {
                         );
                       case ContentType.Audio.toString():
                         return <AudioContent />;
-                      case ContentType.Video.toString():
-                        return <VideoContent />;
+
                       default:
                         return <EditorField name="content" />;
                     }

@@ -16,9 +16,13 @@ const IframeContent = ({
   popUpWidth,
   popUpHeight
 }: Props) => {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const handleClickEmbed = () => {
-    setShow(!show);
+    setShow(true);
+  };
+
+  const handleCloseEmbed = () => {
+    setShow(false);
   };
 
   return (
@@ -36,8 +40,12 @@ const IframeContent = ({
         <Box sx={{ minWidth: 240 }}>
           <FormControl fullWidth size="small">
             <Select size="small" name={showAsName}>
-              <MenuItem value={ShowAs.Embedded}>Embedded</MenuItem>
-              <MenuItem value={ShowAs.PopUp}>Pop-up</MenuItem>
+              <MenuItem value={ShowAs.Embedded} onClick={handleClickEmbed}>
+                Embedded
+              </MenuItem>
+              <MenuItem value={ShowAs.PopUp} onClick={handleCloseEmbed}>
+                Pop-up
+              </MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -65,14 +73,14 @@ const IframeContent = ({
           className="input-name"
         />
 
-        <Button
+        {/* <Button
           className="input-button-load"
           sx={{ marginTop: '-14px', marginLeft: '12px' }}
           size="small"
           variant="contained"
           onClick={handleClickEmbed}>
           Embed
-        </Button>
+        </Button> */}
       </Box>
 
       {show && (

@@ -112,7 +112,7 @@ export const CompletedMethodFinalFormInput = ({
         </Box>
       )}
       {value === CompletedMethod.AfterPeriodTime && (
-        <Box>
+        <Box sx={{ marginBottom: '12px', mt: 1 }}>
           <Box sx={{ display: 'flex', marginLeft: '87px' }}>
             <Typography
               className="label-after-of-time font-size-14"
