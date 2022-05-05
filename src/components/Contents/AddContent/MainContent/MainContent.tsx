@@ -16,22 +16,24 @@ import IframeContent from './IFrameContent/IframeContent';
 import { CompletedMethodFinalFormInput } from './CompletedMethodFinalFormInput';
 import './StyleTabBasicContent.css';
 import VideoContent from './VideoContent/VideoContent';
+import { ObjectShape } from 'yup/lib/object';
 
-type BasicContentForm = Pick<
-  Content,
-  | 'name'
-  | 'completedMethod'
-  | 'content'
-  | 'completedQuestionId'
-  | 'periodTime'
-  | 'link'
+type BasicContentForm = Partial<
+  Pick<
+    Content,
+    | 'name'
+    | 'completedMethod'
+    | 'content'
+    | 'completedQuestionId'
+    | 'periodTime'
+    | 'link'
+  >
 >;
 
 const RenderBasicContent = () => {
   const { type } = useParams() as { type: string };
 
-  console.log('type is', type);
-  const schema: Yup.SchemaOf<BasicContentForm> = Yup.object().shape({
+  const validateObject: any = {
     name: Yup.string().max(80).required('Error : Name is a required field'),
     completedMethod: Yup.mixed().oneOf([
       CompletedMethod.WithCheckBox,
@@ -41,8 +43,14 @@ const RenderBasicContent = () => {
     content: Yup.string().required('Error : Content is a required field'),
     completedQuestionId: Yup.number(),
     periodTime: Yup.number(),
-    link: Yup.string().url().required()
-  });
+    link: Yup.string()
+  };
+  if (type === ContentType.Iframe.toString()) {
+    validateObject.link = Yup.string().url().required();
+    validateObject.content = Yup.string();
+  }
+  const schema: Yup.SchemaOf<BasicContentForm> =
+    Yup.object().shape(validateObject);
   const validate = makeValidate(schema);
 
   const handleSubmit = async (value: BasicContentForm) => {
