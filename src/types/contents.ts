@@ -32,7 +32,7 @@ export type Content = {
   completedQuestionId?: number;
   periodTime?: number;
   fileId?: number;
-  videoType?: VideoType
+  videoType?: VideoType;
 };
 
 export type ContentFormData = Omit<
