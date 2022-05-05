@@ -3,18 +3,34 @@ import Typography from '@mui/material/Typography';
 import { makeValidate, TextField } from 'mui-rff';
 import * as React from 'react';
 import { Form } from 'react-final-form';
+import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
-import { CompletedMethod, Content } from '../../../../types/contents';
+import {
+  CompletedMethod,
+  Content,
+  ContentType
+} from '../../../../types/contents';
 import { EditorField } from '../../Editor/EditorField';
+import AudioContent from './AudioContent/AudioContent';
+import IframeContent from './IFrameContent/IframeContent';
 import { CompletedMethodFinalFormInput } from './CompletedMethodFinalFormInput';
 import './StyleTabBasicContent.css';
+import VideoContent from './VideoContent/VideoContent';
 
 type BasicContentForm = Pick<
   Content,
-  'name' | 'completedMethod' | 'content' | 'completedQuestionId' | 'periodTime'
+  | 'name'
+  | 'completedMethod'
+  | 'content'
+  | 'completedQuestionId'
+  | 'periodTime'
+  | 'link'
 >;
 
 const RenderBasicContent = () => {
+  const { type } = useParams() as { type: string };
+
+  console.log('type is', type);
   const schema: Yup.SchemaOf<BasicContentForm> = Yup.object().shape({
     name: Yup.string().max(80).required('Error : Name is a required field'),
     completedMethod: Yup.mixed().oneOf([
@@ -24,7 +40,8 @@ const RenderBasicContent = () => {
     ]),
     content: Yup.string().required('Error : Content is a required field'),
     completedQuestionId: Yup.number(),
-    periodTime: Yup.number()
+    periodTime: Yup.number(),
+    link: Yup.string().url().required()
   });
   const validate = makeValidate(schema);
 
@@ -69,15 +86,26 @@ const RenderBasicContent = () => {
             <Box sx={{ display: 'flex' }}>
               <Box sx={{ width: '100%' }}>
                 <CompletedMethodFinalFormInput
+                  type={type}
                   name="completedMethod"
                   questionIdField="completedQuestionId"
                   periodTimeField="periodTime"
                   label="How to complete it"
                 />
                 <Box py={2}>
-                  <Box>
-                    <EditorField name="content" />
-                  </Box>
+                  {(() => {
+                    switch (type) {
+                      case ContentType.Iframe.toString():
+                        return <IframeContent name={'link'} />;
+                      case ContentType.Audio.toString():
+                        return <AudioContent />;
+                      case ContentType.Video.toString():
+                        return <VideoContent />;
+                      default:
+                        return <EditorField name="content" />;
+                    }
+                  })()}
+
                   <Box>
                     <Button
                       variant="contained"
