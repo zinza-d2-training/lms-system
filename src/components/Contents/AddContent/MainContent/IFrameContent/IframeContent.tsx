@@ -1,24 +1,24 @@
-import {
-  Box,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Typography
-} from '@mui/material';
-import { TextField } from 'mui-rff';
-import React from 'react';
+import { Box, Button, FormControl, MenuItem, Typography } from '@mui/material';
+import { Select, TextField } from 'mui-rff';
+import React, { useState } from 'react';
+import { ShowAs } from '../../../../../types/contents';
 import '../StyleTabBasicContent.css';
+import './StyleIframeContent.css';
 interface Props {
   name: string;
+  showAsName: string;
+  popUpWidth: string;
+  popUpHeight: string;
 }
-const IframeContent = ({ name }: Props) => {
-  const [select, setSelect] = React.useState('');
-
-  const handleChange = (event: SelectChangeEvent) => {
-    setSelect(event.target.value as string);
+const IframeContent = ({
+  name,
+  showAsName,
+  popUpWidth,
+  popUpHeight
+}: Props) => {
+  const [show, setShow] = useState(false);
+  const handleClickEmbed = () => {
+    setShow(!show);
   };
 
   return (
@@ -35,15 +35,9 @@ const IframeContent = ({ name }: Props) => {
         </Typography>
         <Box sx={{ minWidth: 240 }}>
           <FormControl fullWidth size="small">
-            <InputLabel id="demo-simple-select-label">Embedded</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={select}
-              label="Embedded"
-              onChange={handleChange}>
-              <MenuItem value={10}>Embedded</MenuItem>
-              <MenuItem value={20}>Pop-up</MenuItem>
+            <Select size="small" name={showAsName}>
+              <MenuItem value={ShowAs.Embedded}>Embedded</MenuItem>
+              <MenuItem value={ShowAs.PopUp}>Pop-up</MenuItem>
             </Select>
           </FormControl>
         </Box>
@@ -64,7 +58,6 @@ const IframeContent = ({ name }: Props) => {
         </Typography>
 
         <TextField
-          sx={{}}
           size="small"
           placeholder="Start writing for suggestions or paste a URL"
           id="filled-basic"
@@ -76,10 +69,44 @@ const IframeContent = ({ name }: Props) => {
           className="input-button-load"
           sx={{ marginTop: '-14px', marginLeft: '12px' }}
           size="small"
-          variant="contained">
+          variant="contained"
+          onClick={handleClickEmbed}>
           Embed
         </Button>
       </Box>
+
+      {show && (
+        <Box sx={{ display: 'flex', mt: 4 }}>
+          <Typography
+            sx={{
+              fontSize: ' 14px',
+              marginTop: '-12px',
+              marginLeft: '132px',
+              paddingRight: ' 12px'
+            }}>
+            Size
+          </Typography>
+
+          <TextField
+            sx={{ fontSize: '12px' }}
+            size="small"
+            placeholder="pixels"
+            id="filled-basic"
+            name={popUpWidth}
+            label="Width"
+            className="input-name iframe-input-size"
+          />
+
+          <TextField
+            size="small"
+            placeholder="pixels"
+            id="filled-basic"
+            name={popUpHeight}
+            label="Height"
+            className="input-name iframe-input-size"
+          />
+        </Box>
+      )}
     </>
   );
 };

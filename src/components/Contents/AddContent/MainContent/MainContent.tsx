@@ -8,15 +8,15 @@ import * as Yup from 'yup';
 import {
   CompletedMethod,
   Content,
-  ContentType
+  ContentType,
+  ShowAs
 } from '../../../../types/contents';
 import { EditorField } from '../../Editor/EditorField';
 import AudioContent from './AudioContent/AudioContent';
-import IframeContent from './IFrameContent/IframeContent';
 import { CompletedMethodFinalFormInput } from './CompletedMethodFinalFormInput';
+import IframeContent from './IFrameContent/IframeContent';
 import './StyleTabBasicContent.css';
 import VideoContent from './VideoContent/VideoContent';
-import { ObjectShape } from 'yup/lib/object';
 
 type BasicContentForm = Partial<
   Pick<
@@ -27,6 +27,9 @@ type BasicContentForm = Partial<
     | 'completedQuestionId'
     | 'periodTime'
     | 'link'
+    | 'showAs'
+    | 'popUpWidth'
+    | 'popUpHeight'
   >
 >;
 
@@ -40,14 +43,20 @@ const RenderBasicContent = () => {
       CompletedMethod.WithQuestion,
       CompletedMethod.AfterPeriodTime
     ]),
+    showAs: Yup.number(),
     content: Yup.string().required('Error : Content is a required field'),
     completedQuestionId: Yup.number(),
     periodTime: Yup.number(),
-    link: Yup.string()
+    link: Yup.string(),
+    popUpWidth: Yup.number(),
+    popUpHeight: Yup.number()
   };
   if (type === ContentType.Iframe.toString()) {
     validateObject.link = Yup.string().url().required();
     validateObject.content = Yup.string();
+    validateObject.showAs = Yup.mixed().oneOf([ShowAs.Embedded, ShowAs.PopUp]);
+    validateObject.popUpWidth = Yup.number().required();
+    validateObject.popUpHeight = Yup.number().required();
   }
   const schema: Yup.SchemaOf<BasicContentForm> =
     Yup.object().shape(validateObject);
@@ -61,7 +70,8 @@ const RenderBasicContent = () => {
     <Form<BasicContentForm>
       validate={validate}
       initialValues={{
-        completedMethod: CompletedMethod.WithCheckBox
+        completedMethod: CompletedMethod.WithCheckBox,
+        showAs: ShowAs.Embedded
       }}
       onSubmit={handleSubmit}
       render={({ handleSubmit, errors }) => {
@@ -104,7 +114,14 @@ const RenderBasicContent = () => {
                   {(() => {
                     switch (type) {
                       case ContentType.Iframe.toString():
-                        return <IframeContent name={'link'} />;
+                        return (
+                          <IframeContent
+                            name="link"
+                            showAsName="showAs"
+                            popUpWidth="popUpWidth"
+                            popUpHeight="popUpHeight"
+                          />
+                        );
                       case ContentType.Audio.toString():
                         return <AudioContent />;
                       case ContentType.Video.toString():
