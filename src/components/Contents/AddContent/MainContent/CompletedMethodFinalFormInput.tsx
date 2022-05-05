@@ -1,13 +1,14 @@
 import { Box, Button, ButtonGroup, Typography } from '@mui/material';
 import { Autocomplete, TextField } from 'mui-rff';
+import React from 'react';
 import { useField, UseFieldConfig } from 'react-final-form';
 import 'react-quill/dist/quill.snow.css';
-import { CompletedMethod } from '../../../../types/contents';
+import { CompletedMethod, ContentType } from '../../../../types/contents';
 import { SelectQuestionButtonFinalForm } from '../../../SelectQuestionButtonFinalForm';
 import { questions } from '../../../../fakeData/questions';
-import React from 'react';
 interface Props {
   name: string;
+
   questionIdField: string;
   periodTimeField: string;
   config?: UseFieldConfig<string>;
@@ -93,6 +94,7 @@ export const CompletedMethodFinalFormInput = ({
               }}>
               <SelectQuestionButtonFinalForm name={questionIdField} />
             </Box>
+
             <Box>
               <Autocomplete<number, false, true, false>
                 label="Select a question"
@@ -110,7 +112,7 @@ export const CompletedMethodFinalFormInput = ({
         </Box>
       )}
       {value === CompletedMethod.AfterPeriodTime && (
-        <Box>
+        <Box sx={{ marginBottom: '12px', mt: 1 }}>
           <Box sx={{ display: 'flex', marginLeft: '87px' }}>
             <Typography
               className="label-after-of-time font-size-14"

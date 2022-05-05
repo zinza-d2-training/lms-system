@@ -3,40 +3,85 @@ import Typography from '@mui/material/Typography';
 import { makeValidate, TextField } from 'mui-rff';
 import * as React from 'react';
 import { Form } from 'react-final-form';
+import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
-import { CompletedMethod, Content } from '../../../../types/contents';
+import {
+  CompletedMethod,
+  Content,
+  ContentType,
+  ShowAs
+} from '../../../../types/contents';
 import { EditorField } from '../../Editor/EditorField';
+import AudioContent from './AudioContent/AudioContent';
 import { CompletedMethodFinalFormInput } from './CompletedMethodFinalFormInput';
+import IframeContent from './IFrameContent/IframeContent';
 import './StyleTabBasicContent.css';
 
-type BasicContentForm = Pick<
-  Content,
-  'name' | 'completedMethod' | 'content' | 'completedQuestionId' | 'periodTime'
+type BasicContentForm = Partial<
+  Pick<
+    Content,
+    | 'name'
+    | 'completedMethod'
+    | 'content'
+    | 'completedQuestionId'
+    | 'periodTime'
+    | 'link'
+    | 'showAs'
+    | 'popUpWidth'
+    | 'popUpHeight'
+  >
 >;
 
-const RenderBasicContent = () => {
-  const schema: Yup.SchemaOf<BasicContentForm> = Yup.object().shape({
+const MainContent = () => {
+  const { type } = useParams() as { type: string };
+
+  const validateObject: any = {
     name: Yup.string().max(80).required('Error : Name is a required field'),
     completedMethod: Yup.mixed().oneOf([
       CompletedMethod.WithCheckBox,
       CompletedMethod.WithQuestion,
       CompletedMethod.AfterPeriodTime
     ]),
+    showAs: Yup.number(),
     content: Yup.string().required('Error : Content is a required field'),
     completedQuestionId: Yup.number(),
-    periodTime: Yup.number()
+    periodTime: Yup.number(),
+    link: Yup.string(),
+    popUpWidth: Yup.number(),
+    popUpHeight: Yup.number()
+  };
+
+  validateObject.completedQuestionId = Yup.string().when('completedMethod', {
+    is: CompletedMethod.WithQuestion,
+    then: (schema) => schema.required(),
+    otherwise: (schema) => schema.nullable()
   });
+
+  validateObject.periodTime = Yup.string().when('completedMethod', {
+    is: CompletedMethod.AfterPeriodTime,
+    then: (schema) => schema.required(),
+    otherwise: (schema) => schema.nullable()
+  });
+
+  if (type === ContentType.Iframe.toString()) {
+    validateObject.link = Yup.string().url().required();
+    validateObject.content = Yup.string();
+    validateObject.showAs = Yup.mixed().oneOf([ShowAs.Embedded, ShowAs.PopUp]);
+  }
+
+  const schema: Yup.SchemaOf<BasicContentForm> =
+    Yup.object().shape(validateObject);
   const validate = makeValidate(schema);
 
   const handleSubmit = async (value: BasicContentForm) => {
     console.log(value);
   };
-
   return (
     <Form<BasicContentForm>
       validate={validate}
       initialValues={{
-        completedMethod: CompletedMethod.WithCheckBox
+        completedMethod: CompletedMethod.WithCheckBox,
+        showAs: ShowAs.Embedded
       }}
       onSubmit={handleSubmit}
       render={({ handleSubmit, errors }) => {
@@ -75,9 +120,25 @@ const RenderBasicContent = () => {
                   label="How to complete it"
                 />
                 <Box py={2}>
-                  <Box>
-                    <EditorField name="content" />
-                  </Box>
+                  {(() => {
+                    switch (type) {
+                      case ContentType.Iframe.toString():
+                        return (
+                          <IframeContent
+                            name="link"
+                            showAsName="showAs"
+                            popUpWidth="popUpWidth"
+                            popUpHeight="popUpHeight"
+                          />
+                        );
+                      case ContentType.Audio.toString():
+                        return <AudioContent />;
+
+                      default:
+                        return <EditorField name="content" />;
+                    }
+                  })()}
+
                   <Box>
                     <Button
                       variant="contained"
@@ -97,4 +158,4 @@ const RenderBasicContent = () => {
   );
 };
 
-export default RenderBasicContent;
+export default MainContent;
