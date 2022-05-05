@@ -3,9 +3,9 @@ import { Autocomplete, TextField } from 'mui-rff';
 import React from 'react';
 import { useField, UseFieldConfig } from 'react-final-form';
 import 'react-quill/dist/quill.snow.css';
-import { CompletedMethod, ContentType } from '../../../../types/contents';
-import { SelectQuestionButtonFinalForm } from '../../../SelectQuestionButtonFinalForm';
 import { questions } from '../../../../fakeData/questions';
+import { CompletedMethod } from '../../../../types/contents';
+import { SelectQuestionButtonFinalForm } from '../../../SelectQuestionButtonFinalForm';
 interface Props {
   name: string;
 

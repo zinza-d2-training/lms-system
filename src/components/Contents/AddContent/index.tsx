@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ContentType } from '../../../types/contents';
-import BasicContent from './MainContent/MainContent';
+import MainContent from './MainContent/MainContent';
 import Survey from './Survey/Survey';
 
 const AddContent = () => {
@@ -13,7 +13,7 @@ const AddContent = () => {
           case ContentType.Survey.toString():
             return <Survey />;
           default:
-            return <BasicContent />;
+            return <MainContent />;
         }
       })()}
     </>
