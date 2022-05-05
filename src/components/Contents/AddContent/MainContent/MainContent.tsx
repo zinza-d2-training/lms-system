@@ -32,7 +32,7 @@ type BasicContentForm = Partial<
   >
 >;
 
-const RenderBasicContent = () => {
+const MainContent = () => {
   const { type } = useParams() as { type: string };
 
   const validateObject: any = {
@@ -158,4 +158,4 @@ const RenderBasicContent = () => {
   );
 };
 
-export default RenderBasicContent;
+export default MainContent;

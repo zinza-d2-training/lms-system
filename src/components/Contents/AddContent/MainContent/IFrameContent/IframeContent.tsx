@@ -72,15 +72,6 @@ const IframeContent = ({
           name={name}
           className="input-name"
         />
-
-        {/* <Button
-          className="input-button-load"
-          sx={{ marginTop: '-14px', marginLeft: '12px' }}
-          size="small"
-          variant="contained"
-          onClick={handleClickEmbed}>
-          Embed
-        </Button> */}
       </Box>
 
       {show && (
