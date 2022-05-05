@@ -9,27 +9,35 @@ import {
   CompletedMethod,
   Content,
   ContentType,
+  ShowAs,
   VideoType
 } from '../../../../types/contents';
 import { EditorField } from '../../Editor/EditorField';
+import AudioContent from './AudioContent/AudioContent';
 import { CompletedMethodFinalFormInput } from './CompletedMethodFinalFormInput';
-import { SelectVideoForm } from './SelectVideoForm';
-import './StyleTabBasicContent.css';
+import IframeContent from './IFrameContent/IframeContent';
 import { useContentInfo } from '../../hook';
+import './StyleTabBasicContent.css';
+import { SelectVideoForm } from './SelectVideoForm';
 
-type BasicContentForm = Pick<
-  Content,
-  | 'name'
-  | 'completedMethod'
-  | 'content'
-  | 'completedQuestionId'
-  | 'periodTime'
-  | 'videoType'
-  | 'fileId'
-  | 'link'
+type BasicContentForm = Partial<
+  Pick<
+    Content,
+    | 'name'
+    | 'completedMethod'
+    | 'content'
+    | 'completedQuestionId'
+    | 'periodTime'
+    | 'link'
+    | 'showAs'
+    | 'videoType'
+    | 'fileId'
+    | 'popUpWidth'
+    | 'popUpHeight'
+  >
 >;
 
-const RenderBasicContent = () => {
+const MainContent = () => {
   const { type, contentId } = useParams() as {
     type: string;
     contentId: string;
@@ -43,6 +51,7 @@ const RenderBasicContent = () => {
       completedMethod:
         contentInfo?.completedMethod || CompletedMethod.WithCheckBox,
       content: contentInfo?.content || '',
+      showAs: contentInfo?.showAs || ShowAs.Embedded,
       completedQuestionId: contentInfo?.completedQuestionId || undefined,
       periodTime: contentInfo?.periodTime || 0,
       videoType: contentInfo?.videoType || VideoType.Link,
@@ -57,6 +66,7 @@ const RenderBasicContent = () => {
     contentInfo?.link,
     contentInfo?.name,
     contentInfo?.periodTime,
+    contentInfo?.showAs,
     contentInfo?.videoType
   ]);
 
@@ -71,12 +81,30 @@ const RenderBasicContent = () => {
     content: Yup.string().required('Error : Content is a required field'),
     completedQuestionId: Yup.number(),
     periodTime: Yup.number(),
-    videoType: Yup.number(),
     link: Yup.string(),
+    videoType: Yup.number(),
     fileId: Yup.number(),
     popUpWidth: Yup.number(),
     popUpHeight: Yup.number()
   };
+
+  validateObject.completedQuestionId = Yup.string().when('completedMethod', {
+    is: CompletedMethod.WithQuestion,
+    then: (schema) => schema.required(),
+    otherwise: (schema) => schema.nullable()
+  });
+
+  validateObject.periodTime = Yup.string().when('completedMethod', {
+    is: CompletedMethod.AfterPeriodTime,
+    then: (schema) => schema.required(),
+    otherwise: (schema) => schema.nullable()
+  });
+
+  if (type === ContentType.Iframe.toString()) {
+    validateObject.link = Yup.string().url().required();
+    validateObject.content = Yup.string();
+    validateObject.showAs = Yup.mixed().oneOf([ShowAs.Embedded, ShowAs.PopUp]);
+  }
 
   if (type === ContentType.Video.toString()) {
     validateObject.content = Yup.string();
@@ -97,15 +125,14 @@ const RenderBasicContent = () => {
       otherwise: (schema) => schema.nullable()
     });
   }
+
   const schema: Yup.SchemaOf<BasicContentForm> =
     Yup.object().shape(validateObject);
-
   const validate = makeValidate(schema);
 
   const handleSubmit = async (value: BasicContentForm) => {
     console.log(value);
   };
-
   return (
     <Form<BasicContentForm>
       validate={validate}
@@ -147,23 +174,33 @@ const RenderBasicContent = () => {
                   label="How to complete it"
                 />
                 <Box py={2}>
-                  <Box>
-                    {(() => {
-                      switch (type) {
-                        case ContentType.Basic.toString():
-                          return <EditorField name="content" />;
-                        case ContentType.Video.toString():
-                          return (
-                            <SelectVideoForm
-                              name="videoType"
-                              fileIdField="fileId"
-                              linkField="link"
-                              label="Select a video"
-                            />
-                          );
-                      }
-                    })()}
-                  </Box>
+                  {(() => {
+                    switch (type) {
+                      case ContentType.Iframe.toString():
+                        return (
+                          <IframeContent
+                            name="link"
+                            showAsName="showAs"
+                            popUpWidth="popUpWidth"
+                            popUpHeight="popUpHeight"
+                          />
+                        );
+                      case ContentType.Audio.toString():
+                        return <AudioContent />;
+                      case ContentType.Video.toString():
+                        return (
+                          <SelectVideoForm
+                            name="videoType"
+                            fileIdField="fileId"
+                            linkField="link"
+                            label="Select a video"
+                          />
+                        );
+                      default:
+                        return <EditorField name="content" />;
+                    }
+                  })()}
+
                   <Box>
                     <Button
                       variant="contained"
@@ -183,4 +220,4 @@ const RenderBasicContent = () => {
   );
 };
 
-export default RenderBasicContent;
+export default MainContent;

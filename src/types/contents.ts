@@ -19,6 +19,10 @@ export enum VideoType {
   File = 2
 }
 
+export enum ShowAs {
+  Embedded = 1,
+  PopUp = 2
+}
 export type Content = {
   id: number;
   name: string;
@@ -33,6 +37,9 @@ export type Content = {
   periodTime?: number;
   fileId?: number;
   videoType?: VideoType;
+  showAs?: ShowAs;
+  popUpWidth?: number;
+  popUpHeight?: number;
 };
 
 export type ContentFormData = Omit<

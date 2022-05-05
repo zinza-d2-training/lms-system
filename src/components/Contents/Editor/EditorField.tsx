@@ -1,7 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import { useField, UseFieldConfig } from 'react-final-form';
 import ReactQuill from 'react-quill';
-import React from 'react';
 import 'react-quill/dist/quill.snow.css';
 import './style.css';
 
@@ -17,7 +16,10 @@ export const EditorField = ({ name, config }: Props) => {
   } = useField(name, config);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        minHeight: '330px'
+      }}>
       <ReactQuill
         theme="snow"
         value={value}
