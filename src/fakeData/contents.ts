@@ -1,4 +1,9 @@
-import { CompletedMethod, Content, ContentType } from '../types/contents';
+import {
+  CompletedMethod,
+  Content,
+  ContentType,
+  VideoType
+} from '../types/contents';
 import { QuestionType } from '../types/questions';
 
 export const contents: Content[] = [
@@ -16,9 +21,11 @@ export const contents: Content[] = [
     name: 'start',
     courseId: 1,
     completedMethod: CompletedMethod.WithQuestion,
-    content: 'test content',
     sequence: 2,
-    type: ContentType.Basic
+    completedQuestionId: 2,
+    type: ContentType.Video,
+    videoType: VideoType.Link,
+    link: 'https://www.youtube.com/watch?v=TSc81OdB_kg'
   },
   {
     id: 3,
@@ -72,6 +79,7 @@ export const contents: Content[] = [
     name: 'action',
     courseId: 2,
     completedMethod: CompletedMethod.AfterPeriodTime,
+    periodTime: 50,
     content: 'test content',
     sequence: 4,
     type: ContentType.Video,

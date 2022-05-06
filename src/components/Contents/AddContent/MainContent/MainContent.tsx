@@ -9,13 +9,16 @@ import {
   CompletedMethod,
   Content,
   ContentType,
-  ShowAs
+  ShowAs,
+  VideoType
 } from '../../../../types/contents';
 import { EditorField } from '../../Editor/EditorField';
 import AudioContent from './AudioContent/AudioContent';
 import { CompletedMethodFinalFormInput } from './CompletedMethodFinalFormInput';
 import IframeContent from './IFrameContent/IframeContent';
+import { useContentInfo } from '../../hook';
 import './StyleTabBasicContent.css';
+import { VideoContent } from './VideoContent';
 
 type BasicContentForm = Partial<
   Pick<
@@ -27,6 +30,8 @@ type BasicContentForm = Partial<
     | 'periodTime'
     | 'link'
     | 'showAs'
+    | 'videoType'
+    | 'fileId'
     | 'popUpWidth'
     | 'popUpHeight'
     | 'fileId'
@@ -34,7 +39,37 @@ type BasicContentForm = Partial<
 >;
 
 const MainContent = () => {
-  const { type } = useParams() as { type: string };
+  const { type, contentId } = useParams() as {
+    type: string;
+    contentId: string;
+  };
+
+  const { contentInfo } = useContentInfo(parseInt(contentId));
+
+  const initialValues = React.useMemo<BasicContentForm>(() => {
+    return {
+      name: contentInfo?.name || '',
+      completedMethod:
+        contentInfo?.completedMethod || CompletedMethod.WithCheckBox,
+      content: contentInfo?.content || '',
+      showAs: contentInfo?.showAs || ShowAs.Embedded,
+      completedQuestionId: contentInfo?.completedQuestionId || undefined,
+      periodTime: contentInfo?.periodTime || 0,
+      videoType: contentInfo?.videoType || VideoType.Link,
+      link: contentInfo?.link || '',
+      fileId: contentInfo?.fileId || undefined
+    };
+  }, [
+    contentInfo?.completedMethod,
+    contentInfo?.completedQuestionId,
+    contentInfo?.content,
+    contentInfo?.fileId,
+    contentInfo?.link,
+    contentInfo?.name,
+    contentInfo?.periodTime,
+    contentInfo?.showAs,
+    contentInfo?.videoType
+  ]);
 
   const validateObject: any = {
     name: Yup.string().max(80).required('Error : Name is a required field'),
@@ -48,6 +83,7 @@ const MainContent = () => {
     completedQuestionId: Yup.number(),
     periodTime: Yup.number(),
     link: Yup.string(),
+    videoType: Yup.number(),
     fileId: Yup.number(),
     popUpWidth: Yup.number(),
     popUpHeight: Yup.number()
@@ -75,6 +111,25 @@ const MainContent = () => {
     validateObject.content = Yup.string();
     validateObject.fileId = Yup.number().required();
   }
+  if (type === ContentType.Video.toString()) {
+    validateObject.content = Yup.string();
+    validateObject.videoType = Yup.mixed().oneOf([
+      VideoType.File,
+      VideoType.Link
+    ]);
+    validateObject.link = Yup.string()
+      .url()
+      .when('videoType', {
+        is: VideoType.Link, // alternatively: (val) => val == true
+        then: (schema) => schema.required(),
+        otherwise: (schema) => schema.nullable()
+      });
+    validateObject.fileId = Yup.number().when('videoType', {
+      is: VideoType.File, // alternatively: (val) => val == true
+      then: (schema) => schema.required(),
+      otherwise: (schema) => schema.nullable()
+    });
+  }
 
   const schema: Yup.SchemaOf<BasicContentForm> =
     Yup.object().shape(validateObject);
@@ -86,10 +141,7 @@ const MainContent = () => {
   return (
     <Form<BasicContentForm>
       validate={validate}
-      initialValues={{
-        completedMethod: CompletedMethod.WithCheckBox,
-        showAs: ShowAs.Embedded
-      }}
+      initialValues={initialValues}
       onSubmit={handleSubmit}
       render={({ handleSubmit, errors }) => {
         return (
@@ -140,7 +192,15 @@ const MainContent = () => {
                         );
                       case ContentType.Audio.toString():
                         return <AudioContent name="fileId" />;
-
+                      case ContentType.Video.toString():
+                        return (
+                          <VideoContent
+                            name="videoType"
+                            fileIdField="fileId"
+                            linkField="link"
+                            label="Select a video"
+                          />
+                        );
                       default:
                         return <EditorField name="content" />;
                     }
@@ -164,5 +224,4 @@ const MainContent = () => {
     />
   );
 };
-
 export default MainContent;
