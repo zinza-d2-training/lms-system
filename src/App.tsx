@@ -17,6 +17,9 @@ import ManagerFiles from './components/ManagerFiles/ManagerFiles';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
 import { UserRole } from './types/users';
+import DiscussionList from './components/Discussions/DiscussionList';
+import DiscussionDetail from './components/Discussions/DiscussionDetail';
+import Discussion from './components/Discussions/Discussion';
 
 function App() {
   return (
@@ -118,6 +121,10 @@ function App() {
                 </PrivateRoute>
               }
             />
+            <Route path="discussion" element={<Discussion />}>
+              <Route index element={<DiscussionList />} />
+              <Route path=":discussionId" element={<DiscussionDetail />} />
+            </Route>
           </Route>
         </Routes>
       </SnackbarProvider>

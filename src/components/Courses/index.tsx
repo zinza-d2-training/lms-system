@@ -7,15 +7,21 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import ViewListIcon from '@mui/icons-material/ViewList';
-import { Box, Container, Link } from '@mui/material';
+import { Box, Container, Link, Typography } from '@mui/material';
+import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 // import '../Courses../componnent'
 // import { UserDB } from './../types/users';
 // import Courses from '../../fakeData/courses';
 import { courses } from '../../fakeData/courses';
+import DiscussionForm from '../Discussions/DiscussionForm';
 import './Courses.css';
 
 export const Courses = () => {
+  const [openPopup, setOpenPopup] = useState(false);
+  const handleOnClick = () => {
+    setOpenPopup(true);
+  };
   return (
     <>
       <Container className="main-container">
@@ -94,12 +100,14 @@ export const Courses = () => {
                   <LibraryBooksIcon />
                 </Box>
                 <Box className="item-right">
-                  <h5>COURSES</h5>
+                  <Link component={RouterLink} to={'/courses'} underline="none">
+                    <h5>COURSES</h5>
+                  </Link>
                   <Link
                     component={RouterLink}
                     to={'/courses/add'}
                     underline="none">
-                    Add course
+                    <Typography variant="caption">Add course</Typography>
                   </Link>
                 </Box>
               </Box>
@@ -129,8 +137,21 @@ export const Courses = () => {
                   <LocationCityIcon />
                 </Box>
                 <Box className="item-right">
-                  <h5>Discussions</h5>
-                  <p>Add discussions</p>
+                  <Link
+                    component={RouterLink}
+                    underline="hover"
+                    to={'/discussion'}
+                    color="inherit">
+                    <h5>Discussions</h5>
+                  </Link>
+                  <Link
+                    component={RouterLink}
+                    underline="hover"
+                    to={'#'}
+                    color="inherit"
+                    onClick={handleOnClick}>
+                    <Typography variant="caption">Add discussions</Typography>
+                  </Link>
                 </Box>
               </Box>
 
@@ -147,6 +168,12 @@ export const Courses = () => {
           </Box>
         </Box>
       </Container>
+      {openPopup && (
+        <DiscussionForm
+          label={'Add discussion'}
+          handleClose={() => setOpenPopup(false)}
+        />
+      )}
     </>
   );
 };

@@ -1,0 +1,45 @@
+.css-zihc6j-MuiInputBase-root-MuiOutlinedInput-root {
+  height: 200px;
+}
+
+.discussion-item {
+  display: flex;
+  padding: 8px;
+  align-items: center;
+}
+
+.discussion-item-image {
+  flex: 1
+}
+
+.discussion-item-content {
+  flex: 5;
+}
+
+.item-image {
+  width: 60px;
+  height: 60px;
+}
+
+.discussion-item:nth-child(even) {
+  background-color: #F3F3F3;
+}
+
+.discussion-item:hover {
+  background-color: #CCE8F3;
+}
+
+.discussion-item-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.discussion-item-content_left {
+  width: 80%;
+}
+
+.discussion-item-content_right {
+  float: right;
+}
