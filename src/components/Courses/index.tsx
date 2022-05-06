@@ -107,7 +107,7 @@ export const Courses = () => {
                     component={RouterLink}
                     to={'/courses/add'}
                     underline="none">
-                    <Typography variant='caption'>Add course</Typography>
+                    <Typography variant="caption">Add course</Typography>
                   </Link>
                 </Box>
               </Box>
