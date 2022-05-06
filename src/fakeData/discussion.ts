@@ -11,7 +11,6 @@ export const discussions: Discussion[] = [
         id: 1,
         discussionId: 1,
         comment: 'comment',
-        like: 0,
         userId: 1
       }
     ]
@@ -26,7 +25,6 @@ export const discussions: Discussion[] = [
         id: 1,
         discussionId: 2,
         comment: 'comment',
-        like: 0,
         userId: 1
       }
     ]

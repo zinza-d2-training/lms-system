@@ -1,4 +1,4 @@
-import { CommentForm, DiscussionForm } from '../types/discussions';
+import { CommentFormInfo, DiscussionForm } from '../types/discussions';
 import { comments } from './../fakeData/comments';
 import { discussions } from './../fakeData/discussion';
 import { Discussion } from './../types/discussions';
@@ -34,9 +34,13 @@ export async function updateDiscussion(
   // @Call Api
 }
 
+export async function getComments(discussionId: number) {
+  return comments.filter((item) => item.discussionId === discussionId);
+}
+
 export async function createComment(
   discussionId: number,
-  commentForm: CommentForm
+  commentForm: CommentFormInfo
 ) {
   const user = JSON.parse(localStorage.getItem('user') as string);
   const discussion = discussions.find((item) => item.id === discussionId);
@@ -52,7 +56,7 @@ export async function createComment(
   return undefined;
 }
 
-export async function commentInfo(id: number) {
+export async function getCommentInfo(id: number) {
   return comments.find((item) => item.id === id);
 }
 
