@@ -313,7 +313,7 @@ const CourseDetail = () => {
                     <Link
                       component={RouterLink}
                       to={`{item.id}`}
-                      underline="hover"                    
+                      underline="hover"
                       color="inherit">
                       <Typography>{item.name}</Typography>
                     </Link>
