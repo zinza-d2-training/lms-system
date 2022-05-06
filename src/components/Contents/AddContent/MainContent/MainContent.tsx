@@ -34,6 +34,7 @@ type BasicContentForm = Partial<
     | 'fileId'
     | 'popUpWidth'
     | 'popUpHeight'
+    | 'fileId'
   >
 >;
 
@@ -106,6 +107,10 @@ const MainContent = () => {
     validateObject.showAs = Yup.mixed().oneOf([ShowAs.Embedded, ShowAs.PopUp]);
   }
 
+  if (type === ContentType.Audio.toString()) {
+    validateObject.content = Yup.string();
+    validateObject.fileId = Yup.number().required();
+  }
   if (type === ContentType.Video.toString()) {
     validateObject.content = Yup.string();
     validateObject.videoType = Yup.mixed().oneOf([
@@ -186,7 +191,7 @@ const MainContent = () => {
                           />
                         );
                       case ContentType.Audio.toString():
-                        return <AudioContent />;
+                        return <AudioContent name="fileId" />;
                       case ContentType.Video.toString():
                         return (
                           <VideoContent
@@ -219,5 +224,4 @@ const MainContent = () => {
     />
   );
 };
-
 export default MainContent;
