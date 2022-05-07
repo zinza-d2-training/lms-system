@@ -3,7 +3,6 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/common/PrivateRoute';
 import AddContent from './components/Contents/AddContent/index';
-import Contents from './components/Contents/ViewContent/Contents';
 import { Courses as CourseIndex } from './components/Courses';
 import CourseDetail from './components/Courses/CourseDetail';
 import CourseForm from './components/Courses/CourseForm';
@@ -20,6 +19,7 @@ import { UserRole } from './types/users';
 import DiscussionList from './components/Discussions/DiscussionList';
 import DiscussionDetail from './components/Discussions/DiscussionDetail';
 import Discussion from './components/Discussions/Discussion';
+import Contents from './components/Contents/ViewContent/Contents';
 
 function App() {
   return (
@@ -89,7 +89,14 @@ function App() {
                   </PrivateRoute>
                 }
               />
-
+              <Route
+                path=":id/contents/view/:contentId"
+                element={
+                  <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
+                    <Contents />
+                  </PrivateRoute>
+                }
+              />
               <Route
                 path=":id/contents/edit/:type/:contentId"
                 element={
@@ -114,20 +121,11 @@ function App() {
                 </PrivateRoute>
               }
             />
-
             <Route path="discussion" element={<Discussion />}>
               <Route index element={<DiscussionList />} />
               <Route path=":discussionId" element={<DiscussionDetail />} />
             </Route>
           </Route>
-          <Route
-            path=":id/contents/view/:contentId"
-            element={
-              <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
-                <Contents />
-              </PrivateRoute>
-            }
-          />
         </Routes>
       </SnackbarProvider>
     </div>
