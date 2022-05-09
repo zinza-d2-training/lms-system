@@ -1,17 +1,14 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Box, Button, Link, Typography } from '@mui/material';
-import { useRef } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import { ContentType } from '../../../types/contents';
 import { useCourseData } from '../../Courses/hook';
-import { useContentInfo } from '../hook';
 import '../AddContent/MainContent/StyleTabBasicContent.css';
-// import { BasicContent } from './BasicContent';
+import { useContentInfo } from '../hook';
 const ViewContents = () => {
   const { id, contentId } = useParams() as { id: string; contentId: string };
   const { courseInfo } = useCourseData(parseInt(id));
   const { contentInfo } = useContentInfo(parseInt(contentId));
-  // const rawHTML = contentInfo?.content || '';
   console.log(contentInfo);
   console.log('link audio : ', contentInfo?.link);
 
@@ -49,9 +46,9 @@ const ViewContents = () => {
                   className="container-viewContent-audio"
                   sx={{
                     display: 'flex',
-                    alignItems: 'center',
                     justifyContent: 'center',
-                    marginTop: '-400px'
+                    alignItems: 'start',
+                    height: '100%'
                   }}>
                   <audio controls className="viewContent-audio">
                     <source src={contentInfo?.link} type="audio/mpeg" />
