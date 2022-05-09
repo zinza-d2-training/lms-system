@@ -229,5 +229,15 @@ export const contents: Content[] = [
     content: 'test content 123',
     sequence: 5,
     type: ContentType.Survey
+  },
+  {
+    id: 6,
+    name: 'Audio',
+    courseId: 1,
+    completedMethod: CompletedMethod.WithCheckBox,
+    content: 'test audio 123',
+    sequence: 6,
+    type: ContentType.Audio,
+    link: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
   }
 ];

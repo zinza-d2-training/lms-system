@@ -5,9 +5,8 @@ import { useMemo } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import { ContentType } from '../../../types/contents';
 import { useContentData, useCourseData } from '../../Courses/hook';
+import '../AddContent/MainContent/StyleTabBasicContent.css';
 import { useContentInfo } from '../hook';
-
-// import { BasicContent } from './BasicContent';
 const ViewContents = () => {
   const { id, contentId } = useParams() as { id: string; contentId: string };
   const { courseInfo } = useCourseData(parseInt(id));
@@ -51,12 +50,24 @@ const ViewContents = () => {
             case ContentType.Iframe:
               return <div>View Iframe</div>;
             case ContentType.Audio:
-              return <div>View Audio</div>;
+              return (
+                <Box
+                  className="container-viewContent-audio"
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'start',
+                    height: '100%'
+                  }}>
+                  <audio controls className="viewContent-audio">
+                    <source src={contentInfo?.link} type="audio/mpeg" />
+                  </audio>
+                </Box>
+              );
             case ContentType.Video:
               return (
                 <Box
                   sx={{
-                    display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     width: '100%',
