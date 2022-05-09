@@ -1,7 +1,7 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Box, Button, Link, Typography } from '@mui/material';
 import { Link as RouterLink, useParams } from 'react-router-dom';
-import { ContentType } from '../../../types/contents';
+import { ContentType, ShowAs } from '../../../types/contents';
 import { useCourseData } from '../../Courses/hook';
 import '../AddContent/MainContent/StyleTabBasicContent.css';
 import { useContentInfo } from '../hook';
@@ -9,7 +9,7 @@ const ViewContents = () => {
   const { id, contentId } = useParams() as { id: string; contentId: string };
   const { courseInfo } = useCourseData(parseInt(id));
   const { contentInfo } = useContentInfo(parseInt(contentId));
-  console.log(contentInfo);
+  console.log('contentInfo', contentInfo);
   console.log('link audio : ', contentInfo?.link);
 
   return (
@@ -39,7 +39,18 @@ const ViewContents = () => {
         {(() => {
           switch (contentInfo?.type) {
             case ContentType.Iframe:
-              return <div>View Iframe</div>;
+              return (
+                <div>
+                  {contentInfo.showAs === ShowAs.Embedded && (
+                    <div>
+                      <iframe
+                        className="view-content-iframe"
+                        src={contentInfo.link}></iframe>
+                    </div>
+                  )}
+                  {contentInfo.showAs === ShowAs.PopUp && <p>Open-newTab</p>}
+                </div>
+              );
             case ContentType.Audio:
               return (
                 <Box
