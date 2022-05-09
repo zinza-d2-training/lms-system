@@ -1,10 +1,11 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Box, Button, Link, Typography } from '@mui/material';
+import { useRef } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import { ContentType } from '../../../types/contents';
 import { useCourseData } from '../../Courses/hook';
 import { useContentInfo } from '../hook';
-
+import '../AddContent/MainContent/StyleTabBasicContent.css';
 // import { BasicContent } from './BasicContent';
 const ViewContents = () => {
   const { id, contentId } = useParams() as { id: string; contentId: string };
@@ -12,6 +13,7 @@ const ViewContents = () => {
   const { contentInfo } = useContentInfo(parseInt(contentId));
   // const rawHTML = contentInfo?.content || '';
   console.log(contentInfo);
+  console.log('link audio : ', contentInfo?.link);
 
   return (
     <Box display="flex" flexDirection="column" height="100vh">
@@ -42,7 +44,20 @@ const ViewContents = () => {
             case ContentType.Iframe:
               return <div>View Iframe</div>;
             case ContentType.Audio:
-              return <div>View Audio</div>;
+              return (
+                <Box
+                  className="container-viewContent-audio"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: '-400px'
+                  }}>
+                  <audio controls className="viewContent-audio">
+                    <source src={contentInfo?.link} type="audio/mpeg" />
+                  </audio>
+                </Box>
+              );
             case ContentType.Video:
               return <div>View Video</div>;
             case ContentType.Survey:
