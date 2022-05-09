@@ -19,6 +19,7 @@ import { UserRole } from './types/users';
 import DiscussionList from './components/Discussions/DiscussionList';
 import DiscussionDetail from './components/Discussions/DiscussionDetail';
 import Discussion from './components/Discussions/Discussion';
+import NavigateContents from './components/Contents/ViewContent/NavigateContents';
 import ViewContents from './components/Contents/ViewContent/ViewContents';
 
 function App() {
@@ -120,6 +121,14 @@ function App() {
             </Route>
           </Route>
 
+          <Route
+            path="/view/:id"
+            element={
+              <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
+                <NavigateContents />
+              </PrivateRoute>
+            }
+          />
           <Route
             path="/view/:id/content/:contentId"
             element={

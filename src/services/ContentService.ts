@@ -1,8 +1,25 @@
 import { Content, ContentFormData } from '../types/contents';
 import { contents } from './../fakeData/contents';
+import { sortBy, groupBy } from 'lodash';
 
 export async function getCourseContents(courseId: number): Promise<Content[]> {
   return contents.filter((item) => item.courseId === courseId);
+}
+
+export async function getLastContentsMapping(
+  courseIds: number[]
+): Promise<Map<number, number>> {
+  const mapping = new Map<number, number>();
+  const grouped = groupBy(
+    sortBy(contents, ['courseId', 'sequence']),
+    'courseId'
+  );
+  Object.keys(grouped).forEach((courseId) => {
+    if (grouped[courseId].length) {
+      mapping.set(Number(courseId), grouped[courseId][0].id);
+    }
+  });
+  return mapping;
 }
 
 export async function getContentDetail(contentId: number) {

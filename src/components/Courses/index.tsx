@@ -6,22 +6,29 @@ import LayersIcon from '@mui/icons-material/Layers';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import PlayCircleFilledWhiteOutlinedIcon from '@mui/icons-material/PlayCircleFilledWhiteOutlined';
 import ViewListIcon from '@mui/icons-material/ViewList';
 import { Box, Container, Link, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
 // import '../Courses../componnent'
 // import { UserDB } from './../types/users';
 // import Courses from '../../fakeData/courses';
 import { courses } from '../../fakeData/courses';
+import { UserRole } from '../../types/users';
 import DiscussionForm from '../Discussions/DiscussionForm';
 import './Courses.css';
+//import { useCourseLastContentMapping } from './hook';
 
 export const Courses = () => {
   const [openPopup, setOpenPopup] = useState(false);
+  const userContext = useContext(UserContext);
   const handleOnClick = () => {
     setOpenPopup(true);
   };
+
+  //const mapping = useCourseLastContentMapping(courses.map((item) => item.id));
   return (
     <>
       <Container className="main-container">
@@ -74,11 +81,24 @@ export const Courses = () => {
                       />
                       <Box className="courses-item-container">
                         <button className="courses-item-left">
-                          <Link
-                            component={RouterLink}
-                            to={`/courses/${course.id}`}>
-                            <ModeEditIcon />
-                          </Link>
+                          {userContext.role === UserRole.Instructor ? (
+                            <Link
+                              component={RouterLink}
+                              to={`/courses/${course.id}`}
+                              color="inherit">
+                              <ModeEditIcon />
+                            </Link>
+                          ) : (
+                            <Link
+                              component={RouterLink}
+                              to={`/view/${course.id}`}
+                              color="inherit">
+                              <PlayCircleFilledWhiteOutlinedIcon />
+                            </Link>
+                            // to={`/view/${course.id}/content/${mapping?.get(
+                            //     course.id
+                            //   )}`}
+                          )}
                         </button>
                         <button className="courses-item-right">
                           <InfoIcon />
