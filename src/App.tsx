@@ -119,16 +119,16 @@ function App() {
               <Route index element={<DiscussionList />} />
               <Route path=":discussionId" element={<DiscussionDetail />} />
             </Route>
+            <Route
+              path="view/:id"
+              element={
+                <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
+                  <NavigateContents />
+                </PrivateRoute>
+              }
+            />
           </Route>
 
-          <Route
-            path="/view/:id"
-            element={
-              <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
-                <NavigateContents />
-              </PrivateRoute>
-            }
-          />
           <Route
             path="/view/:id/content/:contentId"
             element={
