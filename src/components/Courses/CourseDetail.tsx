@@ -312,7 +312,7 @@ const CourseDetail = () => {
                     <ContentIconsByType type={item.type} />
                     <Link
                       component={RouterLink}
-                      to={`/courses/${id}/contents/view/${item.id}`}
+                      to={`/view/${id}/content/${item.id}`}
                       underline="hover"
                       color="inherit">
                       <Typography>{item.name}</Typography>
