@@ -122,7 +122,11 @@ function App() {
 
           <Route
             path="/view/:id/content/:contentId"
-            element={<ViewContents />}
+            element={
+              <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
+                <ViewContents />
+              </PrivateRoute>
+            }
           />
         </Routes>
       </SnackbarProvider>
