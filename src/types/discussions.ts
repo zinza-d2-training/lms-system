@@ -10,10 +10,9 @@ export type Comment = {
   id: number;
   discussionId: number;
   comment: string;
-  like: number;
   userId: number;
 };
 
 export type DiscussionForm = Omit<Discussion, 'id' | 'comment' | 'userId'>;
 
-export type CommentForm = Pick<Comment, 'comment'>;
+export type CommentFormInfo = Pick<Comment, 'comment'>;
