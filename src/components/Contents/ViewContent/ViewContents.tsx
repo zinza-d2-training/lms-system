@@ -1,16 +1,25 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Box, Button, Link, Typography } from '@mui/material';
+import { orderBy } from 'lodash';
+import { useMemo } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import { ContentType, ShowAs } from '../../../types/contents';
-import { useCourseData } from '../../Courses/hook';
+import { useContentData, useCourseData } from '../../Courses/hook';
 import '../AddContent/MainContent/StyleTabBasicContent.css';
 import { useContentInfo } from '../hook';
 const ViewContents = () => {
   const { id, contentId } = useParams() as { id: string; contentId: string };
   const { courseInfo } = useCourseData(parseInt(id));
   const { contentInfo } = useContentInfo(parseInt(contentId));
-  console.log('contentInfo', contentInfo);
-  console.log('link audio : ', contentInfo?.link);
+  const { contentData } = useContentData(parseInt(id));
+  // const rawHTML = contentInfo?.content || '';
+  const orderContent = useMemo(() => {
+    return orderBy(contentData, ['sequence'], ['asc']);
+  }, [contentData]);
+
+  const currentContent = orderContent.find(
+    (i) => i.sequence === contentInfo?.sequence
+  );
 
   return (
     <Box display="flex" flexDirection="column" height="100vh">
@@ -45,7 +54,10 @@ const ViewContents = () => {
                     <div>
                       <iframe
                         className="view-content-iframe"
-                        src={contentInfo.link}></iframe>
+                        src={contentInfo.link}
+                        title = "Iframe Content"
+                        >                          
+                        </iframe>
                     </div>
                   )}
                   {contentInfo.showAs === ShowAs.PopUp && <p>Open-newTab</p>}
@@ -67,7 +79,28 @@ const ViewContents = () => {
                 </Box>
               );
             case ContentType.Video:
-              return <div>View Video</div>;
+              return (
+                <Box
+                  sx={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    height: '100%',
+                    minWidth: '215px'
+                  }}>
+                  <video
+                    crossOrigin="anonymous"
+                    autoPlay
+                    preload="auto"
+                    src={`${contentInfo?.link}`}
+                    controls
+                    style={{
+                      height: '592px'
+                    }}>
+                    <source src={`${contentInfo?.link}`} type="video/mp4" />
+                  </video>
+                </Box>
+              );
             case ContentType.Survey:
               return <div>View Survey</div>;
             default:
@@ -86,7 +119,26 @@ const ViewContents = () => {
             justifyContent: 'center'
           }}>
           <Button variant="contained" sx={{ mt: 5 }}>
-            Next
+            {currentContent &&
+            orderContent.indexOf(currentContent) + 1 < orderContent.length ? (
+              <Link
+                component={RouterLink}
+                to={`/view/${id}/content/${
+                  orderContent.at(orderContent.indexOf(currentContent) + 1)?.id
+                }`}
+                underline="none"
+                color="inherit">
+                Next
+              </Link>
+            ) : (
+              <Link
+                component={RouterLink}
+                to={`/`}
+                underline="none"
+                color="inherit">
+                Complete
+              </Link>
+            )}
           </Button>
         </Box>
       </Box>

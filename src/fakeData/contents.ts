@@ -162,7 +162,7 @@ export const contents: Content[] = [
     completedQuestionId: 2,
     type: ContentType.Video,
     videoType: VideoType.Link,
-    link: 'https://www.youtube.com/watch?v=TSc81OdB_kg'
+    link: 'https://media.istockphoto.com/videos/crypto-currency-future-of-payment-accepted-text-qr-code-sign-in-cafe-video-id1357061040'
   },
   {
     id: 3,
