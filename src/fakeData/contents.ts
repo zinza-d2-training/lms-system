@@ -247,10 +247,23 @@ export const contents: Content[] = [
     courseId: 1,
     completedMethod: CompletedMethod.WithCheckBox,
     content: 'test iframe 123',
-    sequence: 6,
+    sequence: 7,
     type: ContentType.Iframe,
     link: 'https://huyhoang7511.talentlms.com/dashboard',
     showAs: ShowAs.Embedded,
+    popUpWidth: 50,
+    popUpHeight: 70
+  },
+  {
+    id: 8,
+    name: 'Iframe 2',
+    courseId: 1,
+    completedMethod: CompletedMethod.WithCheckBox,
+    content: 'test iframe 123',
+    sequence: 8,
+    type: ContentType.Iframe,
+    link: 'https://huyhoang7511.talentlms.com/dashboard',
+    showAs: ShowAs.PopUp,
     popUpWidth: 50,
     popUpHeight: 70
   }
