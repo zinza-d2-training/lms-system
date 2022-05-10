@@ -2,6 +2,7 @@ import {
   CompletedMethod,
   Content,
   ContentType,
+  ShowAs,
   VideoType
 } from '../types/contents';
 import { QuestionType } from '../types/questions';
@@ -239,5 +240,31 @@ export const contents: Content[] = [
     sequence: 6,
     type: ContentType.Audio,
     link: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+  },
+  {
+    id: 7,
+    name: 'Iframe',
+    courseId: 1,
+    completedMethod: CompletedMethod.WithCheckBox,
+    content: 'test iframe 123',
+    sequence: 7,
+    type: ContentType.Iframe,
+    link: 'https://huyhoang7511.talentlms.com/dashboard',
+    showAs: ShowAs.Embedded,
+    popUpWidth: 50,
+    popUpHeight: 70
+  },
+  {
+    id: 8,
+    name: 'Iframe 2',
+    courseId: 1,
+    completedMethod: CompletedMethod.WithCheckBox,
+    content: 'test iframe 123',
+    sequence: 8,
+    type: ContentType.Iframe,
+    link: 'https://huyhoang7511.talentlms.com/dashboard',
+    showAs: ShowAs.PopUp,
+    popUpWidth: 50,
+    popUpHeight: 70
   }
 ];
