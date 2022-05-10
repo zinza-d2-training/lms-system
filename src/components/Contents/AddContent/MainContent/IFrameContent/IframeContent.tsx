@@ -109,9 +109,6 @@ const IframeContent = ({
           />
         </Box>
       )}
-      <Box>
-        <EditorField name="content" />
-      </Box>
     </>
   );
 };
