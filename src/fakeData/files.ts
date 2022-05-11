@@ -7,34 +7,39 @@ export const files: File[] = [
     name: 'The different roles.mp4',
     size: '123KB',
     courseId: 1,
-    created_At: formatDateTime('1995-12-17T03:24:00')
+    created_At: formatDateTime('1995-12-17T03:24:00'),
+    userId: 1
   },
   {
     id: 2,
     name: 'Import.mp4',
     size: '123KB',
     courseId: 1,
-    created_At: formatDateTime('1995-12-17T03:24:00')
+    created_At: formatDateTime('1995-12-17T03:24:00'),
+    userId: 1
   },
   {
     id: 3,
     name: 'Gamification.mp4',
     size: '123KB',
     courseId: 1,
-    created_At: formatDateTime('1995-12-17T03:24:00')
+    created_At: formatDateTime('1995-12-17T03:24:00'),
+    userId: 1
   },
   {
     id: 4,
     name: 'Reports.mp4',
     size: '123KB',
     courseId: 1,
-    created_At: formatDateTime('1995-12-17T03:24:00')
+    created_At: formatDateTime('1995-12-17T03:24:00'),
+    userId: 1
   },
   {
     id: 5,
     name: 'Customize.mp4',
     size: '123KB',
     courseId: 1,
-    created_At: formatDateTime('1995-12-17T03:24:00')
+    created_At: formatDateTime('1995-12-17T03:24:00'),
+    userId: 1
   }
 ];

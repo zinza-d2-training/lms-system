@@ -4,4 +4,5 @@ export type File = {
   size: string;
   courseId: number;
   created_At?: string;
+  userId: number;
 };

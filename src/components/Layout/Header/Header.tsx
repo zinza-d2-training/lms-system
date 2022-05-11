@@ -12,6 +12,7 @@ import {
   Container,
   Divider,
   FormControlLabel,
+  Link,
   Menu,
   MenuItem,
   Radio,
@@ -196,9 +197,15 @@ const Header = () => {
                   </RadioGroup>
                   <Divider />
                   <MenuItem onClick={handleClose}>
-                    <ContactMailOutlinedIcon fontSize="small" />{' '}
-                    {'\u00a0\u00a0'}
-                    My Info
+                    <Link
+                      component={RouterLink}
+                      to={`/user/${userContext.user.id}/info`}
+                      color="inherit"
+                      underline="none">
+                      <ContactMailOutlinedIcon fontSize="small" />{' '}
+                      {'\u00a0\u00a0'}
+                      My Info
+                    </Link>
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
                     <BookOutlinedIcon fontSize="small" /> {'\u00a0\u00a0'}My

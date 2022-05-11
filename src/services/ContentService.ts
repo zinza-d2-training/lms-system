@@ -1,6 +1,7 @@
 import { Content, ContentFormData } from '../types/contents';
 import { contents } from './../fakeData/contents';
 import { sortBy, groupBy } from 'lodash';
+import { Users } from '../fakeData/users';
 
 export async function getCourseContents(courseId: number): Promise<Content[]> {
   return contents.filter((item) => item.courseId === courseId);
@@ -58,4 +59,7 @@ export async function createContent(courseId: number, value: ContentFormData) {
   };
   console.log(newContent);
   return newContent;
+}
+export async function getUserInfo(userId: number) {
+  return Users.find((item) => item.id === userId);
 }

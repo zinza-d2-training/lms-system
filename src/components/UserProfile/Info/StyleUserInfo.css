@@ -1,0 +1,51 @@
+.textfield-info-user {
+    margin-bottom: 52px !important;
+    width: 300px !important;
+    margin-top: 1px !important;
+}
+
+.Container-form-user-info {
+    justify-content: start !important;
+}
+
+.form-infoUser-item {
+    margin-right: 100px;
+}
+
+.form-infoUser-item .label-form {
+    font-size: 14px !important;
+    font-weight: 600;
+    margin-top: 4px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif !important;
+    color: #333333 !important;
+}
+
+.form-infoUser-item .css-lq774h {
+    margin-top: unset !important;
+}
+
+.button-option-user-info {
+    box-shadow: none !important;
+}
+
+.button-option-user-info .MuiButton-contained {
+    background-color: #ececec !important;
+    color: #606060 !important;
+    border: none !important;
+    text-transform: capitalize;
+}
+
+.container-button-option-user-info {
+    background-color: #ececec !important;
+}
+
+.button-change-avatar {
+    height: 100px;
+    width: 80px;
+    background-size: cover;
+    background-image: url("https: //png.pngtree.com/png-vector/20190114/ourlarge/pngtree-vector-avatar-icon-png-image_313572.jpg");
+}
+
+.label-form-select {
+    margin-right: 12px !important;
+}
