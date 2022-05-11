@@ -24,9 +24,7 @@ const ViewSurveysContent = () => {
   });
   const validate = makeValidate(schema);
 
-  const handleSubmit = async (value: SurveyResponseForm) => {
-    console.log('surveyForm', value);
-  };
+  const handleSubmit = async (value: SurveyResponseForm) => {};
 
   return (
     <Box>

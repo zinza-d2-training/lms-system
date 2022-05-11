@@ -13,7 +13,6 @@ const ViewContents = () => {
   const { courseInfo } = useCourseData(parseInt(id));
   const { contentInfo } = useContentInfo(parseInt(contentId));
   const { contentData } = useContentData(parseInt(id));
-  // const rawHTML = contentInfo?.content || '';
   const orderContent = useMemo(() => {
     return orderBy(contentData, ['sequence'], ['asc']);
   }, [contentData]);

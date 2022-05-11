@@ -29,7 +29,6 @@ const SurveyResponseFinalForm = ({ name, questions }: Props) => {
     meta
   } = useField<QuestionResponse[]>(name);
   const { submitFailed, error } = meta;
-  console.log(value);
 
   return (
     <div>
