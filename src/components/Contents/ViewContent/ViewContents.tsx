@@ -7,6 +7,7 @@ import { ContentType } from '../../../types/contents';
 import { useContentData, useCourseData } from '../../Courses/hook';
 import '../AddContent/MainContent/StyleTabBasicContent.css';
 import { useContentInfo } from '../hook';
+import ViewSurveysContent from './ViewSurveysContent';
 const ViewContents = () => {
   const { id, contentId } = useParams() as { id: string; contentId: string };
   const { courseInfo } = useCourseData(parseInt(id));
@@ -88,7 +89,7 @@ const ViewContents = () => {
                 </Box>
               );
             case ContentType.Survey:
-              return <div>View Survey</div>;
+              return <ViewSurveysContent />;
             default:
               return (
                 <div

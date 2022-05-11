@@ -180,17 +180,17 @@ export const contents: Content[] = [
         answers: [
           {
             id: 1,
-            text: 'hello',
-            isCorrect: true
+            text: 'hello1',
+            isCorrect: false
           },
           {
             id: 2,
-            text: 'hello',
+            text: 'hello2',
             isCorrect: false
           },
           {
             id: 3,
-            text: 'hello',
+            text: 'hello3',
             isCorrect: false
           }
         ]
@@ -200,11 +200,28 @@ export const contents: Content[] = [
         sequence: 2,
         text: 'question 2',
         type: QuestionType.Raw,
+        answers: []
+      },
+      {
+        id: 3,
+        sequence: 3,
+        text: 'question 3',
+        type: QuestionType.Single,
         answers: [
           {
             id: 1,
-            text: 'hello',
-            isCorrect: true
+            text: 'hello11',
+            isCorrect: false
+          },
+          {
+            id: 2,
+            text: 'hello22',
+            isCorrect: false
+          },
+          {
+            id: 3,
+            text: 'hello33',
+            isCorrect: false
           }
         ]
       }
