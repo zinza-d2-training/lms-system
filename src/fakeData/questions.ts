@@ -29,23 +29,7 @@ export const questions: Question[] = [
     sequence: 2,
     text: 'question 2',
     type: QuestionType.Raw,
-    answers: [
-      {
-        id: 1,
-        text: 'hello',
-        isCorrect: true
-      },
-      {
-        id: 2,
-        text: 'hello',
-        isCorrect: false
-      },
-      {
-        id: 3,
-        text: 'hello',
-        isCorrect: false
-      }
-    ]
+    answers: []
   },
   {
     id: 3,
