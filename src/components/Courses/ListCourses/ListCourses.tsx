@@ -86,7 +86,7 @@ const ListCoursesRender = () => {
                     </TableCell>
                     <TableCell>Samples</TableCell>
                     <TableCell sx={{ paddingRight: '28px' }} align="right">
-                      {course.timeUpdate}
+                      {course.createdAt}
                     </TableCell>
                     <TableCell sx={{ paddingRight: '28px' }} align="right">
                       <CustomizedMenus

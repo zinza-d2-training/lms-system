@@ -129,7 +129,7 @@ function App() {
               }
             />
             <Route
-              path="user/:userId/info"
+              path="user/:userId/:tab"
               element={
                 <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
                   <UserInfoIndex />

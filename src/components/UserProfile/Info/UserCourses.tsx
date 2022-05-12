@@ -1,7 +1,5 @@
-import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import {
@@ -15,12 +13,19 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import React from 'react';
-import { courses } from '../../../fakeData/courses';
+import React, { useContext } from 'react';
+import { useParams } from 'react-router-dom';
+import { UserContext } from '../../../contexts/UserContext';
+import { UserRole } from '../../../types/users';
 import { CustomizedMenus } from '../../Courses/ListCourses/MenuActions';
+import { useCourseUser } from './hook';
 import './StyleUserInfo.css';
 
 export const UserCourses = () => {
+  const { userId } = useParams() as { userId: string };
+  const userContext = useContext(UserContext);
+  const { coursesData, loading } = useCourseUser(parseInt(userId));
+  console.log(coursesData);
   return (
     <Box sx={{ padding: '10px' }}>
       <TableContainer>
@@ -38,7 +43,7 @@ export const UserCourses = () => {
             </TableRow>
           </TableHead>
           <TableBody className="table-sourses-user">
-            {courses.map((course) => (
+            {coursesData.map((course) => (
               <TableRow
                 className="table-row-content "
                 key={course.id}
@@ -60,38 +65,43 @@ export const UserCourses = () => {
                       marginRight: '20px',
                       textTransform: 'uppercase'
                     }}>
-                    {course.role}
+                    INSTRUCTOR
                   </Typography>
                   {/* {course.name.slice(course.name.lastIndexOf('.') + 1)} */}
                 </TableCell>
-                <TableCell align="center">{course.timeUpdate}</TableCell>
+                <TableCell align="center">{course.enrolledOn}</TableCell>
                 <TableCell align="center">
-                  {course.timeCompletion || '-'}
+                  {course.completionDate || '-'}
                 </TableCell>
                 <TableCell align="right">
                   <CustomizedMenus
-                    items={[
-                      {
-                        to: `#`,
-                        label: 'Preview',
-                        icon: <RemoveRedEyeOutlinedIcon />
-                      },
-                      {
-                        to: `#`,
-                        label: 'Download',
-                        icon: <FileDownloadOutlinedIcon />
-                      },
-                      {
-                        to: `#`,
-                        label: 'Edit',
-                        icon: <ModeEditOutlinedIcon />
-                      },
-                      {
-                        to: `#`,
-                        label: 'Delete',
-                        icon: <ClearOutlinedIcon />
-                      }
-                    ]}
+                    items={
+                      userContext.role === UserRole.Learner
+                        ? [
+                            {
+                              to: `#`,
+                              label: 'Uneroll',
+                              icon: <RemoveRedEyeOutlinedIcon />
+                            },
+                            {
+                              to: `/view/${course.courseId}`,
+                              label: 'View',
+                              icon: <FileDownloadOutlinedIcon />
+                            }
+                          ]
+                        : [
+                            {
+                              to: `#`,
+                              label: 'Delete',
+                              icon: <RemoveRedEyeOutlinedIcon />
+                            },
+                            {
+                              to: `/courses/${course.courseId}/edit`,
+                              label: 'edit',
+                              icon: <FileDownloadOutlinedIcon />
+                            }
+                          ]
+                    }
                   />
                 </TableCell>
               </TableRow>

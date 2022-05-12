@@ -65,9 +65,7 @@ const Header = () => {
   const [anchorMessage, setAnchorMessage] = useState<null | HTMLElement>(null);
   const [anchorHelp, setAnchorHelp] = useState<null | HTMLElement>(null);
   const [value, setValue] = useState(0);
-
   const location = useLocation();
-
   const openUser = Boolean(anchorUser);
   const openMessage = Boolean(anchorMessage);
   const openHelp = Boolean(anchorHelp);
@@ -208,8 +206,14 @@ const Header = () => {
                     </Link>
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
-                    <BookOutlinedIcon fontSize="small" /> {'\u00a0\u00a0'}My
-                    Courses
+                    <Link
+                      component={RouterLink}
+                      to={`/user/${userContext.user.id}/courses`}
+                      color="inherit"
+                      underline="none">
+                      <BookOutlinedIcon fontSize="small" /> {'\u00a0\u00a0'}
+                      My Courses
+                    </Link>
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
                     <WorkspacePremiumOutlinedIcon fontSize="small" />{' '}
@@ -229,8 +233,15 @@ const Header = () => {
                     My branches
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
-                    <InsertDriveFileOutlinedIcon fontSize="small" />{' '}
-                    {'\u00a0\u00a0'}My files
+                    {' '}
+                    <Link
+                      component={RouterLink}
+                      to={`/user/${userContext.user.id}/files`}
+                      color="inherit"
+                      underline="none">
+                      <InsertDriveFileOutlinedIcon fontSize="small" />{' '}
+                      {'\u00a0\u00a0'}My files
+                    </Link>
                   </MenuItem>
                 </Menu>
               </Stack>
