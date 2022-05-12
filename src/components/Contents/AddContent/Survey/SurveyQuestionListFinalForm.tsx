@@ -29,7 +29,7 @@ interface Props {
 const SurveyQuestionListFinalForm = (props: Props) => {
   const [openPopup, setOpenPopup] = useState(false);
   const [type, setType] = useState<QuestionType>(QuestionType.Multiple);
-  const [questionId, setQuestionId] = useState(NaN);
+  const [questionId, setQuestionId] = useState<number>();
   const {
     input: { value, onChange }
   } = useField(props.name);

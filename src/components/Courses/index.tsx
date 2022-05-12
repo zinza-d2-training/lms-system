@@ -1,6 +1,4 @@
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import GridOnIcon from '@mui/icons-material/GridOn';
-import GroupsIcon from '@mui/icons-material/Groups';
 import InfoIcon from '@mui/icons-material/Info';
 import LayersIcon from '@mui/icons-material/Layers';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
@@ -18,16 +16,23 @@ import { UserContext } from '../../contexts/UserContext';
 import { courses } from '../../fakeData/courses';
 import { UserRole } from '../../types/users';
 import DiscussionForm from '../Discussions/DiscussionForm';
+import CourseInfoDialog from './CourseInfoDialog';
 import './Courses.css';
 //import { useCourseLastContentMapping } from './hook';
 
 export const Courses = () => {
   const [openPopup, setOpenPopup] = useState(false);
+  const [openCoursePopup, setOpenCoursePopup] = useState(false);
+  const [courseId, setCourseId] = useState<number>();
   const userContext = useContext(UserContext);
   const handleOnClick = () => {
     setOpenPopup(true);
   };
 
+  const handleOpenCoursePopup = (id: number) => {
+    setCourseId(id);
+    setOpenCoursePopup(true);
+  };
   //const mapping = useCourseLastContentMapping(courses.map((item) => item.id));
   return (
     <>
@@ -72,13 +77,7 @@ export const Courses = () => {
                 <Box className="card-course-container">
                   {courses.map((course) => (
                     <Box key={course.id} className="course-item">
-                      <img
-                        className="courses-item-image"
-                        src={`${course.imageURL}?w=164&h=164&fit=crop&auto=format`}
-                        srcSet={`${course.imageURL}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                        alt={''}
-                        loading="lazy"
-                      />
+                      <img src={`${course.imageURL}`} alt={'img'} />
                       <Box className="courses-item-container">
                         <button className="courses-item-left">
                           {userContext.role === UserRole.Instructor ? (
@@ -100,7 +99,9 @@ export const Courses = () => {
                             //   )}`}
                           )}
                         </button>
-                        <button className="courses-item-right">
+                        <button
+                          className="courses-item-right"
+                          onClick={() => handleOpenCoursePopup(course.id)}>
                           <InfoIcon />
                         </button>
                       </Box>
@@ -123,32 +124,16 @@ export const Courses = () => {
                   <Link component={RouterLink} to={'/courses'} underline="none">
                     <h5>COURSES</h5>
                   </Link>
-                  <Link
-                    component={RouterLink}
-                    to={'/courses/add'}
-                    underline="none">
-                    <Typography variant="caption">Add course</Typography>
-                  </Link>
-                </Box>
-              </Box>
-
-              <Box className="box-content-right-container-item">
-                <Box className="item-left">
-                  <GroupsIcon />
-                </Box>
-                <Box className="item-right">
-                  <h5>Groups</h5>
-                  <p>Add groups</p>
-                </Box>
-              </Box>
-
-              <Box className="box-content-right-container-item">
-                <Box className="item-left">
-                  <LibraryBooksIcon />
-                </Box>
-                <Box className="item-right">
-                  <h5>Conferences</h5>
-                  <p>Add conferences</p>
+                  {userContext.role === UserRole.Instructor ? (
+                    <Link
+                      component={RouterLink}
+                      to={'/courses/add'}
+                      underline="none">
+                      <Typography variant="caption">Add course</Typography>
+                    </Link>
+                  ) : (
+                    <></>
+                  )}
                 </Box>
               </Box>
 
@@ -174,16 +159,6 @@ export const Courses = () => {
                   </Link>
                 </Box>
               </Box>
-
-              <Box className="box-content-right-container-item">
-                <Box className="item-left">
-                  <CalendarMonthIcon />
-                </Box>
-                <Box className="item-right">
-                  <h5>CALENDAR</h5>
-                  <p>Add event</p>
-                </Box>
-              </Box>
             </Box>
           </Box>
         </Box>
@@ -192,6 +167,12 @@ export const Courses = () => {
         <DiscussionForm
           label={'Add discussion'}
           handleClose={() => setOpenPopup(false)}
+        />
+      )}
+      {openCoursePopup && (
+        <CourseInfoDialog
+          id={courseId}
+          handleClose={() => setOpenCoursePopup(false)}
         />
       )}
     </>

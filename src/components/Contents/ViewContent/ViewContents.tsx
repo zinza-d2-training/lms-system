@@ -7,12 +7,12 @@ import { ContentType, ShowAs } from '../../../types/contents';
 import { useContentData, useCourseData } from '../../Courses/hook';
 import '../AddContent/MainContent/StyleTabBasicContent.css';
 import { useContentInfo } from '../hook';
+import ViewSurveysContent from './ViewSurveysContent';
 const ViewContents = () => {
   const { id, contentId } = useParams() as { id: string; contentId: string };
   const { courseInfo } = useCourseData(parseInt(id));
   const { contentInfo } = useContentInfo(parseInt(contentId));
   const { contentData } = useContentData(parseInt(id));
-  // const rawHTML = contentInfo?.content || '';
   const orderContent = useMemo(() => {
     return orderBy(contentData, ['sequence'], ['asc']);
   }, [contentData]);
@@ -123,7 +123,7 @@ const ViewContents = () => {
                 </Box>
               );
             case ContentType.Survey:
-              return <div>View Survey</div>;
+              return <ViewSurveysContent />;
             default:
               return (
                 <div
