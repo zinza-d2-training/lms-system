@@ -1,4 +1,4 @@
-import { Box, Button, Link, Typography } from '@mui/material';
+import { Box, Button, Divider, Link, Typography } from '@mui/material';
 import { makeValidate, TextField } from 'mui-rff';
 import { useSnackbar } from 'notistack';
 import { useContext, useEffect } from 'react';
@@ -106,13 +106,23 @@ const Login = () => {
                     sx={{ mt: 3, mb: 2 }}>
                     Login
                   </Button>
-                  <Typography sx={{ textAlign: 'center' }}>
+                  <Typography sx={{ marginBottom: '8px', textAlign: 'center' }}>
                     Forgot your{' '}
                     <Link
                       underline="none"
                       to={'/forgot'}
                       component={RouterLink}>
                       password?
+                    </Link>
+                  </Typography>
+                  <Divider />
+                  <Typography sx={{ marginTop: '8px', textAlign: 'center' }}>
+                    Or{' '}
+                    <Link
+                      underline="none"
+                      to={'/signup'}
+                      component={RouterLink}>
+                      Register
                     </Link>
                   </Typography>
                 </form>

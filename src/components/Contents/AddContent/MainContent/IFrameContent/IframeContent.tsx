@@ -1,8 +1,7 @@
-import { Box, Button, FormControl, MenuItem, Typography } from '@mui/material';
+import { Box, FormControl, MenuItem, Typography } from '@mui/material';
 import { Select, TextField } from 'mui-rff';
 import React, { useState } from 'react';
 import { ShowAs } from '../../../../../types/contents';
-import { EditorField } from '../../../Editor/EditorField';
 import '../StyleTabBasicContent.css';
 import './StyleIframeContent.css';
 interface Props {

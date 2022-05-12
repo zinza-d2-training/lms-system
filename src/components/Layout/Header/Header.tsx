@@ -1,11 +1,7 @@
-import AccountTreeOutlinedIcon from '@mui/icons-material/AccountTreeOutlined';
 import BookOutlinedIcon from '@mui/icons-material/BookOutlined';
 import ContactMailOutlinedIcon from '@mui/icons-material/ContactMailOutlined';
 import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
 import LogoutIcon from '@mui/icons-material/Logout';
-import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
-import ShowChartOutlinedIcon from '@mui/icons-material/ShowChartOutlined';
-import WorkspacePremiumOutlinedIcon from '@mui/icons-material/WorkspacePremiumOutlined';
 import {
   Box,
   Button,
@@ -203,23 +199,6 @@ const Header = () => {
                   <MenuItem onClick={handleClose}>
                     <BookOutlinedIcon fontSize="small" /> {'\u00a0\u00a0'}My
                     Courses
-                  </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <WorkspacePremiumOutlinedIcon fontSize="small" />{' '}
-                    {'\u00a0\u00a0'}My certifications
-                  </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <ShowChartOutlinedIcon fontSize="small" /> {'\u00a0\u00a0'}
-                    My progress
-                  </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <PeopleAltOutlinedIcon fontSize="small" /> {'\u00a0\u00a0'}
-                    My groups
-                  </MenuItem>
-                  <MenuItem onClick={handleClose}>
-                    <AccountTreeOutlinedIcon fontSize="small" />{' '}
-                    {'\u00a0\u00a0'}
-                    My branches
                   </MenuItem>
                   <MenuItem onClick={handleClose}>
                     <InsertDriveFileOutlinedIcon fontSize="small" />{' '}
