@@ -271,7 +271,6 @@ const Survey = () => {
       {openPopup && (
         <QuestionDialogForm
           type={type}
-          id={NaN}
           forSurvey
           onCreated={(qId) => qId}
           handleClose={() => setOpenPopup(false)}
