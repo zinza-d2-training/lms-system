@@ -1,16 +1,15 @@
 import { TabContext, TabList, TabPanel } from '@mui/lab';
-import { Box, Container, Tab } from '@mui/material';
+import { Box, Tab } from '@mui/material';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
+import { UserCourses } from './UserCourses';
 import { UserFiles } from './UserFiles';
 import UserInfor from './UserInfor';
 
 export const UserInfoIndex = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedIndex, setSelectedIndex] = React.useState(1);
   const { id: courseId } = useParams() as { id: string };
   const id = parseInt(courseId);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleListItemClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number
@@ -49,7 +48,7 @@ export const UserInfoIndex = () => {
             <TabPanel
               value="2"
               sx={{ padding: 0, marginTop: '12px', width: '98%' }}>
-              {/* <TabEnrollUser /> */}
+              <UserCourses />
             </TabPanel>
             <TabPanel
               value="3"

@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  FormControlLabel,
-  Typography
-} from '@mui/material';
+import { Box, Button, FormControlLabel, Typography } from '@mui/material';
 import { Checkboxes, makeValidate, TextField } from 'mui-rff';
 import { useEffect, useMemo, useState } from 'react';
 import { Form } from 'react-final-form';
@@ -58,6 +52,8 @@ const useUserInfo = (userId: number) => {
 
 const UserInfor = () => {
   const handleSubmit = async (user: UserInfo) => {
+    console.log('Update Data UserInfo :');
+
     console.log(user);
   };
   const { userId } = useParams() as { userId: string };
@@ -83,7 +79,7 @@ const UserInfor = () => {
   ]);
   return (
     <>
-      <Box sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', marginBottom: 3 }}>
         <Box
           className="signup-container-form"
           sx={{
@@ -103,10 +99,10 @@ const UserInfor = () => {
               justifyContent: 'center',
               width: '100%',
               '@media(min-height: 768px)': {
-                mt: '150px'
+                mt: '2px'
               },
               '@media(min-height: 920px)': {
-                mt: '25px'
+                mt: '2px'
               }
             }}>
             <Form<UserInfo>
@@ -222,10 +218,10 @@ const UserInfor = () => {
                             />
                           </Box>
 
-                          <Box sx={{ marginLeft: '225px' }}>
+                          <Box sx={{ marginLeft: '214px' }}>
                             <FormControlLabel
-                              className="Signup-checkbox"
-                              sx={{ mt: 5 }}
+                              className="Signup-checkbox checkbox-info"
+                              sx={{ mt: 5, fontSize: '13px' }}
                               control={
                                 <Checkboxes
                                   id="check"
@@ -257,7 +253,8 @@ const UserInfor = () => {
                             sx={{
                               display: 'flex',
                               justifyContent: 'end',
-                              alignItems: 'center'
+                              alignItems: 'center',
+                              marginRight: '132px'
                             }}>
                             <ImageField
                               name="avatar"

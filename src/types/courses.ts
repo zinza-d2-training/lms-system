@@ -4,6 +4,8 @@ export interface CoursesDB {
   imageURL?: string;
   description: string;
   timeUpdate?: string;
+  role?: string;
+  timeCompletion?: string;
 }
 
 export type CourseInfo = Pick<CoursesDB, 'title' | 'imageURL' | 'description'>;

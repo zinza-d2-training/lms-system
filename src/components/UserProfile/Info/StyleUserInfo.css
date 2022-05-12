@@ -2,6 +2,13 @@
     margin-bottom: 52px !important;
     width: 300px !important;
     margin-top: 1px !important;
+
+}
+
+.textfield-info-user input,
+.textfield-info-user textarea,
+.checkbox-info span {
+    font-size: 13px !important;
 }
 
 .Container-form-user-info {
