@@ -4,7 +4,6 @@ import { Form } from 'react-final-form';
 import * as Yup from 'yup';
 import { Link as RouterLink } from 'react-router-dom';
 import './Signup.css';
-//import { UserRole } from '../../types/users';
 
 interface SignupFormData {
   email?: string | null;

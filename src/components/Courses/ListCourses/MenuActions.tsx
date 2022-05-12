@@ -103,8 +103,7 @@ export const CustomizedMenus: FC<Props> = ({ items }) => {
             color="inherit"
             onClick={
               item.onClick
-                ? (e) => {
-                    e.preventDefault();
+                ? () => {
                     item.onClick && item.onClick();
                   }
                 : undefined

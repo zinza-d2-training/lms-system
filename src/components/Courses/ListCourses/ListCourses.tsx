@@ -100,7 +100,7 @@ const ListCoursesRender = () => {
                     </TableCell>
                     <TableCell>Samples</TableCell>
                     <TableCell sx={{ paddingRight: '28px' }} align="right">
-                      {course.timeUpdate}
+                      {course.createdAt}
                     </TableCell>
                     {userContext.role === UserRole.Instructor ? (
                       <TableCell sx={{ paddingRight: '28px' }} align="right">
