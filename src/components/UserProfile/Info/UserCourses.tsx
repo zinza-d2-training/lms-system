@@ -4,7 +4,6 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import './StyleUserInfo.css';
 import {
   Box,
   Table,
@@ -17,10 +16,9 @@ import {
   Typography
 } from '@mui/material';
 import React from 'react';
-import { useParams } from 'react-router-dom';
 import { courses } from '../../../fakeData/courses';
-import { useCourseData } from '../../Courses/hook';
 import { CustomizedMenus } from '../../Courses/ListCourses/MenuActions';
+import './StyleUserInfo.css';
 
 export const UserCourses = () => {
   return (
@@ -35,7 +33,7 @@ export const UserCourses = () => {
               <TableCell align="left">COURSE</TableCell>
               <TableCell align="center">ROLE</TableCell>
               <TableCell align="center">ENROLL</TableCell>
-              <TableCell align="center">UPLOADED</TableCell>
+              <TableCell align="center">COMPLETION DATE</TableCell>
               <TableCell align="right">OPTIONS</TableCell>
             </TableRow>
           </TableHead>
