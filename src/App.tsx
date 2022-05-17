@@ -23,7 +23,6 @@ import Discussion from './components/Discussions/Discussion';
 import ViewContents from './components/Contents/ViewContent/ViewContents';
 
 function App() {
-
   const [data, setData] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
