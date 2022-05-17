@@ -1,6 +1,5 @@
 import { SnackbarProvider } from 'notistack';
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/common/PrivateRoute';
 import AddContent from './components/Contents/AddContent/index';
@@ -21,14 +20,15 @@ import DiscussionList from './components/Discussions/DiscussionList';
 import DiscussionDetail from './components/Discussions/DiscussionDetail';
 import Discussion from './components/Discussions/Discussion';
 import ViewContents from './components/Contents/ViewContent/ViewContents';
+import axiosClient from './utils/axios';
 
 function App() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({});
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data: response } = await axios.get('http://127.0.0.1:5000');
-        setData(response);
+        const data = await axiosClient.get('http://127.0.0.1:5000');
+        setData(data);
       } catch (error) {
         console.error(error);
       }
@@ -36,6 +36,7 @@ function App() {
 
     fetchData();
   }, []);
+
   console.log(data);
 
   return (
