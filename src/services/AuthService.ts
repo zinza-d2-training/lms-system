@@ -9,7 +9,6 @@ export async function login(user: UserLogin) {
   const found = Users.find(
     (item) => item.email === user.email && item.password === user.password
   );
-
   if (found) {
     localStorage.setItem(KEY_USER, JSON.stringify(pick(found, 'id', 'email')));
     localStorage.setItem('role', UserRole.Instructor);

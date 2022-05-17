@@ -64,7 +64,6 @@ function App() {
                   </PrivateRoute>
                 }
               />
-
               <Route
                 path="add"
                 element={
