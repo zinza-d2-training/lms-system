@@ -24,7 +24,7 @@ import './StyleUserInfo.css';
 export const UserCourses = () => {
   const { userId } = useParams() as { userId: string };
   const userContext = useContext(UserContext);
-  const { coursesData, loading } = useCourseUser(parseInt(userId));
+  const { coursesData } = useCourseUser(parseInt(userId));
   console.log(coursesData);
   return (
     <Box sx={{ padding: '10px' }}>

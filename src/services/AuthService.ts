@@ -1,6 +1,7 @@
 import { pick } from 'lodash';
 import { Users } from '../fakeData/users';
 import { User, UserFullInfo, UserRole } from '../types/users';
+import axiosClient from '../utils/axios';
 export type UserLogin = Pick<User, 'email'> & { password: string };
 export type UserInfo = Pick<UserFullInfo, 'email' | 'userName'>;
 const KEY_USER = 'user';
@@ -9,7 +10,6 @@ export async function login(user: UserLogin) {
   const found = Users.find(
     (item) => item.email === user.email && item.password === user.password
   );
-
   if (found) {
     localStorage.setItem(KEY_USER, JSON.stringify(pick(found, 'id', 'email')));
     localStorage.setItem('role', UserRole.Instructor);
@@ -38,7 +38,8 @@ export async function updateUser(info: UserInfo) {
   Users[index] = { ...user, ...info };
 }
 
-export function getCurrentUser() {
+export async function getCurrentUser() {
+  await axiosClient.get('/currenUser');
   return localStorage.getItem(KEY_USER);
 }
 
