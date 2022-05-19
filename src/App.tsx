@@ -19,13 +19,9 @@ import Login from './components/Login/Login';
 import { ManagementUser } from './components/ManagementUser/ManagementUser';
 import ManagerFiles from './components/ManagerFiles/ManagerFiles';
 import ResetPassword from './components/ResetPassword/ResetPassword';
-import Signup from './components/Signup/Signup';
+import Signup from './components/Signup/Signup';sh
 import { UserInfoIndex } from './components/UserProfile/Info';
 import { UserRole } from './types/users';
-import DiscussionList from './components/Discussions/DiscussionList';
-import DiscussionDetail from './components/Discussions/DiscussionDetail';
-import Discussion from './components/Discussions/Discussion';
-import ViewContents from './components/Contents/ViewContent/ViewContents';
 import axiosClient from './utils/axios';
 
 function App() {
