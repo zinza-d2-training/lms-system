@@ -2,6 +2,7 @@ import {
   CompletedMethod,
   Content,
   ContentType,
+  ShowAs,
   VideoType
 } from '../types/contents';
 import { QuestionType } from '../types/questions';
@@ -161,7 +162,7 @@ export const contents: Content[] = [
     completedQuestionId: 2,
     type: ContentType.Video,
     videoType: VideoType.Link,
-    link: 'https://www.youtube.com/watch?v=TSc81OdB_kg'
+    link: 'https://media.istockphoto.com/videos/crypto-currency-future-of-payment-accepted-text-qr-code-sign-in-cafe-video-id1357061040'
   },
   {
     id: 3,
@@ -180,17 +181,17 @@ export const contents: Content[] = [
         answers: [
           {
             id: 1,
-            text: 'hello',
-            isCorrect: true
+            text: 'hello1',
+            isCorrect: false
           },
           {
             id: 2,
-            text: 'hello',
+            text: 'hello2',
             isCorrect: false
           },
           {
             id: 3,
-            text: 'hello',
+            text: 'hello3',
             isCorrect: false
           }
         ]
@@ -200,11 +201,28 @@ export const contents: Content[] = [
         sequence: 2,
         text: 'question 2',
         type: QuestionType.Raw,
+        answers: []
+      },
+      {
+        id: 3,
+        sequence: 3,
+        text: 'question 3',
+        type: QuestionType.Single,
         answers: [
           {
             id: 1,
-            text: 'hello',
-            isCorrect: true
+            text: 'hello11',
+            isCorrect: false
+          },
+          {
+            id: 2,
+            text: 'hello22',
+            isCorrect: false
+          },
+          {
+            id: 3,
+            text: 'hello33',
+            isCorrect: false
           }
         ]
       }
@@ -239,5 +257,31 @@ export const contents: Content[] = [
     sequence: 6,
     type: ContentType.Audio,
     link: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'
+  },
+  {
+    id: 7,
+    name: 'Iframe',
+    courseId: 1,
+    completedMethod: CompletedMethod.WithCheckBox,
+    content: 'test iframe 123',
+    sequence: 7,
+    type: ContentType.Iframe,
+    link: 'https://huyhoang7511.talentlms.com/dashboard',
+    showAs: ShowAs.Embedded,
+    popUpWidth: 50,
+    popUpHeight: 70
+  },
+  {
+    id: 8,
+    name: 'Iframe 2',
+    courseId: 1,
+    completedMethod: CompletedMethod.WithCheckBox,
+    content: 'test iframe 123',
+    sequence: 8,
+    type: ContentType.Iframe,
+    link: 'https://huyhoang7511.talentlms.com/dashboard',
+    showAs: ShowAs.PopUp,
+    popUpWidth: 50,
+    popUpHeight: 70
   }
 ];

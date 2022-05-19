@@ -6,10 +6,16 @@ export enum UserRole {
 export type UserDB = {
   id: number;
   email: string;
-  username?: string;
+  userName?: string;
   password: string;
+  firstName: string;
+  lastName: string;
+  avatar?: string;
+  bio?: string;
+  timeZone?: string;
+  language?: string;
 };
 
 export type UserFullInfo = Omit<UserDB, 'password'>;
 
-export type User = Pick<UserFullInfo, 'id' | 'email' | 'username'>;
+export type User = Pick<UserFullInfo, 'id' | 'email' | 'userName'>;

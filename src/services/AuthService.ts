@@ -2,7 +2,7 @@ import { pick } from 'lodash';
 import { Users } from '../fakeData/users';
 import { User, UserFullInfo, UserRole } from '../types/users';
 export type UserLogin = Pick<User, 'email'> & { password: string };
-export type UserInfo = Pick<UserFullInfo, 'email' | 'username'>;
+export type UserInfo = Pick<UserFullInfo, 'email' | 'userName'>;
 const KEY_USER = 'user';
 
 export async function login(user: UserLogin) {

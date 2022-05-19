@@ -1,16 +1,28 @@
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Box, Button, Link, Typography } from '@mui/material';
+import { orderBy } from 'lodash';
+import { useMemo } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
-import { ContentType } from '../../../types/contents';
-import { useCourseData } from '../../Courses/hook';
+import { ContentType, ShowAs } from '../../../types/contents';
+import { useContentData, useCourseData } from '../../Courses/hook';
 import '../AddContent/MainContent/StyleTabBasicContent.css';
 import { useContentInfo } from '../hook';
+import ViewSurveysContent from './ViewSurveysContent';
 const ViewContents = () => {
   const { id, contentId } = useParams() as { id: string; contentId: string };
   const { courseInfo } = useCourseData(parseInt(id));
   const { contentInfo } = useContentInfo(parseInt(contentId));
-  console.log(contentInfo);
-  console.log('link audio : ', contentInfo?.link);
+  const { contentData } = useContentData(parseInt(id));
+  const orderContent = useMemo(() => {
+    return orderBy(contentData, ['sequence'], ['asc']);
+  }, [contentData]);
+
+  const currentContent = orderContent.find(
+    (i) => i.sequence === contentInfo?.sequence
+  );
+  const handleClickButton = () => {
+    window.open(`${contentInfo?.link}`, 'name', 'settings');
+  };
 
   return (
     <Box display="flex" flexDirection="column" height="100vh">
@@ -39,7 +51,39 @@ const ViewContents = () => {
         {(() => {
           switch (contentInfo?.type) {
             case ContentType.Iframe:
-              return <div>View Iframe</div>;
+              return (
+                <div>
+                  {contentInfo.showAs === ShowAs.Embedded && (
+                    <div>
+                      <iframe
+                        className="view-content-iframe"
+                        src={contentInfo.link}
+                        title="Iframe Content"></iframe>
+                    </div>
+                  )}
+                  {contentInfo.showAs === ShowAs.PopUp && (
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
+                      }}>
+                      <Button
+                        sx={{
+                          padding: '20px 60px',
+                          marginBottom: '40px',
+                          backgroundColor: '#000fe6',
+                          fontWeight: 800
+                        }}
+                        size="large"
+                        variant="contained"
+                        onClick={handleClickButton}>
+                        Start
+                      </Button>
+                    </Box>
+                  )}
+                </div>
+              );
             case ContentType.Audio:
               return (
                 <Box
@@ -56,9 +100,30 @@ const ViewContents = () => {
                 </Box>
               );
             case ContentType.Video:
-              return <div>View Video</div>;
+              return (
+                <Box
+                  sx={{
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: '100%',
+                    height: '100%',
+                    minWidth: '215px'
+                  }}>
+                  <video
+                    crossOrigin="anonymous"
+                    autoPlay
+                    preload="auto"
+                    src={`${contentInfo?.link}`}
+                    controls
+                    style={{
+                      height: '592px'
+                    }}>
+                    <source src={`${contentInfo?.link}`} type="video/mp4" />
+                  </video>
+                </Box>
+              );
             case ContentType.Survey:
-              return <div>View Survey</div>;
+              return <ViewSurveysContent />;
             default:
               return (
                 <div
@@ -74,8 +139,36 @@ const ViewContents = () => {
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-          <Button variant="contained" sx={{ mt: 5 }}>
-            Next
+          <Button
+            variant="contained"
+            sx={{
+              mt: 5,
+              backgroundColor: '#f5f5f5',
+              color: '#333333',
+              textTransform: 'capitalize',
+              fontWeight: '700',
+              fontSize: '18px'
+            }}>
+            {currentContent &&
+            orderContent.indexOf(currentContent) + 1 < orderContent.length ? (
+              <Link
+                component={RouterLink}
+                to={`/view/${id}/content/${
+                  orderContent.at(orderContent.indexOf(currentContent) + 1)?.id
+                }`}
+                underline="none"
+                color="inherit">
+                Next
+              </Link>
+            ) : (
+              <Link
+                component={RouterLink}
+                to={`/`}
+                underline="none"
+                color="inherit">
+                Complete
+              </Link>
+            )}
           </Button>
         </Box>
       </Box>

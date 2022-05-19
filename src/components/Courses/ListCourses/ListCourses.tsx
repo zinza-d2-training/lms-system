@@ -17,37 +17,47 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import { useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { UserContext } from '../../../contexts/UserContext';
 import { courses } from '../../../fakeData/courses';
+import { UserRole } from '../../../types/users';
 import './ListCourses.css';
 import { CustomizedMenus } from './MenuActions';
 
 const ListCoursesRender = () => {
+  const userContext = useContext(UserContext);
   const handleDelete = () => {};
   return (
     <>
       <Container className="main-container">
         <Box className="box-content-container">
           <Box className="container-options">
-            <Box>
-              <Link
-                component={RouterLink}
-                to={'/courses/add'}
-                sx={{
-                  textDecoration: 'none',
-                  cursor: 'pointer'
-                }}>
-                <Button variant="contained">Add course</Button>
-              </Link>
-            </Box>
-            <Box
-              className="container-options-right"
-              sx={{
-                fontFamily: 'Arial, Helvetica, sans-serif '
-              }}>
-              <ReplyIcon className="icon-share" />
-              <p>View courses catalog</p>
-            </Box>
+            {userContext.role === UserRole.Instructor ? (
+              <>
+                <Box>
+                  <Link
+                    component={RouterLink}
+                    to={'/courses/add'}
+                    sx={{
+                      textDecoration: 'none',
+                      cursor: 'pointer'
+                    }}>
+                    <Button variant="contained">Add course</Button>
+                  </Link>
+                </Box>
+                <Box
+                  className="container-options-right"
+                  sx={{
+                    fontFamily: 'Arial, Helvetica, sans-serif '
+                  }}>
+                  <ReplyIcon className="icon-share" />
+                  <p>View courses catalog</p>
+                </Box>
+              </>
+            ) : (
+              <></>
+            )}
           </Box>
         </Box>
         <Box
@@ -62,9 +72,13 @@ const ListCoursesRender = () => {
               <TableHead className="table-head">
                 <TableRow>
                   <TableCell>COURSES</TableCell>
-                  <TableCell>CATAGORY</TableCell>
+                  <TableCell>CATEGORY</TableCell>
                   <TableCell align="right">LAST UPDATE ON</TableCell>
-                  <TableCell align="right">OPTIONS</TableCell>
+                  {userContext.role === UserRole.Instructor ? (
+                    <TableCell align="right">OPTIONS</TableCell>
+                  ) : (
+                    <></>
+                  )}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -86,25 +100,29 @@ const ListCoursesRender = () => {
                     </TableCell>
                     <TableCell>Samples</TableCell>
                     <TableCell sx={{ paddingRight: '28px' }} align="right">
-                      {course.timeUpdate}
+                      {course.createdAt}
                     </TableCell>
-                    <TableCell sx={{ paddingRight: '28px' }} align="right">
-                      <CustomizedMenus
-                        items={[
-                          {
-                            to: `/courses/${course.id}/edit`,
-                            label: 'Synchronize',
-                            icon: <EditIcon />
-                          },
-                          {
-                            to: `#`,
-                            label: 'Reset',
-                            icon: <DeleteForeverIcon />,
-                            onClick: handleDelete
-                          }
-                        ]}
-                      />
-                    </TableCell>
+                    {userContext.role === UserRole.Instructor ? (
+                      <TableCell sx={{ paddingRight: '28px' }} align="right">
+                        <CustomizedMenus
+                          items={[
+                            {
+                              to: `/courses/${course.id}/edit`,
+                              label: 'Synchronize',
+                              icon: <EditIcon />
+                            },
+                            {
+                              to: `#`,
+                              label: 'Reset',
+                              icon: <DeleteForeverIcon />,
+                              onClick: handleDelete
+                            }
+                          ]}
+                        />
+                      </TableCell>
+                    ) : (
+                      <></>
+                    )}
                   </TableRow>
                 ))}
               </TableBody>

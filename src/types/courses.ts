@@ -3,7 +3,17 @@ export interface CoursesDB {
   title: string;
   imageURL?: string;
   description: string;
-  timeUpdate?: string;
+  updatedAt?: string;
+  createdAt?: string;
+}
+
+export interface CourseCompletion {
+  id: number;
+  courseId: number;
+  userId: number;
+  title: string;
+  enrolledOn?: string;
+  completionDate?: string;
 }
 
 export type CourseInfo = Pick<CoursesDB, 'title' | 'imageURL' | 'description'>;
