@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { getCourseContents } from '../../services/ContentService';
+import {
+  getCourseContents,
+  getLastContentsMapping
+} from '../../services/ContentService';
 import { getCourseInfoForm } from '../../services/CourseService';
 import { Content } from '../../types/contents';
 import { CourseInfo } from '../../types/courses';
@@ -49,4 +52,22 @@ export const useContentData = (courseId?: number) => {
   return {
     contentData
   };
+};
+
+export const useCourseLastContentMapping = (courseIds: number[]) => {
+  const [mapping, setMapping] = useState<Map<number, number>>();
+
+  useEffect(() => {
+    const getMapping = async (courseIds: number[]) => {
+      if (courseIds.length) {
+        setMapping(await getLastContentsMapping(courseIds));
+      }
+    };
+
+    getMapping(courseIds);
+
+    return () => {};
+  }, [courseIds]);
+
+  return mapping;
 };

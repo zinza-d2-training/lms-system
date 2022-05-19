@@ -19,3 +19,14 @@ export enum QuestionType {
   Raw = 2,
   Single = 3
 }
+
+export type QuestionResponse = {
+  questionId: number;
+  answers: Array<{
+    value?: string;
+    answerId?: number;
+  }>;
+};
+export type SurveyResponseForm = {
+  qResponses: Array<QuestionResponse>;
+};

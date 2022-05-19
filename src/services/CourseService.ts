@@ -1,5 +1,5 @@
 import { pick } from 'lodash';
-import { courses } from '../fakeData/courses';
+import { courseCompletions, courses } from '../fakeData/courses';
 import { CourseBasic, CourseInfo, CoursesDB } from '../types/courses';
 
 export interface FilterCourse {
@@ -43,4 +43,8 @@ export async function getCourseInfoForm(courseId: number) {
   const course = courses.find((item) => item.id === courseId);
 
   return course ? { ...course } : {};
+}
+
+export async function getCourseUser(userId: number) {
+  return courseCompletions.filter((item) => item.userId === userId);
 }

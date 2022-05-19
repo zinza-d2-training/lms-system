@@ -301,8 +301,9 @@ const CourseDetail = () => {
               </DragDropContext>
             ) : (
               sortedContents.map((item) => (
-                <List>
+                <List key={item.id}>
                   <ListItem
+                    key={item.id}
                     disablePadding
                     sx={{
                       '&:hover .ContentList-Option': {
@@ -318,10 +319,14 @@ const CourseDetail = () => {
                       <Typography>{item.name}</Typography>
                     </Link>
                     <List
+                      key={item.id}
                       disablePadding
                       className="ContentList-Option"
                       sx={{ display: 'flex', marginLeft: '20px', opacity: 0 }}>
-                      <ListItem disablePadding sx={{ marginRight: '10px' }}>
+                      <ListItem
+                        disablePadding
+                        sx={{ marginRight: '10px' }}
+                        key={item.id}>
                         <Link
                           component={RouterLink}
                           to={`/courses/${id}/contents/edit/${item.type}/${item.id}`}

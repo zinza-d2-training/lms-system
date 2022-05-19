@@ -3,11 +3,16 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/common/PrivateRoute';
 import AddContent from './components/Contents/AddContent/index';
+import NavigateContents from './components/Contents/ViewContent/NavigateContents';
+import ViewContents from './components/Contents/ViewContent/ViewContents';
 import { Courses as CourseIndex } from './components/Courses';
 import CourseDetail from './components/Courses/CourseDetail';
 import CourseForm from './components/Courses/CourseForm';
 import Courses from './components/Courses/Courses';
 import ListCoursesRender from './components/Courses/ListCourses/ListCourses';
+import Discussion from './components/Discussions/Discussion';
+import DiscussionDetail from './components/Discussions/DiscussionDetail';
+import DiscussionList from './components/Discussions/DiscussionList';
 import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 import Home from './components/Home/Home';
 import Login from './components/Login/Login';
@@ -15,12 +20,14 @@ import { ManagementUser } from './components/ManagementUser/ManagementUser';
 import ManagerFiles from './components/ManagerFiles/ManagerFiles';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import Signup from './components/Signup/Signup';
+import { UserInfoIndex } from './components/UserProfile/Info';
 import { UserRole } from './types/users';
 import DiscussionList from './components/Discussions/DiscussionList';
 import DiscussionDetail from './components/Discussions/DiscussionDetail';
 import Discussion from './components/Discussions/Discussion';
 import ViewContents from './components/Contents/ViewContent/ViewContents';
 import axiosClient from './utils/axios';
+
 
 function App() {
   const [data, setData] = useState({});
@@ -135,6 +142,22 @@ function App() {
               <Route index element={<DiscussionList />} />
               <Route path=":discussionId" element={<DiscussionDetail />} />
             </Route>
+            <Route
+              path="view/:id"
+              element={
+                <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
+                  <NavigateContents />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="user/:userId/:tab"
+              element={
+                <PrivateRoute roles={[UserRole.Instructor, UserRole.Learner]}>
+                  <UserInfoIndex />
+                </PrivateRoute>
+              }
+            />
           </Route>
 
           <Route

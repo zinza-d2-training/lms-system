@@ -28,7 +28,7 @@
 .box-content-right {
   display: flex;
   flex-basis: 25%;
-  justify-content: end;
+  justify-content: flex-end;
 }
 
 .box-content-right-link {
@@ -52,7 +52,7 @@
 .box-content-left-option {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: flex-end;
   margin-right: 12px;
 
 }
