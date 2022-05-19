@@ -28,7 +28,6 @@ import Discussion from './components/Discussions/Discussion';
 import ViewContents from './components/Contents/ViewContent/ViewContents';
 import axiosClient from './utils/axios';
 
-
 function App() {
   const [data, setData] = useState({});
   useEffect(() => {
