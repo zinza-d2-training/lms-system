@@ -1,8 +1,9 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import qs from 'qs';
 import { STORAGE_KEYS } from './constants';
+
 const axiosClient = axios.create({
-  baseURL: process.env.REACT_APP_BASEURL
+  baseURL: process.env.REACT_APP_BASE_API
 });
 // Add a request interceptor
 axiosClient.interceptors.request.use(

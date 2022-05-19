@@ -22,9 +22,11 @@ export const UserProvider: FC<Props> = ({ children }) => {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    if (getCurrentUser()) {
-      setUser(JSON.parse(getCurrentUser() as string));
-    }
+    getCurrentUser().then((user) => {
+      if (user) {
+        setUser(JSON.parse(user as string));
+      }
+    });
     const localRole = localStorage.getItem('role');
     if (localRole) {
       setRole(localRole as UserRole);

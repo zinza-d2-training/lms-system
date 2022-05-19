@@ -1,5 +1,5 @@
 import { SnackbarProvider } from 'notistack';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import PrivateRoute from './components/common/PrivateRoute';
 import AddContent from './components/Contents/AddContent/index';
@@ -19,28 +19,11 @@ import Login from './components/Login/Login';
 import { ManagementUser } from './components/ManagementUser/ManagementUser';
 import ManagerFiles from './components/ManagerFiles/ManagerFiles';
 import ResetPassword from './components/ResetPassword/ResetPassword';
-import Signup from './components/Signup/Signup';sh
+import Signup from './components/Signup/Signup';
 import { UserInfoIndex } from './components/UserProfile/Info';
 import { UserRole } from './types/users';
-import axiosClient from './utils/axios';
 
 function App() {
-  const [data, setData] = useState({});
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await axiosClient.get('http://127.0.0.1:5000');
-        setData(data);
-      } catch (error) {
-        console.error('Failed to fetch products : ', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  console.log(data);
-
   return (
     <div className="App">
       <SnackbarProvider maxSnack={3}>
