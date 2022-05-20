@@ -155,7 +155,7 @@ const Header = () => {
                   aria-haspopup="true"
                   aria-expanded={openUser ? 'true' : undefined}
                   onClick={handleClick}>
-                  User | {userContext.role}
+                  {userContext.user.userName} | {userContext.role}
                 </Button>
                 <Menu
                   id="user-menu"

@@ -39,10 +39,10 @@ export async function updateUser(info: UserInfo) {
   Users[index] = { ...user, ...info };
 }
 
-export async function getCurrentUser() {
-  return (
-    await axiosClient.get<Response<Pick<User, 'id' | 'email'>>>('/currentUser')
-  )?.data;
+export async function getCurrentUser(): Promise<User> {
+  const data: User = await axiosClient.get('/auth/me');
+
+  return data;
 }
 
 export async function changeRole(role: UserRole) {
