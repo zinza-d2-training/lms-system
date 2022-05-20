@@ -6,7 +6,7 @@ export enum UserRole {
 export type UserDB = {
   id: number;
   email: string;
-  userName?: string;
+  userName: string;
   password: string;
   firstName: string;
   lastName: string;

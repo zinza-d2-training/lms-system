@@ -2,6 +2,11 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import qs from 'qs';
 import { STORAGE_KEYS } from './constants';
 
+export type Response<T> = AxiosResponse<T>['data'] & {
+  message?: string;
+  status: number;
+};
+
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_BASE_API
 });
@@ -11,7 +16,7 @@ axiosClient.interceptors.request.use(
     const token = localStorage.getItem(STORAGE_KEYS.accessToken);
     if (token) {
       config.headers = {
-        Authorization: `Bearer ` + JSON.parse(token)
+        Authorization: `Bearer ` + token
       };
     }
 
