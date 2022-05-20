@@ -110,7 +110,7 @@ const Login = () => {
                     Forgot your{' '}
                     <Link
                       underline="none"
-                      to={'/forgot'}
+                      to={'/password/forgot'}
                       component={RouterLink}>
                       password?
                     </Link>

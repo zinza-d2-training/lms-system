@@ -1,14 +1,17 @@
 import { Box, Button, FormControlLabel, Link } from '@mui/material';
 import { makeValidate, Checkboxes, TextField } from 'mui-rff';
 import { Form } from 'react-final-form';
+import { useSnackbar } from 'notistack';
 import * as Yup from 'yup';
 import { Link as RouterLink } from 'react-router-dom';
 import './Signup.css';
+import { signUp, UserSignUp } from '../../services/AuthService';
 
 interface SignupFormData {
   email?: string | null;
   password?: string | null;
-  name?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
   userName?: string | null;
   check?: boolean | null;
 }
@@ -16,7 +19,8 @@ interface SignupFormData {
 const schema: Yup.SchemaOf<SignupFormData> = Yup.object().shape({
   email: Yup.string().email().required(),
   password: Yup.string().min(5).required(),
-  name: Yup.string().required(),
+  firstName: Yup.string().required(),
+  lastName: Yup.string().required(),
   userName: Yup.string().required(),
   check: Yup.boolean()
     .oneOf([true], 'Please confirm your choice')
@@ -25,7 +29,19 @@ const schema: Yup.SchemaOf<SignupFormData> = Yup.object().shape({
 
 const validate = makeValidate<SignupFormData>(schema);
 const Signup = () => {
-  const handleSubmit = async (user: SignupFormData) => {};
+  const { enqueueSnackbar } = useSnackbar();
+  const handleSubmit = async (user: SignupFormData) => {
+    try {
+      await signUp(user as UserSignUp);
+      enqueueSnackbar('Success!', {
+        variant: 'success'
+      });
+    } catch (error) {
+      enqueueSnackbar(String(error), {
+        variant: 'error'
+      });
+    }
+  };
 
   return (
     <>
@@ -71,10 +87,10 @@ const Signup = () => {
           sx={{
             justifyContent: 'center',
             width: '100%',
-            '@media(min-height: 768px)': {
+            '@media(min-height: 900px)': {
               mt: '150px'
             },
-            '@media(min-height: 920px)': {
+            '@media(min-height: 1100px)': {
               mt: '25px'
             }
           }}>
@@ -102,12 +118,21 @@ const Signup = () => {
                       margin="normal"
                       required
                       fullWidth
-                      id="name"
-                      label="Name"
-                      name="name"
-                      autoComplete="name"
+                      id="firstName"
+                      label="firstName"
+                      name="firstName"
+                      autoComplete="firstName"
                     />
-
+                    <TextField
+                      className="Signup-input"
+                      margin="normal"
+                      required
+                      fullWidth
+                      id="lastName"
+                      label="lastName"
+                      name="lastName"
+                      autoComplete="lastName"
+                    />
                     <TextField
                       className="Signup-input"
                       margin="normal"

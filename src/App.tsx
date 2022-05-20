@@ -29,8 +29,8 @@ function App() {
       <SnackbarProvider maxSnack={3}>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/forgot" element={<ForgotPassword />} />
-          <Route path="/reset" element={<ResetPassword />} />
+          <Route path="/password/forgot" element={<ForgotPassword />} />
+          <Route path="/password/reset" element={<ResetPassword />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/" element={<Home />}>
             <Route
