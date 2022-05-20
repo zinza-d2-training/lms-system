@@ -27,7 +27,7 @@ const ResetPassword = () => {
     try {
       if (searchParams) {
         const status = await resetPassword(password as string, searchParams);
-        enqueueSnackbar(status === 200? 'success' : 'Url invalid', {
+        enqueueSnackbar(status === 200 ? 'success' : 'Url invalid', {
           variant: status === 200 ? 'success' : 'error'
         });
         if (status && status === 200) {
