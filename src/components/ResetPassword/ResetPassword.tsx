@@ -1,11 +1,13 @@
 import { Box, Button, Typography } from '@mui/material';
 import { makeValidate, TextField } from 'mui-rff';
+import { useSnackbar } from 'notistack';
 import React from 'react';
 import { Form } from 'react-final-form';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import './ResetPassword.css';
+import { resetPassword } from '../../services/AuthService';
 import Header from '../Layout/Header/Header';
+import './ResetPassword.css';
 
 interface ResetFormData {
   password?: string | null;
@@ -17,9 +19,26 @@ const schema: Yup.SchemaOf<ResetFormData> = Yup.object().shape({
 
 const validate = makeValidate<ResetFormData>(schema);
 const ResetPassword = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search).get('token');
+  const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-  const handleSubmit = () => {
-    navigate('/');
+  const handleSubmit = async (password: ResetFormData) => {
+    try {
+      if (searchParams) {
+        const status = await resetPassword(password as string, searchParams);
+        enqueueSnackbar(status === 200 ? 'success' : 'Url invalid', {
+          variant: status === 200 ? 'success' : 'error'
+        });
+        if (status && status === 200) {
+          navigate('/login');
+        }
+      }
+    } catch (error) {
+      enqueueSnackbar(String(error), {
+        variant: 'error'
+      });
+    }
   };
 
   return (
@@ -90,7 +109,6 @@ const ResetPassword = () => {
                         label="Password"
                         type="password"
                         id="password"
-                        autoComplete="current-password"
                       />
                     </Box>
 

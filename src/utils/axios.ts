@@ -30,7 +30,7 @@ axiosClient.interceptors.request.use(
     }
     return config;
   },
-  function (error) {
+  function (error: any) {
     return Promise.reject(error);
   }
 );

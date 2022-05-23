@@ -5,6 +5,29 @@ import { STORAGE_KEYS } from '../utils/constants';
 export type UserLogin = Pick<User, 'email'> & { password: string };
 export type UserInfo = Pick<UserFullInfo, 'email' | 'userName'>;
 
+export type UserSignUp = {
+  email: string;
+  userName: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};
+
+export async function signUp(user: UserSignUp) {
+  await axiosClient.post('/auth/signup', user);
+}
+
+export async function forgot(email: string) {
+  await axiosClient.post('/auth/forgot', email);
+}
+
+export async function resetPassword(password: string, token: string) {
+  const { status } = await axiosClient.put(
+    `/auth/reset?token=${token}`,
+    password
+  );
+  return status;
+}
 export async function login(user: UserLogin) {
   const data: Response<{
     accessToken?: string;

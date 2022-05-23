@@ -1,10 +1,11 @@
 import { Box, Button, Link, Typography } from '@mui/material';
 import { makeValidate, TextField } from 'mui-rff';
+import { useSnackbar } from 'notistack';
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
 import { Form } from 'react-final-form';
-import { useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import * as Yup from 'yup';
+import { forgot } from '../../services/AuthService';
 import Header from '../Layout/Header/Header';
 interface ForgotFormData {
   email?: string | null;
@@ -16,9 +17,18 @@ const schema: Yup.SchemaOf<ForgotFormData> = Yup.object().shape({
 
 const validate = makeValidate<ForgotFormData>(schema);
 const ForgotPassword = () => {
-  const navigate = useNavigate();
-  const handleSubmit = () => {
-    navigate('/');
+  const { enqueueSnackbar } = useSnackbar();
+  const handleSubmit = async (email: ForgotFormData) => {
+    try {
+      await forgot(email as string);
+      enqueueSnackbar('Email has been send, check your inbox!', {
+        variant: 'success'
+      });
+    } catch (error) {
+      enqueueSnackbar(String(error), {
+        variant: 'error'
+      });
+    }
   };
 
   return (
