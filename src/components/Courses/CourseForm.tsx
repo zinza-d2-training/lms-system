@@ -18,10 +18,14 @@ import { CourseInfo } from '../../types/courses';
 import { ImageField } from '../common/ImageField';
 import { useCourseData } from './hook';
 
+const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
+
 const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
   title: Yup.string().min(10).max(100).required(),
   description: Yup.string().max(1000).required(),
-  image: Yup.mixed().notRequired()
+  image: Yup.mixed().test('fileType', 'only accept photos', (value) =>
+    SUPPORTED_FORMATS.includes(value.type)
+  )
 });
 
 const validate = makeValidate(schema);
@@ -42,9 +46,6 @@ const CourseForm = () => {
     try {
       if (id) {
         await updateCourse(id, courseInfo);
-        enqueueSnackbar('Success!', {
-          variant: 'success'
-        });
       } else {
         const formData = new FormData();
         formData.append('title', courseInfo.title);
@@ -54,6 +55,9 @@ const CourseForm = () => {
         }
         await createCourse(formData);
       }
+      enqueueSnackbar('Success!', {
+        variant: 'success'
+      });
     } catch (error) {
       enqueueSnackbar(String(error), {
         variant: 'error'
