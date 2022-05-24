@@ -5,7 +5,7 @@ export const courses: CoursesDB[] = [
   {
     id: 1,
     title: 'Introduction to TalentLMS',
-    imageURL:
+    image:
       'https://d3j0t7vrtr92dk.cloudfront.net/samplecourses/1548346756_intro.png?',
     description: 'Introduction to TalentL',
     updatedAt: formatDateTime('2021-10-17T03:24:00'),
@@ -14,7 +14,7 @@ export const courses: CoursesDB[] = [
   {
     id: 2,
     title: 'Advanced Features of TalentLMS ',
-    imageURL:
+    image:
       'https://d3j0t7vrtr92dk.cloudfront.net/samplecourses/1548346702_toolkit.png?',
     description: 'Học lập trình',
     updatedAt: formatDateTime('2021-10-17T03:24:00')
@@ -22,7 +22,7 @@ export const courses: CoursesDB[] = [
   {
     id: 3,
     title: 'Content and TalentLMS ',
-    imageURL:
+    image:
       'https://d3j0t7vrtr92dk.cloudfront.net/samplecourses/1548346716_content.png?',
     description: 'Học lập trình',
     updatedAt: formatDateTime('2021-10-17T03:24:00'),
@@ -31,7 +31,7 @@ export const courses: CoursesDB[] = [
   {
     id: 4,
     title: 'Getting Started With eLearning ',
-    imageURL:
+    image:
       'https://d3j0t7vrtr92dk.cloudfront.net/samplecourses/1548346739_fundamentals.png?',
     description: 'Học lập trình',
     updatedAt: formatDateTime('2021-10-17T03:24:00')
@@ -39,7 +39,7 @@ export const courses: CoursesDB[] = [
   {
     id: 5,
     title: 'Employee Training 101 ',
-    imageURL:
+    image:
       'https://d3j0t7vrtr92dk.cloudfront.net/samplecourses/1548346727_employees.png?',
     description: 'Học lập trình',
     updatedAt: formatDateTime('2021-10-17T03:24:00'),
@@ -48,7 +48,7 @@ export const courses: CoursesDB[] = [
   {
     id: 6,
     title: 'What is TalentLibrary? ',
-    imageURL:
+    image:
       'https://d3j0t7vrtr92dk.cloudfront.net/samples/1635953915_whatistalentlibrary.png?',
     description: 'Học lập trình',
     updatedAt: formatDateTime('2021-10-17T03:24:00')
@@ -56,7 +56,7 @@ export const courses: CoursesDB[] = [
   {
     id: 7,
     title: 'Give your course a name',
-    imageURL: 'https://huyhoang7511.talentlms.com/pages/images/unknown_x4.png',
+    image: 'https://huyhoang7511.talentlms.com/pages/images/unknown_x4.png',
     description: 'Học lập trình',
     updatedAt: formatDateTime('2021-10-17T03:24:00'),
     createdAt: formatDateTime('2022-02-28T03:24:00')
@@ -64,7 +64,7 @@ export const courses: CoursesDB[] = [
   {
     id: 8,
     title: 'Give your course a name 2',
-    imageURL: 'https://huyhoang7511.talentlms.com/pages/images/unknown_x4.png',
+    image: 'https://huyhoang7511.talentlms.com/pages/images/unknown_x4.png',
     description: 'Học lập trình',
     updatedAt: formatDateTime('2021-10-17T03:24:00'),
     createdAt: formatDateTime('2022-02-11T03:24:00')

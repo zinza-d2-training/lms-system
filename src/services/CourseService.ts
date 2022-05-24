@@ -1,6 +1,7 @@
 import { pick } from 'lodash';
 import { courseCompletions, courses } from '../fakeData/courses';
 import { CourseBasic, CourseInfo, CoursesDB } from '../types/courses';
+import axiosClient from '../utils/axios';
 
 export interface FilterCourse {
   id?: number;
@@ -9,9 +10,10 @@ export interface FilterCourse {
   totalPage?: number;
 }
 
-export async function createCourse(courseInfo: CourseInfo) {
-  const newCourse = { ...courseInfo, id: courses.length + 1 };
-  courses.push(newCourse);
+export async function createCourse(courseInfo: FormData) {
+  await axiosClient.post('/courses/add', courseInfo, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
 }
 
 export async function updateCourse(courseId: number, courseInfo: CourseInfo) {

@@ -1,7 +1,7 @@
 export interface CoursesDB {
   id: number;
   title: string;
-  imageURL?: string;
+  image?: string;
   description: string;
   updatedAt?: string;
   createdAt?: string;
@@ -16,6 +16,6 @@ export interface CourseCompletion {
   completionDate?: string;
 }
 
-export type CourseInfo = Pick<CoursesDB, 'title' | 'imageURL' | 'description'>;
+export type CourseInfo = Pick<CoursesDB, 'title' | 'image' | 'description'>;
 
-export type CourseBasic = Pick<CoursesDB, 'id' | 'title' | 'imageURL'>;
+export type CourseBasic = Pick<CoursesDB, 'id' | 'title' | 'image'>;

@@ -21,7 +21,7 @@ import { useCourseData } from './hook';
 const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
   title: Yup.string().min(10).max(100).required(),
   description: Yup.string().max(1000).required(),
-  imageURL: Yup.mixed().notRequired()
+  image: Yup.mixed().notRequired()
 });
 
 const validate = makeValidate(schema);
@@ -34,8 +34,11 @@ const CourseForm = () => {
   const { courseInfo: initialValues, loading } = useCourseData(id);
 
   const handleSubmit = async (courseForm: CourseInfo) => {
-    const courseInfo = pick(courseForm, 'title', 'imageURL', 'description');
-
+    const courseInfo = pick(courseForm, 'title', 'image', 'description');
+    // const getKeyValue =
+    //   <T extends object, U extends keyof T>(key: U) =>
+    //   (courseInfo: T) =>
+    //     courseInfo[key];
     try {
       if (id) {
         await updateCourse(id, courseInfo);
@@ -43,7 +46,13 @@ const CourseForm = () => {
           variant: 'success'
         });
       } else {
-        await createCourse(courseInfo);
+        const formData = new FormData();
+        formData.append('title', courseInfo.title);
+        formData.append('description', courseInfo.description);
+        if (courseInfo.image) {
+          formData.append('image', courseInfo.image);
+        }
+        await createCourse(formData);
       }
     } catch (error) {
       enqueueSnackbar(String(error), {
@@ -157,8 +166,8 @@ const CourseForm = () => {
                         textAlign: 'center'
                       }}>
                       <ImageField
-                        name="imageURL"
-                        initPreview={initialValues && initialValues.imageURL}
+                        name="image"
+                        initPreview={initialValues && initialValues.image}
                       />
                     </Box>
                   </Box>

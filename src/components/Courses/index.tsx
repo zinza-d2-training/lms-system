@@ -77,7 +77,7 @@ export const Courses = () => {
                 <Box className="card-course-container">
                   {courses.map((course) => (
                     <Box key={course.id} className="course-item">
-                      <img src={`${course.imageURL}`} alt={'img'} />
+                      <img src={`${course.image}`} alt={'img'} />
                       <Box className="courses-item-container">
                         <button className="courses-item-left">
                           {userContext.role === UserRole.Instructor ? (

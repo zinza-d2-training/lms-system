@@ -106,7 +106,7 @@ const CourseDetail = () => {
                 right: 0,
                 borderRadius: '5px'
               }}
-              src={courseInfo?.imageURL}
+              src={courseInfo?.image}
               alt="anh"
             />
           </Box>
