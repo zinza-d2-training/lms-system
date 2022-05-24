@@ -20,11 +20,20 @@ import { useCourseData } from './hook';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
 
+// const validateImageType = (value) => {
+//   if(value) {
+//     let type = value.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0]
+//     return SUPPORTED_FORMATS.includes(type)
+//   }
+// }
+
 const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
   title: Yup.string().min(10).max(100).required(),
   description: Yup.string().max(1000).required(),
-  image: Yup.mixed().test('fileType', 'only accept photos', (value) =>
-    SUPPORTED_FORMATS.includes(value.type)
+  image: Yup.mixed().test(
+    'fileFormat',
+    'Unsupported Format',
+    (value) => value && SUPPORTED_FORMATS.includes(value.type)
   )
 });
 
