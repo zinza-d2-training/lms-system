@@ -3,10 +3,42 @@ import {
   getCourseContents,
   getLastContentsMapping
 } from '../../services/ContentService';
-import { getCourseInfoForm } from '../../services/CourseService';
+import {
+  FilterCourse,
+  getCourseInfoForm,
+  getCourses
+} from '../../services/CourseService';
 import { Content } from '../../types/contents';
-import { CourseInfo } from '../../types/courses';
+import { CourseBasic, CourseInfo } from '../../types/courses';
 
+// Get courses
+export const useGetCourses = (filterData?: FilterCourse) => {
+  const [courses, setCourses] = useState<CourseBasic[]>([]);
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const getCourseData = async (filterData?: FilterCourse) => {
+      if (filterData) {
+        const res = await getCourses(filterData);
+
+        setCourses(res);
+      }
+      setLoading(false);
+    };
+
+    getCourseData(filterData);
+
+    return () => {};
+  }, []);
+
+  return {
+    loading,
+    courses
+  };
+};
+
+// Get course by Id
 export const useCourseData = (courseId?: number) => {
   const [courseInfo, setCourseInfo] = useState<CourseInfo | undefined>();
   const [loading, setLoading] = useState(true);
@@ -16,7 +48,7 @@ export const useCourseData = (courseId?: number) => {
       if (courseId) {
         const courseInfoData = (await getCourseInfoForm(
           courseId
-        )) as CourseInfo;
+        )) as unknown as CourseInfo;
         setCourseInfo(courseInfoData);
       }
       setLoading(false);

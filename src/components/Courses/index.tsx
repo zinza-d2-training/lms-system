@@ -10,14 +10,11 @@ import { Box, Container, Link, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
-// import '../Courses../componnent'
-// import { UserDB } from './../types/users';
-// import Courses from '../../fakeData/courses';
-import { courses } from '../../fakeData/courses';
 import { UserRole } from '../../types/users';
 import DiscussionForm from '../Discussions/DiscussionForm';
 import CourseInfoDialog from './CourseInfoDialog';
 import './Courses.css';
+import { useGetCourses } from './hook';
 //import { useCourseLastContentMapping } from './hook';
 
 export const Courses = () => {
@@ -25,6 +22,9 @@ export const Courses = () => {
   const [openCoursePopup, setOpenCoursePopup] = useState(false);
   const [courseId, setCourseId] = useState<number>();
   const userContext = useContext(UserContext);
+  const { courses, loading } = useGetCourses();
+  console.log(courses);
+
   const handleOnClick = () => {
     setOpenPopup(true);
   };

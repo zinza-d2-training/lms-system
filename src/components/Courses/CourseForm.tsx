@@ -53,16 +53,16 @@ const CourseForm = () => {
     //   (courseInfo: T) =>
     //     courseInfo[key];
     try {
+      const formData = new FormData();
+      formData.append('title', courseInfo.title);
+      formData.append('description', courseInfo.description);
+      if (courseInfo.image) {
+        formData.append('image', courseInfo.image);
+      }
       if (id) {
-        await updateCourse(id, courseInfo);
+        await updateCourse(id, formData);
       } else {
-        const formData = new FormData();
-        formData.append('title', courseInfo.title);
-        formData.append('description', courseInfo.description);
-        if (courseInfo.image) {
-          formData.append('image', courseInfo.image);
-        }
-        await createCourse(formData);
+        await createCourse(courseInfo);
       }
       enqueueSnackbar('Success!', {
         variant: 'success'

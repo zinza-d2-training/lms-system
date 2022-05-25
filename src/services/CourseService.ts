@@ -1,52 +1,42 @@
-import { pick } from 'lodash';
 import { courseCompletions, courses } from '../fakeData/courses';
-import { CourseBasic, CourseInfo, CoursesDB } from '../types/courses';
+import { CourseBasic, CourseInfo } from '../types/courses';
 import axiosClient from '../utils/axios';
+import { urlEncodeQueryParams } from '../utils/urlHelper';
 
 export interface FilterCourse {
-  id?: number;
   search?: string;
+  limit?: number;
   page?: number;
-  totalPage?: number;
 }
 
-export async function createCourse(courseInfo: FormData) {
-  await axiosClient.post('/courses/add', courseInfo, {
+export async function createCourse(courseInfo: CourseInfo) {
+  const newCourse = { ...courseInfo, id: courses.length + 1 };
+  courses.push(newCourse);
+}
+export async function updateCourse(courseId: number, courseInfo: FormData) {
+  return await axiosClient.put(`/courses/${courseId}/edit`, courseInfo, {
     headers: { 'Content-Type': 'multipart/form-data' }
   });
 }
-
-export async function updateCourse(courseId: number, courseInfo: CourseInfo) {
-  let course = courses.find((item) => item.id === courseId) as CoursesDB;
-
-  const index = courses.indexOf(course);
-
-  courses[index] = { ...course, ...courseInfo };
-}
-
 export async function getCourses(
-  filter?: FilterCourse
+  filterData?: FilterCourse
 ): Promise<CourseBasic[]> {
-  const coursesBasic = courses.map((course) => pick(course, ['id', 'title']));
-
-  if (!filter) return coursesBasic;
-
-  return coursesBasic.filter((course) => {
-    if (filter.id) return filter.id === course.id;
-
-    if (filter.search || filter.search === '') {
-      return new RegExp(filter.search, 'i').test(course.title);
-    }
-    return true;
-  });
+  const objectFilters = {
+    filterData
+  };
+  //const queries = urlEncodeQueryParams(objectFilters);
+  const {data} = await axiosClient.get(`/courses?title=`);
+  return data;
 }
+// get course details
+export async function getCourseInfoForm(courseId?: number) {
+  if (courseId) {
+    const course = await axiosClient.get(`/courses/${courseId}`);
 
-export async function getCourseInfoForm(courseId: number) {
-  const course = courses.find((item) => item.id === courseId);
-
-  return course ? { ...course } : {};
+    return { ...course };
+  }
 }
-
+// get course user use course
 export async function getCourseUser(userId: number) {
   return courseCompletions.filter((item) => item.userId === userId);
 }

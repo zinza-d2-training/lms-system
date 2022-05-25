@@ -20,13 +20,15 @@ import TableRow from '@mui/material/TableRow';
 import { useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext';
-import { courses } from '../../../fakeData/courses';
 import { UserRole } from '../../../types/users';
+import { useGetCourses } from '../hook';
 import './ListCourses.css';
 import { CustomizedMenus } from './MenuActions';
 
 const ListCoursesRender = () => {
   const userContext = useContext(UserContext);
+  
+  const { courses, loading } = useGetCourses();
   const handleDelete = () => {};
   return (
     <>
@@ -99,9 +101,9 @@ const ListCoursesRender = () => {
                       </Link>
                     </TableCell>
                     <TableCell>Samples</TableCell>
-                    <TableCell sx={{ paddingRight: '28px' }} align="right">
-                      {course.createdAt}
-                    </TableCell>
+                    {/* <TableCell sx={{ paddingRight: '28px' }} align="right">
+                      {course.}
+                    </TableCell> */}
                     {userContext.role === UserRole.Instructor ? (
                       <TableCell sx={{ paddingRight: '28px' }} align="right">
                         <CustomizedMenus
