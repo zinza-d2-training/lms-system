@@ -191,6 +191,9 @@ export const Courses = () => {
               </Box>
             </Box>
           </Box>
+          <Box>
+            <Pagination totalField={54} limit={9} initalPage={1} />
+          </Box>
         </Container>
       )}
       {openPopup && (
