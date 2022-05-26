@@ -18,4 +18,7 @@ export interface CourseCompletion {
 
 export type CourseInfo = Pick<CoursesDB, 'title' | 'image' | 'description'>;
 
-export type CourseBasic = Pick<CoursesDB, 'id' | 'title' | 'image' | 'updatedAt'>;
+export type CourseBasic = Pick<
+  CoursesDB,
+  'id' | 'title' | 'image' | 'updatedAt'
+>;

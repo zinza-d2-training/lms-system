@@ -24,8 +24,9 @@ export async function updateCourse(courseId: number, courseInfo: FormData) {
 export async function getCourses(
   filterData: FilterCourse
 ): Promise<GetCourses> {
-
-  const { data } = await axiosClient.get(`/courses?title=${filterData.title}&page=${filterData.page}&limit=${filterData.limit}`);
+  const { data } = await axiosClient.get(
+    `/courses?title=${filterData.title}&page=${filterData.page}&limit=${filterData.limit}`
+  );
   return data;
 }
 // get course details

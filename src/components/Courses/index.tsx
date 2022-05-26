@@ -26,7 +26,7 @@ export const Courses = () => {
   const userContext = useContext(UserContext);
   const [filter, setFilter] = useState({
     page: 1,
-    limit: 9,
+    limit: 4,
     title: ''
   });
   const { courses, loading } = useGetCourses({
@@ -34,7 +34,6 @@ export const Courses = () => {
     limit: filter.limit,
     title: filter.title
   });
-  console.log(courses?.count);
 
   const handleOnClick = () => {
     setOpenPopup(true);
@@ -60,8 +59,8 @@ export const Courses = () => {
                     placeholder="Search my courses"
                     onChange={(e) =>
                       setFilter({
-                       ...filter,
-                       title: e.target.value
+                        ...filter,
+                        title: e.target.value
                       })
                     }
                   />
@@ -204,7 +203,23 @@ export const Courses = () => {
             </Box>
           </Box>
           <Box>
-            <Pagination totalField={54} limit={9} initalPage={1} />
+            <Pagination
+              totalField={courses?.count}
+              limit={filter.limit}
+              initalPage={filter.page}
+              onNextPage={(page: number) => {
+                setFilter({
+                  ...filter,
+                  page: (page = page + 1)
+                });
+              }}
+              onPrevPage={(page: number) => {
+                setFilter({
+                  ...filter,
+                  page: (page = page - 1)
+                });
+              }}
+            />
           </Box>
         </Container>
       )}

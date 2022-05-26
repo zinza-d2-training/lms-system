@@ -11,7 +11,6 @@ interface Props {
   config?: UseFieldConfig<File | undefined>;
 }
 
-
 export const ImageField = ({ name, initPreview, config }: Props) => {
   const {
     input: { onChange }

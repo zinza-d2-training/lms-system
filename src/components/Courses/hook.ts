@@ -29,7 +29,7 @@ export const useGetCourses = (filterData: FilterCourse) => {
 
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [JSON.stringify(filterData)]);
 
   return {
     loading,
