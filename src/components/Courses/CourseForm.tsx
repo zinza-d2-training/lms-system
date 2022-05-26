@@ -62,7 +62,7 @@ const CourseForm = () => {
       if (id) {
         await updateCourse(id, formData);
       } else {
-        await createCourse(courseInfo);
+        await createCourse(formData);
       }
       enqueueSnackbar('Success!', {
         variant: 'success'

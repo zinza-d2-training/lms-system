@@ -1,5 +1,5 @@
-import { courseCompletions, courses } from '../fakeData/courses';
-import { CourseBasic, CourseInfo } from '../types/courses';
+import { courseCompletions } from '../fakeData/courses';
+import { CourseBasic } from '../types/courses';
 import axiosClient from '../utils/axios';
 
 export interface FilterCourse {
@@ -12,9 +12,10 @@ export interface GetCourses {
   courses: CourseBasic[];
   count: number;
 }
-export async function createCourse(courseInfo: CourseInfo) {
-  const newCourse = { ...courseInfo, id: courses.length + 1 };
-  courses.push(newCourse);
+export async function createCourse(courseInfo: FormData) {
+  return await axiosClient.post(`/courses/add`, courseInfo, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  });
 }
 export async function updateCourse(courseId: number, courseInfo: FormData) {
   return await axiosClient.put(`/courses/${courseId}/edit`, courseInfo, {
