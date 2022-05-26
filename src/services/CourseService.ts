@@ -1,10 +1,9 @@
 import { courseCompletions, courses } from '../fakeData/courses';
 import { CourseBasic, CourseInfo } from '../types/courses';
 import axiosClient from '../utils/axios';
-import { urlEncodeQueryParams } from '../utils/urlHelper';
 
 export interface FilterCourse {
-  search?: string;
+  title?: string;
   limit?: number;
   page?: number;
 }
@@ -23,13 +22,10 @@ export async function updateCourse(courseId: number, courseInfo: FormData) {
   });
 }
 export async function getCourses(
-  filterData?: FilterCourse
+  filterData: FilterCourse
 ): Promise<GetCourses> {
-  const objectFilters = {
-    filterData
-  };
-  //const queries = urlEncodeQueryParams(objectFilters);
-  const { data } = await axiosClient.get(`/courses?title=`);
+
+  const { data } = await axiosClient.get(`/courses?title=${filterData.title}&page=${filterData.page}&limit=${filterData.limit}`);
   return data;
 }
 // get course details

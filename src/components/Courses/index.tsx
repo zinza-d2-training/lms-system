@@ -24,9 +24,15 @@ export const Courses = () => {
   const [openCoursePopup, setOpenCoursePopup] = useState(false);
   const [courseId, setCourseId] = useState<number>();
   const userContext = useContext(UserContext);
-  const { courses, loading } = useGetCourses({
+  const [filter, setFilter] = useState({
     page: 1,
-    limit: 10
+    limit: 9,
+    title: ''
+  });
+  const { courses, loading } = useGetCourses({
+    page: filter.page,
+    limit: filter.limit,
+    title: filter.title
   });
   console.log(courses?.count);
 
@@ -52,6 +58,12 @@ export const Courses = () => {
                   <input
                     className="content-button"
                     placeholder="Search my courses"
+                    onChange={(e) =>
+                      setFilter({
+                       ...filter,
+                       title: e.target.value
+                      })
+                    }
                   />
                 </Box>
                 <Box className="box-content-left-option">

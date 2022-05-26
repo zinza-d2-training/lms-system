@@ -13,18 +13,15 @@ import { Content } from '../../types/contents';
 import { CourseInfo } from '../../types/courses';
 
 // Get courses
-export const useGetCourses = (filterData?: FilterCourse) => {
+export const useGetCourses = (filterData: FilterCourse) => {
   const [courses, setCourses] = useState<GetCourses | undefined>();
 
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const getCourseData = async (filterData?: FilterCourse) => {
-      if (filterData) {
-        const res = await getCourses(filterData);
-
-        setCourses(res);
-      }
+    const getCourseData = async (filterData: FilterCourse) => {
+      const res = await getCourses(filterData);
+      setCourses(res);
       setLoading(false);
     };
 
