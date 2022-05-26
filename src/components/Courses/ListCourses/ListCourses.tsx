@@ -18,8 +18,9 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useContext, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext';
+import { deleteCourse } from '../../../services/CourseService';
 import { UserRole } from '../../../types/users';
 import { formatDateTime } from '../../../utils/datetime';
 import { Pagination } from '../../Pagination';
@@ -29,7 +30,6 @@ import { CustomizedMenus } from './MenuActions';
 
 const ListCoursesRender = () => {
   const userContext = useContext(UserContext);
-
   const [filter, setFilter] = useState({
     page: 1,
     limit: 4,
@@ -40,7 +40,11 @@ const ListCoursesRender = () => {
     limit: filter.limit,
     title: filter.title
   });
-  const handleDelete = () => {};
+
+  const handleDelete = async (id: number) => {
+    await deleteCourse(id);
+    window.location.reload();
+  };
   return (
     <>
       <Container className="main-container">
@@ -130,7 +134,7 @@ const ListCoursesRender = () => {
                               to: `#`,
                               label: 'Reset',
                               icon: <DeleteForeverIcon />,
-                              onClick: handleDelete
+                              onClick: () => handleDelete(course.id)
                             }
                           ]}
                         />

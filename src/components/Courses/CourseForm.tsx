@@ -20,13 +20,6 @@ import { useCourseData } from './hook';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
 
-// const validateImageType = (value) => {
-//   if(value) {
-//     let type = value.match(/[^:]\w+\/[\w-+\d.]+(?=;|,)/)[0]
-//     return SUPPORTED_FORMATS.includes(type)
-//   }
-// }
-
 const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
   title: Yup.string().min(10).max(100).required(),
   description: Yup.string().max(1000).required(),
@@ -48,10 +41,6 @@ const CourseForm = () => {
 
   const handleSubmit = async (courseForm: CourseInfo) => {
     const courseInfo = pick(courseForm, 'title', 'image', 'description');
-    // const getKeyValue =
-    //   <T extends object, U extends keyof T>(key: U) =>
-    //   (courseInfo: T) =>
-    //     courseInfo[key];
     try {
       const formData = new FormData();
       formData.append('title', courseInfo.title);

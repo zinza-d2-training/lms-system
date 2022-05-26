@@ -42,3 +42,12 @@ export async function getCourseInfoForm(courseId?: number) {
 export async function getCourseUser(userId: number) {
   return courseCompletions.filter((item) => item.userId === userId);
 }
+
+// get course details
+export async function deleteCourse(courseId?: number) {
+  if (courseId) {
+    const course = await axiosClient.delete(`/courses/${courseId}`);
+
+    return course;
+  }
+}
