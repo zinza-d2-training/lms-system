@@ -12,6 +12,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import { UserRole } from '../../types/users';
 import DiscussionForm from '../Discussions/DiscussionForm';
+import { Pagination } from '../Pagination';
 import CourseInfoDialog from './CourseInfoDialog';
 import './Courses.css';
 import { useGetCourses } from './hook';
@@ -23,7 +24,6 @@ export const Courses = () => {
   const [courseId, setCourseId] = useState<number>();
   const userContext = useContext(UserContext);
   const { courses, loading } = useGetCourses();
-  console.log(courses);
 
   const handleOnClick = () => {
     setOpenPopup(true);
@@ -33,7 +33,7 @@ export const Courses = () => {
     setCourseId(id);
     setOpenCoursePopup(true);
   };
-  //const mapping = useCourseLastContentMapping(courses.map((item) => item.id));
+
   return (
     <>
       <Container className="main-container">
@@ -70,6 +70,9 @@ export const Courses = () => {
                   />
                 </button>
               </Box>
+            </Box>
+            <Box>
+              <Pagination  totalField={51} limit={10} initalPage={1} />
             </Box>
             {/* List courses */}
             <Box className="card-container-imageList">
