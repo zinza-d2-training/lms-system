@@ -9,6 +9,10 @@ export interface FilterCourse {
   page?: number;
 }
 
+export interface GetCourses {
+  courses: CourseBasic[];
+  count: number;
+}
 export async function createCourse(courseInfo: CourseInfo) {
   const newCourse = { ...courseInfo, id: courses.length + 1 };
   courses.push(newCourse);
@@ -20,12 +24,12 @@ export async function updateCourse(courseId: number, courseInfo: FormData) {
 }
 export async function getCourses(
   filterData?: FilterCourse
-): Promise<CourseBasic[]> {
+): Promise<GetCourses> {
   const objectFilters = {
     filterData
   };
   //const queries = urlEncodeQueryParams(objectFilters);
-  const {data} = await axiosClient.get(`/courses?title=`);
+  const { data } = await axiosClient.get(`/courses?title=`);
   return data;
 }
 // get course details

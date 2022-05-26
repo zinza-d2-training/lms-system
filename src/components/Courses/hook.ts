@@ -6,14 +6,15 @@ import {
 import {
   FilterCourse,
   getCourseInfoForm,
+  GetCourses,
   getCourses
 } from '../../services/CourseService';
 import { Content } from '../../types/contents';
-import { CourseBasic, CourseInfo } from '../../types/courses';
+import { CourseInfo } from '../../types/courses';
 
 // Get courses
 export const useGetCourses = (filterData?: FilterCourse) => {
-  const [courses, setCourses] = useState<CourseBasic[]>([]);
+  const [courses, setCourses] = useState<GetCourses | undefined>();
 
   const [loading, setLoading] = useState(false);
 
@@ -30,6 +31,7 @@ export const useGetCourses = (filterData?: FilterCourse) => {
     getCourseData(filterData);
 
     return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return {

@@ -21,14 +21,18 @@ import { useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext';
 import { UserRole } from '../../../types/users';
+import { formatDateTime } from '../../../utils/datetime';
 import { useGetCourses } from '../hook';
 import './ListCourses.css';
 import { CustomizedMenus } from './MenuActions';
 
 const ListCoursesRender = () => {
   const userContext = useContext(UserContext);
-  
-  const { courses, loading } = useGetCourses();
+
+  const { courses } = useGetCourses({
+    page: 1,
+    limit: 10
+  });
   const handleDelete = () => {};
   return (
     <>
@@ -84,7 +88,7 @@ const ListCoursesRender = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {courses.map((course) => (
+                {courses?.courses.map((course) => (
                   <TableRow
                     className="table-row-content"
                     key={course.id}
@@ -101,9 +105,11 @@ const ListCoursesRender = () => {
                       </Link>
                     </TableCell>
                     <TableCell>Samples</TableCell>
-                    {/* <TableCell sx={{ paddingRight: '28px' }} align="right">
-                      {course.}
-                    </TableCell> */}
+                    <TableCell sx={{ paddingRight: '28px' }} align="right">
+                      {course.updatedAt
+                        ? formatDateTime(course.updatedAt)
+                        : '-'}
+                    </TableCell>
                     {userContext.role === UserRole.Instructor ? (
                       <TableCell sx={{ paddingRight: '28px' }} align="right">
                         <CustomizedMenus
