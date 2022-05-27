@@ -3,6 +3,7 @@ import { useCallback, useRef, useState } from 'react';
 import { useField, UseFieldConfig } from 'react-final-form';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import AddAPhotoOutlinedIcon from '@mui/icons-material/AddAPhotoOutlined';
+import { formatUrl } from '../../utils/formatUrl';
 
 interface Props {
   name: string;
@@ -21,6 +22,7 @@ export const ImageField = ({ name, initPreview, config }: Props) => {
   };
 
   const [preview, setPreview] = useState<string | undefined>(initPreview);
+  const [isFilePreview, setIsFilePreview] = useState<boolean>(false);
 
   const handleRemove = () => {
     onChange(undefined);
@@ -33,6 +35,7 @@ export const ImageField = ({ name, initPreview, config }: Props) => {
         if (e.target.files) {
           const file = e.target.files[0];
           onChange(file);
+          setIsFilePreview(true);
           const fileReader = new FileReader();
           fileReader.readAsDataURL(file);
           fileReader.onloadend = () => {
@@ -66,7 +69,13 @@ export const ImageField = ({ name, initPreview, config }: Props) => {
                 left: 0,
                 right: 0
               }}
-              src={preview}
+              src={
+                !preview
+                  ? ''
+                  : isFilePreview
+                  ? preview
+                  : formatUrl(`${process.env.REACT_APP_BASE_API}/${preview}`)
+              }
               alt="anh"
             />
             <HighlightOffIcon

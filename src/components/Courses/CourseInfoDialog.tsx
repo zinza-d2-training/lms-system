@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { formatUrl } from '../../utils/formatUrl';
 import { ContentIconsByType } from '../common/IconsType';
 import { useContentData, useCourseData } from './hook';
 
@@ -54,7 +55,9 @@ const CourseInfoDialog = (props: Props) => {
                   right: 0,
                   borderRadius: '5px'
                 }}
-                src={courseInfo?.imageURL}
+                src={formatUrl(
+                  `${process.env.REACT_APP_BASE_API}/${courseInfo?.image}`
+                )}
                 alt="anh"
               />
             </Box>

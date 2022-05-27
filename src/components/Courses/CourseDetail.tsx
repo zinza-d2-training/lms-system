@@ -25,6 +25,7 @@ import {
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import { reorderCourseContents } from '../../services/ContentService';
 import { ContentType } from '../../types/contents';
+import { formatUrl } from '../../utils/formatUrl';
 import { ContentIconsByType } from '../common/IconsType';
 import CourseRightMenu from '../CourseRightMenu/CourseRightMenu';
 import { useContentData, useCourseData } from './hook';
@@ -106,7 +107,9 @@ const CourseDetail = () => {
                 right: 0,
                 borderRadius: '5px'
               }}
-              src={courseInfo?.imageURL}
+              src={formatUrl(
+                `${process.env.REACT_APP_BASE_API}/${courseInfo?.image}`
+              )}
               alt="anh"
             />
           </Box>

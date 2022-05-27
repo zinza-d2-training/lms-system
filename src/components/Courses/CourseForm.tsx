@@ -9,7 +9,7 @@ import {
 import { pick } from 'lodash';
 import { makeValidate, TextField } from 'mui-rff';
 import { useSnackbar } from 'notistack';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Form } from 'react-final-form';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -18,10 +18,16 @@ import { CourseInfo } from '../../types/courses';
 import { ImageField } from '../common/ImageField';
 import { useCourseData } from './hook';
 
+const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
+
 const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
   title: Yup.string().min(10).max(100).required(),
   description: Yup.string().max(1000).required(),
-  imageURL: Yup.mixed().notRequired()
+  image: Yup.mixed().test(
+    'fileFormat',
+    'Unsupported Format',
+    (value) => !value || SUPPORTED_FORMATS.includes(value.type)
+  )
 });
 
 const validate = makeValidate(schema);
@@ -31,20 +37,40 @@ const CourseForm = () => {
   const { id: courseId } = useParams() as { id: string };
   const id =
     courseId && !isNaN(parseInt(courseId)) ? parseInt(courseId) : undefined;
-  const { courseInfo: initialValues, loading } = useCourseData(id);
+  const { courseInfo, loading } = useCourseData(id);
+
+  const { image, initialValues } = useMemo(() => {
+    if (!courseInfo) {
+      return {
+        image: undefined,
+        initialValues: undefined
+      };
+    }
+    const { image, ...initialValues } = courseInfo;
+    return {
+      image,
+      initialValues
+    };
+  }, [courseInfo]);
 
   const handleSubmit = async (courseForm: CourseInfo) => {
-    const courseInfo = pick(courseForm, 'title', 'imageURL', 'description');
-
+    const courseInfo = pick(courseForm, 'title', 'image', 'description');
     try {
-      if (id) {
-        await updateCourse(id, courseInfo);
-        enqueueSnackbar('Success!', {
-          variant: 'success'
-        });
-      } else {
-        await createCourse(courseInfo);
+      const formData = new FormData();
+      formData.append('title', courseInfo.title);
+      formData.append('description', courseInfo.description);
+      if (courseInfo.image) {
+        formData.append('image', courseInfo.image);
       }
+      if (id) {
+        await updateCourse(id, formData);
+      } else {
+        await createCourse(formData);
+      }
+      window.location.replace('/');
+      enqueueSnackbar('Success!', {
+        variant: 'success'
+      });
     } catch (error) {
       enqueueSnackbar(String(error), {
         variant: 'error'
@@ -66,7 +92,7 @@ const CourseForm = () => {
             onSubmit={handleSubmit}
             initialValues={initialValues}
             validate={validate}
-            render={({ handleSubmit, invalid, initialValues, submitting }) => {
+            render={({ handleSubmit, invalid, submitting, ...meta }) => {
               return (
                 <form onSubmit={handleSubmit}>
                   <Box
@@ -156,10 +182,7 @@ const CourseForm = () => {
                         flex: 1,
                         textAlign: 'center'
                       }}>
-                      <ImageField
-                        name="imageURL"
-                        initPreview={initialValues && initialValues.imageURL}
-                      />
+                      <ImageField name="image" initPreview={image} />
                     </Box>
                   </Box>
                   <Box

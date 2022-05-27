@@ -32,7 +32,6 @@ export const UserProvider: FC<Props> = ({ children }) => {
             userName: user.userName
           });
         }
-        console.log(user.userName);
       })
       .catch(() => {
         localStorage.removeItem(STORAGE_KEYS.accessToken);

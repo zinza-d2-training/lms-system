@@ -17,17 +17,34 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import { useContext } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { UserContext } from '../../../contexts/UserContext';
-import { courses } from '../../../fakeData/courses';
+import { deleteCourse } from '../../../services/CourseService';
 import { UserRole } from '../../../types/users';
+import { formatDateTime } from '../../../utils/datetime';
+import { Pagination } from '../../Pagination';
+import { useGetCourses } from '../hook';
 import './ListCourses.css';
 import { CustomizedMenus } from './MenuActions';
 
 const ListCoursesRender = () => {
   const userContext = useContext(UserContext);
-  const handleDelete = () => {};
+  const [filter, setFilter] = useState({
+    page: 1,
+    limit: 4,
+    title: ''
+  });
+  const { courses } = useGetCourses({
+    page: filter.page,
+    limit: filter.limit,
+    title: filter.title
+  });
+
+  const handleDelete = async (id: number) => {
+    await deleteCourse(id);
+    window.location.reload();
+  };
   return (
     <>
       <Container className="main-container">
@@ -82,7 +99,7 @@ const ListCoursesRender = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {courses.map((course) => (
+                {courses?.courses.map((course) => (
                   <TableRow
                     className="table-row-content"
                     key={course.id}
@@ -100,7 +117,9 @@ const ListCoursesRender = () => {
                     </TableCell>
                     <TableCell>Samples</TableCell>
                     <TableCell sx={{ paddingRight: '28px' }} align="right">
-                      {course.createdAt}
+                      {course.updatedAt
+                        ? formatDateTime(course.updatedAt)
+                        : '-'}
                     </TableCell>
                     {userContext.role === UserRole.Instructor ? (
                       <TableCell sx={{ paddingRight: '28px' }} align="right">
@@ -108,14 +127,14 @@ const ListCoursesRender = () => {
                           items={[
                             {
                               to: `/courses/${course.id}/edit`,
-                              label: 'Synchronize',
+                              label: 'Update',
                               icon: <EditIcon />
                             },
                             {
                               to: `#`,
-                              label: 'Reset',
+                              label: 'Delete',
                               icon: <DeleteForeverIcon />,
-                              onClick: handleDelete
+                              onClick: () => handleDelete(course.id)
                             }
                           ]}
                         />
@@ -137,7 +156,23 @@ const ListCoursesRender = () => {
               marginTop: '16px'
             }}>
             <Box>
-              <button>1 to 8 of 8</button>
+              <Pagination
+                totalField={courses?.count}
+                limit={filter.limit}
+                initalPage={filter.page}
+                onNextPage={(page: number) => {
+                  setFilter({
+                    ...filter,
+                    page: (page = page + 1)
+                  });
+                }}
+                onPrevPage={(page: number) => {
+                  setFilter({
+                    ...filter,
+                    page: (page = page - 1)
+                  });
+                }}
+              />
             </Box>
 
             <Box className="box-container-footer-right">
