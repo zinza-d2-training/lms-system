@@ -14,14 +14,19 @@ import { Form } from 'react-final-form';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { createCourse, updateCourse } from '../../services/CourseService';
-import { CourseInfo } from '../../types/courses';
-// import { CourseInfo } from '../../types/courses';
 import { ImageField } from '../common/ImageField';
 import { useCourseData } from './hook';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
 
-const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
+export type CourseForm = {
+  title: string;
+  image?: string;
+  description: string;
+  removeImage: boolean;
+};
+
+const schema: Yup.SchemaOf<CourseForm> = Yup.object().shape({
   title: Yup.string().min(10).max(100).required(),
   description: Yup.string().max(1000).required(),
   removeImage: Yup.boolean().default(false),
@@ -45,19 +50,17 @@ const CourseForm = () => {
     if (!courseInfo) {
       return {
         image: undefined,
-        removeImage: false,
         initialValues: undefined
       };
     }
-    const { image, removeImage, ...initialValues } = courseInfo;
+    const { image, ...initialValues } = courseInfo;
     return {
       image,
-      removeImage,
       initialValues
     };
   }, [courseInfo]);
 
-  const handleSubmit = async (courseForm: CourseInfo) => {
+  const handleSubmit = async (courseForm: CourseForm) => {
     const courseInfo = pick(
       courseForm,
       'title',
@@ -103,7 +106,7 @@ const CourseForm = () => {
           padding: '0'
         }}>
         <Box component="form">
-          <Form<CourseInfo>
+          <Form<CourseForm>
             onSubmit={handleSubmit}
             initialValues={initialValues}
             validate={validate}
