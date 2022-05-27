@@ -6,7 +6,6 @@ import {
   Link,
   Typography
 } from '@mui/material';
-import { pick } from 'lodash';
 import { makeValidate, TextField } from 'mui-rff';
 import { useSnackbar } from 'notistack';
 import React, { useMemo } from 'react';
@@ -19,14 +18,14 @@ import { useCourseData } from './hook';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
 
-export type CourseForm = {
+export type CourseFormSchema = {
   title: string;
   image?: string;
   description: string;
   removeImage: boolean;
 };
 
-const schema: Yup.SchemaOf<CourseForm> = Yup.object().shape({
+const schema: Yup.SchemaOf<CourseFormSchema> = Yup.object().shape({
   title: Yup.string().min(10).max(100).required(),
   description: Yup.string().max(1000).required(),
   removeImage: Yup.boolean().default(false),
@@ -60,25 +59,18 @@ const CourseForm = () => {
     };
   }, [courseInfo]);
 
-  const handleSubmit = async (courseForm: CourseForm) => {
-    const courseInfo = pick(
-      courseForm,
-      'title',
-      'image',
-      'description',
-      'removeImage'
-    );
+  const handleSubmit = async (courseForm: CourseFormSchema) => {
     try {
       const formData = new FormData();
-      formData.append('title', courseInfo.title);
-      formData.append('description', courseInfo.description);
-      if (!courseInfo.removeImage) {
+      formData.append('title', courseForm.title);
+      formData.append('description', courseForm.description);
+      if (!courseForm.removeImage) {
         formData.append('removeImage', 'false');
       } else {
-        formData.append('removeImage', courseInfo.removeImage.toString());
+        formData.append('removeImage', 'true');
       }
-      if (courseInfo.image) {
-        formData.append('image', courseInfo.image);
+      if (courseForm.image) {
+        formData.append('image', courseForm.image);
       }
       if (id) {
         await updateCourse(id, formData);
@@ -106,7 +98,7 @@ const CourseForm = () => {
           padding: '0'
         }}>
         <Box component="form">
-          <Form<CourseForm>
+          <Form<CourseFormSchema>
             onSubmit={handleSubmit}
             initialValues={initialValues}
             validate={validate}
