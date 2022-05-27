@@ -9,7 +9,7 @@ import {
 import { pick } from 'lodash';
 import { makeValidate, TextField } from 'mui-rff';
 import { useSnackbar } from 'notistack';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Form } from 'react-final-form';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -26,7 +26,7 @@ const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
   image: Yup.mixed().test(
     'fileFormat',
     'Unsupported Format',
-    (value) => value && SUPPORTED_FORMATS.includes(value.type)
+    (value) => !value || SUPPORTED_FORMATS.includes(value.type)
   )
 });
 
@@ -37,7 +37,21 @@ const CourseForm = () => {
   const { id: courseId } = useParams() as { id: string };
   const id =
     courseId && !isNaN(parseInt(courseId)) ? parseInt(courseId) : undefined;
-  const { courseInfo: initialValues, loading } = useCourseData(id);
+  const { courseInfo, loading } = useCourseData(id);
+
+  const { image, initialValues } = useMemo(() => {
+    if (!courseInfo) {
+      return {
+        image: undefined,
+        initialValues: undefined
+      };
+    }
+    const { image, ...initialValues } = courseInfo;
+    return {
+      image,
+      initialValues
+    };
+  }, [courseInfo]);
 
   const handleSubmit = async (courseForm: CourseInfo) => {
     const courseInfo = pick(courseForm, 'title', 'image', 'description');
@@ -53,6 +67,7 @@ const CourseForm = () => {
       } else {
         await createCourse(formData);
       }
+      window.location.replace('/');
       enqueueSnackbar('Success!', {
         variant: 'success'
       });
@@ -77,7 +92,7 @@ const CourseForm = () => {
             onSubmit={handleSubmit}
             initialValues={initialValues}
             validate={validate}
-            render={({ handleSubmit, invalid, initialValues, submitting }) => {
+            render={({ handleSubmit, invalid, submitting, ...meta }) => {
               return (
                 <form onSubmit={handleSubmit}>
                   <Box
@@ -167,10 +182,7 @@ const CourseForm = () => {
                         flex: 1,
                         textAlign: 'center'
                       }}>
-                      <ImageField
-                        name="image"
-                        initPreview={initialValues && initialValues.image}
-                      />
+                      <ImageField name="image" initPreview={image} />
                     </Box>
                   </Box>
                   <Box

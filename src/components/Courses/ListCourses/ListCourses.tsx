@@ -127,12 +127,12 @@ const ListCoursesRender = () => {
                           items={[
                             {
                               to: `/courses/${course.id}/edit`,
-                              label: 'Synchronize',
+                              label: 'Update',
                               icon: <EditIcon />
                             },
                             {
                               to: `#`,
-                              label: 'Reset',
+                              label: 'Delete',
                               icon: <DeleteForeverIcon />,
                               onClick: () => handleDelete(course.id)
                             }
