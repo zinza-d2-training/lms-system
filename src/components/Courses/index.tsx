@@ -16,7 +16,6 @@ import { Pagination } from '../Pagination';
 import CourseInfoDialog from './CourseInfoDialog';
 import './Courses.css';
 import { useGetCourses } from './hook';
-//import { useCourseLastContentMapping } from './hook';
 import { formatUrl } from './../../utils/formatUrl';
 
 export const Courses = () => {
@@ -26,7 +25,7 @@ export const Courses = () => {
   const userContext = useContext(UserContext);
   const [filter, setFilter] = useState({
     page: 1,
-    limit: 4,
+    limit: 6,
     title: ''
   });
   const { courses, loading } = useGetCourses({
@@ -110,7 +109,6 @@ export const Courses = () => {
                             style={{
                               margin: '0 auto',
                               objectFit: 'cover',
-                              width: '200px',
                               height: 'auto'
                             }}
                           />
@@ -122,7 +120,7 @@ export const Courses = () => {
                                 component={RouterLink}
                                 to={`/courses/${course.id}`}
                                 color="inherit">
-                                <ModeEditIcon />
+                                <ModeEditIcon sx={{ color: 'white' }} />
                               </Link>
                             ) : (
                               <Link
@@ -131,15 +129,12 @@ export const Courses = () => {
                                 color="inherit">
                                 <PlayCircleFilledWhiteOutlinedIcon />
                               </Link>
-                              // to={`/view/${course.id}/content/${mapping?.get(
-                              //     course.id
-                              //   )}`}
                             )}
                           </button>
                           <button
                             className="courses-item-right"
                             onClick={() => handleOpenCoursePopup(course.id)}>
-                            <InfoIcon />
+                            <InfoIcon sx={{ color: 'white' }} />
                           </button>
                         </Box>
                         <p>{course.title}</p>

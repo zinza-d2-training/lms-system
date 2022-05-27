@@ -6,7 +6,6 @@ import {
   Link,
   Typography
 } from '@mui/material';
-import { pick } from 'lodash';
 import { makeValidate, TextField } from 'mui-rff';
 import { useSnackbar } from 'notistack';
 import React, { useMemo } from 'react';
@@ -14,15 +13,22 @@ import { Form } from 'react-final-form';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { createCourse, updateCourse } from '../../services/CourseService';
-import { CourseInfo } from '../../types/courses';
 import { ImageField } from '../common/ImageField';
 import { useCourseData } from './hook';
 
 const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
 
-const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
+export type CourseFormSchema = {
+  title: string;
+  image?: string;
+  description: string;
+  removeImage: boolean;
+};
+
+const schema: Yup.SchemaOf<CourseFormSchema> = Yup.object().shape({
   title: Yup.string().min(10).max(100).required(),
   description: Yup.string().max(1000).required(),
+  removeImage: Yup.boolean().default(false),
   image: Yup.mixed().test(
     'fileFormat',
     'Unsupported Format',
@@ -53,14 +59,18 @@ const CourseForm = () => {
     };
   }, [courseInfo]);
 
-  const handleSubmit = async (courseForm: CourseInfo) => {
-    const courseInfo = pick(courseForm, 'title', 'image', 'description');
+  const handleSubmit = async (courseForm: CourseFormSchema) => {
     try {
       const formData = new FormData();
-      formData.append('title', courseInfo.title);
-      formData.append('description', courseInfo.description);
-      if (courseInfo.image) {
-        formData.append('image', courseInfo.image);
+      formData.append('title', courseForm.title);
+      formData.append('description', courseForm.description);
+      if (!courseForm.removeImage) {
+        formData.append('removeImage', 'false');
+      } else {
+        formData.append('removeImage', 'true');
+      }
+      if (courseForm.image) {
+        formData.append('image', courseForm.image);
       }
       if (id) {
         await updateCourse(id, formData);
@@ -88,7 +98,7 @@ const CourseForm = () => {
           padding: '0'
         }}>
         <Box component="form">
-          <Form<CourseInfo>
+          <Form<CourseFormSchema>
             onSubmit={handleSubmit}
             initialValues={initialValues}
             validate={validate}
@@ -182,7 +192,11 @@ const CourseForm = () => {
                         flex: 1,
                         textAlign: 'center'
                       }}>
-                      <ImageField name="image" initPreview={image} />
+                      <ImageField
+                        name="image"
+                        removeImage="removeImage"
+                        initPreview={image}
+                      />
                     </Box>
                   </Box>
                   <Box

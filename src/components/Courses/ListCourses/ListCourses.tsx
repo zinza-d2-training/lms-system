@@ -155,7 +155,7 @@ const ListCoursesRender = () => {
               justifyContent: 'space-between',
               marginTop: '16px'
             }}>
-            <Box>
+            <Box sx={{ marginBottom: '4px' }}>
               <Pagination
                 totalField={courses?.count}
                 limit={filter.limit}
