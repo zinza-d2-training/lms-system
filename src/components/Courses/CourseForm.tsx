@@ -15,6 +15,7 @@ import { Link as RouterLink, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { createCourse, updateCourse } from '../../services/CourseService';
 import { CourseInfo } from '../../types/courses';
+// import { CourseInfo } from '../../types/courses';
 import { ImageField } from '../common/ImageField';
 import { useCourseData } from './hook';
 
