@@ -261,6 +261,7 @@ const UserInfor = () => {
                               initPreview={
                                 initialValues && initialValues.avatar
                               }
+                              removeImage={''}
                             />
                           </Box>
                         </Box>

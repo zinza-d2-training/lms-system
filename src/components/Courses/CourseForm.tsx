@@ -23,6 +23,7 @@ const SUPPORTED_FORMATS = ['image/jpg', 'image/jpeg', 'image/gif', 'image/png'];
 const schema: Yup.SchemaOf<CourseInfo> = Yup.object().shape({
   title: Yup.string().min(10).max(100).required(),
   description: Yup.string().max(1000).required(),
+  removeImage: Yup.boolean().default(false),
   image: Yup.mixed().test(
     'fileFormat',
     'Unsupported Format',
@@ -43,22 +44,35 @@ const CourseForm = () => {
     if (!courseInfo) {
       return {
         image: undefined,
+        removeImage: false,
         initialValues: undefined
       };
     }
-    const { image, ...initialValues } = courseInfo;
+    const { image, removeImage, ...initialValues } = courseInfo;
     return {
       image,
+      removeImage,
       initialValues
     };
   }, [courseInfo]);
 
   const handleSubmit = async (courseForm: CourseInfo) => {
-    const courseInfo = pick(courseForm, 'title', 'image', 'description');
+    const courseInfo = pick(
+      courseForm,
+      'title',
+      'image',
+      'description',
+      'removeImage'
+    );
     try {
       const formData = new FormData();
       formData.append('title', courseInfo.title);
       formData.append('description', courseInfo.description);
+      if (!courseInfo.removeImage) {
+        formData.append('removeImage', 'false');
+      } else {
+        formData.append('removeImage', courseInfo.removeImage.toString());
+      }
       if (courseInfo.image) {
         formData.append('image', courseInfo.image);
       }
@@ -182,7 +196,11 @@ const CourseForm = () => {
                         flex: 1,
                         textAlign: 'center'
                       }}>
-                      <ImageField name="image" initPreview={image} />
+                      <ImageField
+                        name="image"
+                        removeImage="removeImage"
+                        initPreview={image}
+                      />
                     </Box>
                   </Box>
                   <Box

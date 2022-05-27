@@ -16,7 +16,6 @@ import { Pagination } from '../Pagination';
 import CourseInfoDialog from './CourseInfoDialog';
 import './Courses.css';
 import { useGetCourses } from './hook';
-//import { useCourseLastContentMapping } from './hook';
 import { formatUrl } from './../../utils/formatUrl';
 
 export const Courses = () => {

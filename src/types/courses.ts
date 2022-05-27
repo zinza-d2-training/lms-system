@@ -3,6 +3,7 @@ export interface CoursesDB {
   title: string;
   image?: string;
   description: string;
+  removeImage: boolean;
   updatedAt?: string;
   createdAt?: string;
 }
@@ -16,7 +17,10 @@ export interface CourseCompletion {
   completionDate?: string;
 }
 
-export type CourseInfo = Pick<CoursesDB, 'title' | 'image' | 'description'>;
+export type CourseInfo = Pick<
+  CoursesDB,
+  'title' | 'image' | 'description' | 'removeImage'
+>;
 
 export type CourseBasic = Pick<
   CoursesDB,

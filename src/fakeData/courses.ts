@@ -1,7 +1,7 @@
 import { CourseCompletion, CoursesDB } from '../types/courses';
 import { formatDateTime } from '../utils/datetime';
 
-export const courses: CoursesDB[] = [
+const courses = [
   {
     id: 1,
     title: 'Introduction to TalentLMS',

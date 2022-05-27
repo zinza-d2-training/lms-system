@@ -8,14 +8,24 @@ import { formatUrl } from '../../utils/formatUrl';
 interface Props {
   name: string;
   initPreview?: string;
+  removeImage: string;
   config?: UseFieldConfig<File | undefined>;
 }
 
-export const ImageField = ({ name, initPreview, config }: Props) => {
+export const ImageField = ({
+  name,
+  initPreview,
+  config,
+  removeImage
+}: Props) => {
   const {
     input: { onChange }
   } = useField(name, config);
   const inputEl = useRef<HTMLInputElement>(null);
+
+  const {
+    input: { onChange: onChangeRemoved }
+  } = useField(removeImage, config);
 
   const onButtonClick = () => {
     inputEl.current?.click();
@@ -25,9 +35,10 @@ export const ImageField = ({ name, initPreview, config }: Props) => {
   const [isFilePreview, setIsFilePreview] = useState<boolean>(false);
 
   const handleRemove = () => {
-    onChange(undefined);
+    onChangeRemoved(true);
     setPreview(undefined);
   };
+
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       e.preventDefault();
