@@ -72,7 +72,7 @@ const Survey = () => {
     };
     try {
       if (id) {
-        await updateContent(parseInt(contentId), newContent);
+        await updateContent(parseInt(id), parseInt(contentId), newContent);
       } else {
         await createContent(parseInt(id), newContent);
       }

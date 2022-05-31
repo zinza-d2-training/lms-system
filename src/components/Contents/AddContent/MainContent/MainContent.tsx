@@ -1,10 +1,15 @@
 import { Box, Button } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { makeValidate, TextField } from 'mui-rff';
+import { useSnackbar } from 'notistack';
 import * as React from 'react';
 import { Form } from 'react-final-form';
 import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
+import {
+  createContent,
+  updateContent
+} from '../../../../services/ContentService';
 import {
   CompletedMethod,
   Content,
@@ -13,37 +18,36 @@ import {
   VideoType
 } from '../../../../types/contents';
 import { EditorField } from '../../Editor/EditorField';
+import { useContentInfo } from '../../hook';
 import AudioContent from './AudioContent/AudioContent';
 import { CompletedMethodFinalFormInput } from './CompletedMethodFinalFormInput';
 import IframeContent from './IFrameContent/IframeContent';
-import { useContentInfo } from '../../hook';
 import './StyleTabBasicContent.css';
 import { VideoContent } from './VideoContent';
 
-type BasicContentForm = Partial<
-  Pick<
-    Content,
-    | 'name'
-    | 'completedMethod'
-    | 'content'
-    | 'completedQuestionId'
-    | 'periodTime'
-    | 'link'
-    | 'showAs'
-    | 'videoType'
-    | 'fileId'
-    | 'popUpWidth'
-    | 'popUpHeight'
-    | 'fileId'
-  >
+export type BasicContentForm = Pick<
+  Content,
+  | 'name'
+  | 'completedMethod'
+  | 'content'
+  | 'completedQuestionId'
+  | 'periodTime'
+  | 'link'
+  | 'showAs'
+  | 'videoType'
+  | 'fileId'
+  | 'popUpWidth'
+  | 'popUpHeight'
+  | 'fileId'
 >;
 
 const MainContent = () => {
-  const { type, contentId } = useParams() as {
+  const { id, type, contentId } = useParams() as {
+    id: string;
     type: string;
     contentId: string;
   };
-
+  const { enqueueSnackbar } = useSnackbar();
   const { contentInfo } = useContentInfo(parseInt(contentId));
 
   const initialValues = React.useMemo<BasicContentForm>(() => {
@@ -136,7 +140,30 @@ const MainContent = () => {
   const validate = makeValidate(schema);
 
   const handleSubmit = async (value: BasicContentForm) => {
-    console.log(value);
+    try {
+      if (contentId) {
+        await updateContent(parseInt(id), parseInt(contentId), {
+          ...value,
+          type: type
+            ? Number(type as unknown as ContentType)
+            : Number(ContentType.Basic)
+        });
+      } else {
+        await createContent(parseInt(id), {
+          ...value,
+          type: type
+            ? Number(type as unknown as ContentType)
+            : Number(ContentType.Basic)
+        });
+      }
+      enqueueSnackbar('Success!', {
+        variant: 'success'
+      });
+    } catch (error) {
+      enqueueSnackbar(String(error), {
+        variant: 'error'
+      });
+    }
   };
   return (
     <Form<BasicContentForm>

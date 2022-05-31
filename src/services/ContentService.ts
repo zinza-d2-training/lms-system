@@ -2,9 +2,11 @@ import { Content, ContentFormData } from '../types/contents';
 import { contents } from './../fakeData/contents';
 import { sortBy, groupBy } from 'lodash';
 import { Users } from '../fakeData/users';
+import axiosClient from '../utils/axios';
 
 export async function getCourseContents(courseId: number): Promise<Content[]> {
-  return contents.filter((item) => item.courseId === courseId);
+  const { data } = await axiosClient.get(`/courses/${courseId}/contents`);
+  return data;
 }
 
 export async function getLastContentsMapping(
@@ -40,25 +42,19 @@ export async function reorderCourseContents(
     };
   });
 }
-export async function updateContent(contentId: number, value: ContentFormData) {
-  const content = contents.find((item) => item.id === contentId) as Content;
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const index = contents.indexOf(content);
-
-  // @TODO: Call APi
-  // contents[index] = { ...content, ...value };
+export async function updateContent(
+  courseId: number,
+  contentId: number,
+  value: ContentFormData
+) {
+  return await axiosClient.put(
+    `/courses/${courseId}/contents/${contentId}/edit`,
+    value
+  );
 }
 
 export async function createContent(courseId: number, value: ContentFormData) {
-  const newContent = {
-    ...value,
-    courseId: courseId,
-    id: contents.length + 1,
-    survey: contents.length + 1
-  };
-  console.log(newContent);
-  return newContent;
+  return await axiosClient.post(`/courses/${courseId}/contents/add`, value);
 }
 export async function getUserInfo(userId: number) {
   return Users.find((item) => item.id === userId);
