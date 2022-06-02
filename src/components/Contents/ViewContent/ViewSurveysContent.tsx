@@ -10,8 +10,8 @@ import { useSurveyResponse } from './hook';
 import SurveyResponseFinalForm from './SurveyResponseFinalForm';
 
 const ViewSurveysContent = () => {
-  const { contentId } = useParams() as { id: string; contentId: string };
-  const { contentInfo } = useContentInfo(parseInt(contentId));
+  const { id, contentId } = useParams() as { id: string; contentId: string };
+  const { contentInfo } = useContentInfo(parseInt(id), parseInt(contentId));
   const surveyRes = useSurveyResponse();
   const initialValues = useMemo<SurveyResponseForm>(() => {
     return {

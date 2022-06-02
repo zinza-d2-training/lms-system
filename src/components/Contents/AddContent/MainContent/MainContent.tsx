@@ -48,7 +48,8 @@ const MainContent = () => {
     contentId: string;
   };
   const { enqueueSnackbar } = useSnackbar();
-  const { contentInfo } = useContentInfo(parseInt(contentId));
+  const { contentInfo } = useContentInfo(parseInt(id), parseInt(contentId));
+  console.log(contentInfo);
 
   const initialValues = React.useMemo<BasicContentForm>(() => {
     return {

@@ -25,22 +25,28 @@ export async function getLastContentsMapping(
   return mapping;
 }
 
-export async function getContentDetail(contentId: number) {
-  return contents.find((item) => item.id === contentId);
+export async function getContentDetail(courseId: number, contentId: number) {
+  const { data } = await axiosClient.get(
+    `/courses/${courseId}/contents/${contentId}/`
+  );
+  return data;
 }
 
 export async function reorderCourseContents(
   courseId: number,
-  orderMapping: Record<number, number>
+  items: Array<{
+    id: number;
+    sequence: number
+  }>
 ) {
-  const contentItem = contents.filter((item) => item.courseId === courseId);
+  const { data } = await axiosClient.put(
+    `/courses/${courseId}/contents/order`,
+    {
+      items
+    }
+  );
 
-  return contentItem.map((item) => {
-    return {
-      ...item,
-      sequence: orderMapping[item.id] ? orderMapping[item.id] : item.sequence
-    };
-  });
+  return data;
 }
 export async function updateContent(
   courseId: number,
