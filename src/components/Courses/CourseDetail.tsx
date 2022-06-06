@@ -63,15 +63,21 @@ const CourseDetail = () => {
     if (!destination) return;
 
     const items = Array.from(todo);
+    // console.log(items);
     const [newOrder] = items.splice(source.index, 1);
+    // console.log(newOrder);
+    // console.log(items);
     items.splice(destination.index, 0, newOrder);
+    // console.log(items);
 
-    const reOrderMapping: Record<number, number> = {};
-    items.forEach((item, index) => {
-      reOrderMapping[item.sequence] = index + 1;
-    });
-    const contents = await reorderCourseContents(id, reOrderMapping);
+    items.forEach((item, index) => ({
+      id: item.id,
+      sequence: index + 1
+    }));
+    const contents = await reorderCourseContents(parseInt(courseId), items);
+
     setTodo(contents);
+    console.log(todo);
   };
   useEffect(() => {
     setTodo(contentData);

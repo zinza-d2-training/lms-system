@@ -11,7 +11,7 @@ import ViewSurveysContent from './ViewSurveysContent';
 const ViewContents = () => {
   const { id, contentId } = useParams() as { id: string; contentId: string };
   const { courseInfo } = useCourseData(parseInt(id));
-  const { contentInfo } = useContentInfo(parseInt(contentId));
+  const { contentInfo } = useContentInfo(parseInt(id), parseInt(contentId));
   const { contentData } = useContentData(parseInt(id));
   const orderContent = useMemo(() => {
     return orderBy(contentData, ['sequence'], ['asc']);
