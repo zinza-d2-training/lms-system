@@ -115,21 +115,53 @@ export const Courses = () => {
                         </Box>
                         <Box className="courses-item-container">
                           <button className="courses-item-left">
-                            {userContext.role === UserRole.Instructor ? (
-                              <Link
-                                component={RouterLink}
-                                to={`/courses/${course.id}`}
-                                color="inherit">
-                                <ModeEditIcon sx={{ color: 'white' }} />
-                              </Link>
-                            ) : (
-                              <Link
-                                component={RouterLink}
-                                to={`/view/${course.id}`}
-                                color="inherit">
-                                <PlayCircleFilledWhiteOutlinedIcon />
-                              </Link>
+                            <Link
+                              component={RouterLink}
+                              to={`/courses/${course.id}`}
+                              color="inherit">
+                              <ModeEditIcon sx={{ color: 'white' }} />
+                            </Link>
+                          </button>
+                          <button
+                            className="courses-item-right"
+                            onClick={() => handleOpenCoursePopup(course.id)}>
+                            <InfoIcon sx={{ color: 'white' }} />
+                          </button>
+                        </Box>
+                        <p>{course.title}</p>
+                      </Box>
+                    ))}
+                  </Box>
+
+                  <Box className="card-course-container">
+                    {courses?.learn.map((course) => (
+                      <Box key={course.id} className="course-item">
+                        <Box
+                          sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                          }}>
+                          <img
+                            src={formatUrl(
+                              `${process.env.REACT_APP_BASE_API}/${course.image}`
                             )}
+                            alt={'img'}
+                            style={{
+                              margin: '0 auto',
+                              objectFit: 'cover',
+                              height: 'auto'
+                            }}
+                          />
+                        </Box>
+                        <Box className="courses-item-container">
+                          <button className="courses-item-left">
+                            <Link
+                              component={RouterLink}
+                              to={`/view/${course.id}`}
+                              color="inherit">
+                              <PlayCircleFilledWhiteOutlinedIcon />
+                            </Link>
                           </button>
                           <button
                             className="courses-item-right"
