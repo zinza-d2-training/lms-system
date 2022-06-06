@@ -11,7 +11,6 @@ export interface FilterCourse {
 
 export interface GetCourses {
   courses: CourseBasic[];
-  learn: CourseBasic[];
   count: number;
 }
 export async function createCourse(courseInfo: FormData) {

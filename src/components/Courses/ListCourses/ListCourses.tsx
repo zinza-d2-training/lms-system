@@ -41,8 +41,6 @@ const ListCoursesRender = () => {
     title: filter.title
   });
 
-  console.log(courses);
-
   const handleDelete = async (id: number) => {
     await deleteCourse(id);
     window.location.reload();
@@ -102,52 +100,6 @@ const ListCoursesRender = () => {
               </TableHead>
               <TableBody>
                 {courses?.courses.map((course) => (
-                  <TableRow
-                    className="table-row-content"
-                    key={course.id}
-                    sx={{
-                      '&:last-child td, &:last-child th': { border: 0 }
-                    }}>
-                    <TableCell component="th" scope="row">
-                      <Link
-                        component={RouterLink}
-                        to={`/courses/${course.id}/edit`}
-                        underline="hover"
-                        color="black">
-                        {course.title}
-                      </Link>
-                    </TableCell>
-                    <TableCell>Samples</TableCell>
-                    <TableCell sx={{ paddingRight: '28px' }} align="right">
-                      {course.updatedAt
-                        ? formatDateTime(course.updatedAt)
-                        : '-'}
-                    </TableCell>
-                    {userContext.role === UserRole.Instructor ? (
-                      <TableCell sx={{ paddingRight: '28px' }} align="right">
-                        <CustomizedMenus
-                          items={[
-                            {
-                              to: `/courses/${course.id}/edit`,
-                              label: 'Update',
-                              icon: <EditIcon />
-                            },
-                            {
-                              to: `#`,
-                              label: 'Delete',
-                              icon: <DeleteForeverIcon />,
-                              onClick: () => handleDelete(course.id)
-                            }
-                          ]}
-                        />
-                      </TableCell>
-                    ) : (
-                      <></>
-                    )}
-                  </TableRow>
-                ))}
-
-                {courses?.learn.map((course) => (
                   <TableRow
                     className="table-row-content"
                     key={course.id}
