@@ -36,7 +36,7 @@ export async function reorderCourseContents(
   courseId: number,
   items: Array<{
     id: number;
-    sequence: number
+    sequence: number;
   }>
 ) {
   const { data } = await axiosClient.put(

@@ -1,5 +1,6 @@
 import { courseCompletions } from '../fakeData/courses';
 import { CourseBasic } from '../types/courses';
+import { UserRole } from '../types/users';
 import axiosClient from '../utils/axios';
 
 export interface FilterCourse {
@@ -23,10 +24,11 @@ export async function updateCourse(courseId: number, courseInfo: FormData) {
   });
 }
 export async function getCourses(
-  filterData: FilterCourse
+  filterData: FilterCourse,
+  role?: UserRole
 ): Promise<GetCourses> {
   const { data } = await axiosClient.get(
-    `/courses?title=${filterData.title}&page=${filterData.page}&limit=${filterData.limit}`
+    `/courses?title=${filterData.title}&page=${filterData.page}&limit=${filterData.limit}&role=${role}`
   );
   return data;
 }

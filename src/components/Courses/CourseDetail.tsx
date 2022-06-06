@@ -65,19 +65,19 @@ const CourseDetail = () => {
     const items = Array.from(todo);
     // console.log(items);
     const [newOrder] = items.splice(source.index, 1);
-    console.log(newOrder);
+    // console.log(newOrder);
     // console.log(items);
     items.splice(destination.index, 0, newOrder);
     // console.log(items);
 
-    const contents = await reorderCourseContents(
-      id,
-      items.map((item, index) => ({
-        id: item.id,
-        sequence: index + 1
-      }))
-    );
+    items.forEach((item, index) => ({
+      id: item.id,
+      sequence: index + 1
+    }));
+    const contents = await reorderCourseContents(parseInt(courseId), items);
+
     setTodo(contents);
+    console.log(todo);
   };
   useEffect(() => {
     setTodo(contentData);
