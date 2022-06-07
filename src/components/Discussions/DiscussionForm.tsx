@@ -16,7 +16,11 @@ import {
 
 import './style.css';
 import { EditorField } from '../Contents/Editor/EditorField';
-import { createDiscussion } from '../../services/DiscussionService';
+import {
+  createDiscussion,
+  updateDiscussion
+} from '../../services/DiscussionService';
+import { useParams } from 'react-router-dom';
 
 interface Props {
   label: string;
@@ -24,8 +28,12 @@ interface Props {
   handleClose: () => void;
 }
 
-const AddDiscussion = ({ label, id, handleClose }: Props) => {
+const AddDiscussion = ({ label, handleClose }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { id: discussionId } = useParams() as { id: string };
+
+  // const { courseInfo, loading } = useCourseData(id);
+
   const [open, setOpen] = React.useState(false);
 
   const { discussion } = useDiscussionInfo(id);
@@ -33,24 +41,27 @@ const AddDiscussion = ({ label, id, handleClose }: Props) => {
   const initialValues = useMemo<DiscussionForm>(() => {
     return {
       topic: discussion?.topic || '',
-      message: discussion?.message || ''
+      description: discussion?.description || ''
     };
-  }, [discussion?.message, discussion?.topic]);
+  }, [discussion?.description, discussion?.topic]);
 
   const schema: Yup.SchemaOf<DiscussionForm> = Yup.object().shape({
     topic: Yup.string().max(255).required(),
-    message: Yup.string().required()
+    description: Yup.string().required()
   });
 
   const validate = makeValidate(schema);
 
-  const handleSubmit = (value: DiscussionForm) => {
-    const formData = new FormData();
-    formData.append('topic', value.topic);
-    formData.append('description', value.message);
-    // console.log(value);
-
-    createDiscussion(formData);
+  const handleSubmit = async (value: DiscussionForm) => {
+    // const formData = new FormData();
+    // formData.append('topic', value.topic);
+    // formData.append('description', value.description);
+    console.log(value);
+    if (id) {
+      updateDiscussion(id, value);
+    } else {
+      createDiscussion(value);
+    }
   };
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);
@@ -96,7 +107,7 @@ const AddDiscussion = ({ label, id, handleClose }: Props) => {
                     />
                   </Box>
                   <Box>
-                    <EditorField name="message" />
+                    <EditorField name="description" />
                   </Box>
                 </DialogContentText>
               </DialogContent>

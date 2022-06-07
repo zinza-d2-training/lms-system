@@ -4,8 +4,8 @@ import { comments } from './../fakeData/comments';
 import { discussions } from './../fakeData/discussion';
 import { Discussion } from './../types/discussions';
 
-export async function createDiscussion(discussion: FormData) {
-  return await axiosClient.post(`/discussion/add`, discussion, {});
+export async function createDiscussion(discussion: DiscussionForm) {
+  return await axiosClient.post(`/discussion/add`, discussion);
 }
 
 export async function getDiscussions() {
@@ -20,11 +20,7 @@ export async function updateDiscussion(
   id: number,
   discussionForm: DiscussionForm
 ) {
-  let discussion = discussions.find((item) => item.id === id) as Discussion;
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const index = discussions.indexOf(discussion);
-  // @Call Api
+  return await axiosClient.post(`/discussion/${id}/edit`, discussionForm);
 }
 
 export async function getComments(discussionId: number) {
