@@ -1,18 +1,11 @@
 import { CommentFormInfo, DiscussionForm } from '../types/discussions';
+import axiosClient from '../utils/axios';
 import { comments } from './../fakeData/comments';
 import { discussions } from './../fakeData/discussion';
 import { Discussion } from './../types/discussions';
-import { getCurrentUser } from './AuthService';
 
-export async function createDiscussion(discussion: DiscussionForm) {
-  const user = getCurrentUser();
-
-  const newDiscussion = {
-    ...discussion,
-    userId: user
-  };
-  console.log(newDiscussion);
-  return newDiscussion;
+export async function createDiscussion(discussion: FormData) {
+  return await axiosClient.post(`/discussion/add`, discussion, {});
 }
 
 export async function getDiscussions() {

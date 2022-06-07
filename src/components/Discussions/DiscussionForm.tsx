@@ -16,6 +16,7 @@ import {
 
 import './style.css';
 import { EditorField } from '../Contents/Editor/EditorField';
+import { createDiscussion } from '../../services/DiscussionService';
 
 interface Props {
   label: string;
@@ -44,7 +45,12 @@ const AddDiscussion = ({ label, id, handleClose }: Props) => {
   const validate = makeValidate(schema);
 
   const handleSubmit = (value: DiscussionForm) => {
-    console.log('discussion', value);
+    const formData = new FormData();
+    formData.append('topic', value.topic);
+    formData.append('description', value.message);
+    // console.log(value);
+
+    createDiscussion(formData);
   };
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);
