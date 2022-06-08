@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import {
-  discussionInfo, FilterDiscussion, getCommentInfo, getComments,
+  discussionInfo,
+  FilterDiscussion,
+  getCommentInfo,
+  getComments,
   getDiscussions
 } from '../../services/DiscussionService';
 import { Comment, Discussion } from '../../types/discussions';
 
+// Get all discussion
 export const useDiscussions = (filterData: FilterDiscussion) => {
   const [discussions, setDiscussions] = useState<Discussion[] | undefined>([]);
 
@@ -25,23 +29,28 @@ export const useDiscussions = (filterData: FilterDiscussion) => {
   };
 };
 
+// Get discussion by Id
 export const useDiscussionInfo = (id?: number) => {
   const [discussion, setDiscussion] = useState<Discussion | undefined>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const discussion = async (id?: number) => {
       if (id) {
-        const data = await discussionInfo(id);
+        const data = (await discussionInfo(id)) as unknown as Discussion;
         setDiscussion(data);
       }
+      setLoading(false);
     };
+
     discussion(id);
 
     return () => {};
   }, [id]);
 
   return {
-    discussion
+    discussion,
+    loading
   };
 };
 

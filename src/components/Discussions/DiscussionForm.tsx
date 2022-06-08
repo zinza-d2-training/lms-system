@@ -1,26 +1,24 @@
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle
+} from '@mui/material';
 import { makeValidate, TextField } from 'mui-rff';
 import React, { useMemo } from 'react';
 import { Form } from 'react-final-form';
 import * as Yup from 'yup';
-import { DiscussionForm } from '../../types/discussions';
-import { useDiscussionInfo } from './hook';
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Box,
-  DialogContentText,
-  Button,
-  DialogActions
-} from '@mui/material';
-
-import './style.css';
-import { EditorField } from '../Contents/Editor/EditorField';
 import {
   createDiscussion,
   updateDiscussion
 } from '../../services/DiscussionService';
-import { useParams } from 'react-router-dom';
+import { DiscussionForm } from '../../types/discussions';
+import { EditorField } from '../Contents/Editor/EditorField';
+import { useDiscussionInfo } from './hook';
+import './style.css';
 
 interface Props {
   label: string;
@@ -29,13 +27,6 @@ interface Props {
 }
 
 const AddDiscussion = ({ label, id, handleClose }: Props) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const { id: discussionId } = useParams() as { id: string };
-
-  // const { courseInfo, loading } = useCourseData(id);
-
-  // const { id } = useParams() as { id: string };
-
   const [open, setOpen] = React.useState(false);
 
   const { discussion } = useDiscussionInfo(id);
@@ -47,6 +38,8 @@ const AddDiscussion = ({ label, id, handleClose }: Props) => {
     };
   }, [discussion?.description, discussion?.topic]);
 
+  console.log(discussion);
+
   const schema: Yup.SchemaOf<DiscussionForm> = Yup.object().shape({
     topic: Yup.string().max(255).required(),
     description: Yup.string().required()
@@ -55,10 +48,6 @@ const AddDiscussion = ({ label, id, handleClose }: Props) => {
   const validate = makeValidate(schema);
 
   const handleSubmit = async (value: DiscussionForm) => {
-    // const formData = new FormData();
-    // formData.append('topic', value.topic);
-    // formData.append('description', value.description);
-    // console.log(value);
     if (id) {
       updateDiscussion(id, value);
     } else {

@@ -28,7 +28,11 @@ export async function getDiscussions(
 }
 
 export async function discussionInfo(id: number) {
-  return discussions.find((item) => item.id === id);
+  if (id) {
+    return await (
+      await axiosClient.get(`/discussion/${id}`)
+    ).data;
+  }
 }
 
 export async function updateDiscussion(

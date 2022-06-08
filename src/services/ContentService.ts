@@ -57,7 +57,6 @@ export async function createContent(courseId: number, value: ContentFormData) {
     id: contents.length + 1,
     survey: contents.length + 1
   };
-  console.log(newContent);
   return newContent;
 }
 export async function getUserInfo(userId: number) {

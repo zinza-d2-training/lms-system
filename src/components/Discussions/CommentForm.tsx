@@ -38,7 +38,7 @@ const CommentForm = ({ id, handleClose }: Props) => {
   const validate = makeValidate(schema);
 
   const handleSubmit = (value: CommentFormInfo) => {
-    console.log('discussion', value);
+    // console.log('discussion', value);
   };
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);

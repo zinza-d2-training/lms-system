@@ -136,7 +136,7 @@ const MainContent = () => {
   const validate = makeValidate(schema);
 
   const handleSubmit = async (value: BasicContentForm) => {
-    console.log(value);
+    // console.log(value);
   };
   return (
     <Form<BasicContentForm>

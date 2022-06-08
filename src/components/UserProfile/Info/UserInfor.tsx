@@ -51,11 +51,7 @@ const useUserInfo = (userId: number) => {
 };
 
 const UserInfor = () => {
-  const handleSubmit = async (user: UserInfo) => {
-    console.log('Update Data UserInfo :');
-
-    console.log(user);
-  };
+  const handleSubmit = async (user: UserInfo) => {};
   const { userId } = useParams() as { userId: string };
   const { userInfo } = useUserInfo(parseInt(userId));
 
