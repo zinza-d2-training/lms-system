@@ -22,7 +22,7 @@ export const useDiscussions = (filterData: FilterDiscussion) => {
     discussions(filterData);
 
     return () => {};
-  }, [JSON.stringify(filterData)]);
+  }, []);
 
   return {
     discussions

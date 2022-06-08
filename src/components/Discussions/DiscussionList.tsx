@@ -5,6 +5,7 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { Box, Button, Link, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { deleteDiscussion } from '../../services/DiscussionService';
 import { CustomizedMenus } from '../Courses/ListCourses/MenuActions';
 import DiscussionForm from './DiscussionForm';
 import { useDiscussions } from './hook';
@@ -26,6 +27,10 @@ const DiscussionList = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [discussionId, setDiscussionId] = useState<number>();
 
+  const handleDelete = async (id: number) => {
+    await deleteDiscussion(id);
+    window.location.reload();
+  };
   const handleOnclick = (id: number) => {
     setOpenPopup(true);
     setDiscussionId(id);
@@ -75,7 +80,8 @@ const DiscussionList = () => {
                         {
                           to: `#`,
                           label: 'Delete',
-                          icon: <ClearOutlinedIcon />
+                          icon: <ClearOutlinedIcon />,
+                          onClick: () => handleDelete(item.id)
                         }
                       ]}
                     />

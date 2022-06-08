@@ -42,6 +42,13 @@ export async function updateDiscussion(
   return await axiosClient.put(`/discussion/${id}/edit`, discussionForm);
 }
 
+// delete discussion
+export async function deleteDiscussion(id?: number) {
+  if (id) {
+    return await axiosClient.delete(`/discussion/${id}`);
+  }
+}
+
 export async function getComments(discussionId: number) {
   return comments.filter((item) => item.discussionId === discussionId);
 }

@@ -38,8 +38,6 @@ const AddDiscussion = ({ label, id, handleClose }: Props) => {
     };
   }, [discussion?.description, discussion?.topic]);
 
-  console.log(discussion);
-
   const schema: Yup.SchemaOf<DiscussionForm> = Yup.object().shape({
     topic: Yup.string().max(255).required(),
     description: Yup.string().required()
@@ -50,8 +48,10 @@ const AddDiscussion = ({ label, id, handleClose }: Props) => {
   const handleSubmit = async (value: DiscussionForm) => {
     if (id) {
       updateDiscussion(id, value);
+      window.location.reload();
     } else {
       createDiscussion(value);
+      window.location.reload();
     }
   };
 

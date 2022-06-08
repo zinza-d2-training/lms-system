@@ -74,7 +74,6 @@ export const QuestionDialogForm = (props: Props) => {
 
   const handleSubmit = (value: QuestionForm) => {
     // @TODO: create question and trigger onCreated
-    // console.log(value);
     props.onCreated(1);
     // handleClose();
   };

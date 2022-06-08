@@ -16,9 +16,6 @@ import './style.css';
 const DiscussionDetail = () => {
   const { discussionId } = useParams() as { discussionId: string };
   const { discussion } = useDiscussionInfo(parseInt(discussionId));
-
-  console.log('log : ', discussion);
-
   const { comments } = useComment(parseInt(discussionId));
   const [openPopup, setOpenPopup] = useState(false);
   const [openComment, setOpenComment] = useState(false);
