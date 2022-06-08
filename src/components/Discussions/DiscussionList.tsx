@@ -1,17 +1,28 @@
-import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import SaveAltIcon from '@mui/icons-material/SaveAlt';
-import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import FilterAltIcon from '@mui/icons-material/FilterAlt';
+import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import { Box, Button, Link, TextField, Typography } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
 import React, { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { CustomizedMenus } from '../Courses/ListCourses/MenuActions';
+import DiscussionForm from './DiscussionForm';
 import { useDiscussions } from './hook';
 import './style.css';
-import DiscussionForm from './DiscussionForm';
 
 const DiscussionList = () => {
-  const { discussions } = useDiscussions();
+  const [filter, setFilter] = useState({
+    page: 1,
+    limit: 4,
+    title: ''
+  });
+  const { discussions } = useDiscussions({
+    page: filter.page,
+    limit: filter.limit,
+    title: filter.title
+  });
+  console.log(discussions);
+
   const [openPopup, setOpenPopup] = useState(false);
   const [discussionId, setDiscussionId] = useState<number>();
   const handleOnclick = (id: number) => {
@@ -79,10 +90,6 @@ const DiscussionList = () => {
             justifyContent: 'space-between',
             marginTop: '16px'
           }}>
-          <Box>
-            <button>1 to 8 of 8</button>
-          </Box>
-
           <Box className="box-container-footer-right">
             <SaveAltIcon />
             <FilterAltIcon />

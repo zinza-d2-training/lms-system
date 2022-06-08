@@ -41,6 +41,8 @@ const ListCoursesRender = () => {
     title: filter.title
   });
 
+  console.log(courses);
+
   const handleDelete = async (id: number) => {
     await deleteCourse(id);
     window.location.reload();

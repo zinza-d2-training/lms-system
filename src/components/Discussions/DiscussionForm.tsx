@@ -28,11 +28,13 @@ interface Props {
   handleClose: () => void;
 }
 
-const AddDiscussion = ({ label, handleClose }: Props) => {
+const AddDiscussion = ({ label, id, handleClose }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { id: discussionId } = useParams() as { id: string };
+  // const { id: discussionId } = useParams() as { id: string };
 
   // const { courseInfo, loading } = useCourseData(id);
+
+  // const { id } = useParams() as { id: string };
 
   const [open, setOpen] = React.useState(false);
 
@@ -56,7 +58,7 @@ const AddDiscussion = ({ label, handleClose }: Props) => {
     // const formData = new FormData();
     // formData.append('topic', value.topic);
     // formData.append('description', value.description);
-    console.log(value);
+    // console.log(value);
     if (id) {
       updateDiscussion(id, value);
     } else {

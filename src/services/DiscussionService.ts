@@ -4,12 +4,27 @@ import { comments } from './../fakeData/comments';
 import { discussions } from './../fakeData/discussion';
 import { Discussion } from './../types/discussions';
 
+export interface FilterDiscussion {
+  title?: string;
+  limit?: number;
+  page?: number;
+}
+
+export interface GetDiscussion {
+  discussion: Discussion[];
+  count: number;
+}
 export async function createDiscussion(discussion: DiscussionForm) {
   return await axiosClient.post(`/discussion/add`, discussion);
 }
 
-export async function getDiscussions() {
-  return discussions.map((item) => item);
+export async function getDiscussions(
+  filterData: FilterDiscussion
+): Promise<GetDiscussion> {
+  const { data } = await axiosClient.get(
+    `/discussion?title=${filterData.title}&page=${filterData.page}&limit=${filterData.limit}`
+  );
+  return data;
 }
 
 export async function discussionInfo(id: number) {
@@ -20,7 +35,7 @@ export async function updateDiscussion(
   id: number,
   discussionForm: DiscussionForm
 ) {
-  return await axiosClient.post(`/discussion/${id}/edit`, discussionForm);
+  return await axiosClient.put(`/discussion/${id}/edit`, discussionForm);
 }
 
 export async function getComments(discussionId: number) {

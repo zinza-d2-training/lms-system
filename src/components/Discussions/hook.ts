@@ -1,24 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  discussionInfo,
-  getComments,
-  getDiscussions,
-  getCommentInfo
+  discussionInfo, FilterDiscussion, getCommentInfo, getComments,
+  getDiscussions
 } from '../../services/DiscussionService';
 import { Comment, Discussion } from '../../types/discussions';
 
-export const useDiscussions = () => {
-  const [discussions, setDiscussions] = useState<Discussion[]>([]);
+export const useDiscussions = (filterData: FilterDiscussion) => {
+  const [discussions, setDiscussions] = useState<Discussion[] | undefined>([]);
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const discussions = async () => {
-      const data = await getDiscussions();
-      setDiscussions(data);
+    const discussions = async (filterData: FilterDiscussion) => {
+      const data = await getDiscussions(filterData);
+      setDiscussions(Object.values(data));
     };
-    discussions();
+    discussions(filterData);
 
     return () => {};
-  }, []);
+  }, [JSON.stringify(filterData)]);
 
   return {
     discussions
