@@ -41,8 +41,7 @@ const validate = makeValidate(schema);
 const CourseForm = () => {
   const { enqueueSnackbar } = useSnackbar();
   const { id: courseId } = useParams() as { id: string };
-  const id =
-    courseId && !isNaN(parseInt(courseId)) ? parseInt(courseId) : undefined;
+  const id = courseId && !isNaN(parseInt(courseId)) ? parseInt(courseId) : 0;
   const { courseInfo, loading } = useCourseData(id);
 
   const { image, initialValues } = useMemo(() => {

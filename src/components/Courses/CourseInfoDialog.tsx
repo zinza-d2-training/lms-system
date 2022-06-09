@@ -19,14 +19,14 @@ import { ContentIconsByType } from '../common/IconsType';
 import { useContentData, useCourseData } from './hook';
 
 interface Props {
-  id?: number;
+  id: number;
   handleClose: () => void;
 }
 
 const CourseInfoDialog = (props: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [open, setOpen] = React.useState(false);
-  const { courseInfo } = useCourseData(props.id);
+  const { courseInfo, loading } = useCourseData(props.id);
   const { contentData } = useContentData(props.id);
   const descriptionElementRef = React.useRef<HTMLElement>(null);
   React.useEffect(() => {
@@ -37,71 +37,79 @@ const CourseInfoDialog = (props: Props) => {
       }
     }
   }, [open]);
+  console.log('123', courseInfo);
   return (
-    <Dialog open scroll="paper" className="Container-dialog-question">
-      <DialogTitle id="scroll-dialog-title">CourseInfo:</DialogTitle>
-      <DialogContent dividers>
-        <DialogContentText
-          id="scroll-dialog-description"
-          ref={descriptionElementRef}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Box sx={{ flex: 1, marginRight: '4px' }}>
-              <img
-                style={{
-                  width: '150px',
-                  height: 'auto',
-                  objectFit: 'cover',
-                  left: 0,
-                  right: 0,
-                  borderRadius: '5px'
-                }}
-                src={formatUrl(
-                  `${process.env.REACT_APP_BASE_API}/${courseInfo?.image}`
-                )}
-                alt="anh"
-              />
-            </Box>
-            <Box sx={{ flex: 3 }}>
-              <Box>
-                <Typography variant="h5">{courseInfo?.title}</Typography>
+    <>
+      {loading ? (
+        <>loading...</>
+      ) : (
+        <Dialog open scroll="paper" className="Container-dialog-question">
+          <DialogTitle id="scroll-dialog-title">CourseInfo:</DialogTitle>
+          <DialogContent dividers>
+            <DialogContentText
+              id="scroll-dialog-description"
+              ref={descriptionElementRef}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Box sx={{ flex: 1, marginRight: '4px' }}>
+                  {courseInfo?.title}
+                  <img
+                    style={{
+                      width: '150px',
+                      height: 'auto',
+                      objectFit: 'cover',
+                      left: 0,
+                      right: 0,
+                      borderRadius: '5px'
+                    }}
+                    src={formatUrl(
+                      `${process.env.REACT_APP_BASE_API}/${courseInfo?.image}`
+                    )}
+                    alt="anh"
+                  />
+                </Box>
+                <Box sx={{ flex: 3 }}>
+                  <Box>
+                    <Typography variant="h5">{courseInfo?.title}</Typography>
+                  </Box>
+                  <Box>{courseInfo?.description}</Box>
+                </Box>
               </Box>
-              <Box>{courseInfo?.description}</Box>
-            </Box>
-          </Box>
-          <Divider />
-          <Box>
-            <Box>
-              <Typography variant="h6">Content</Typography>
-            </Box>
-            <Box>
-              <List disablePadding>
-                {contentData.map((item) => (
-                  <ListItem
-                    key={item.id}
-                    sx={{
-                      '&:hover .ContentList-Option': {
-                        opacity: 1
-                      }
-                    }}>
-                    <ContentIconsByType type={item.type} />
-                    <Link
-                      component={RouterLink}
-                      to={`/view/${props.id}/content/${item.id}`}
-                      underline="hover"
-                      color="inherit">
-                      <Typography>{item.name}</Typography>
-                    </Link>
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
-          </Box>
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={props.handleClose}>Cancel</Button>
-      </DialogActions>
-    </Dialog>
+              <Divider />
+              <Box>
+                <Box>
+                  <Typography variant="h6">Content</Typography>
+                </Box>
+                <Box>
+                  <List disablePadding>
+                    {contentData?.map((item) => (
+                      <ListItem
+                        key={item.id}
+                        sx={{
+                          '&:hover .ContentList-Option': {
+                            opacity: 1
+                          }
+                        }}>
+                        <ContentIconsByType type={item.type} />
+                        <Link
+                          component={RouterLink}
+                          to={`/view/${props.id}/content/${item.id}`}
+                          underline="hover"
+                          color="inherit">
+                          <Typography>{item.name}</Typography>
+                        </Link>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Box>
+              </Box>
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={props.handleClose}>Cancel</Button>
+          </DialogActions>
+        </Dialog>
+      )}
+    </>
   );
 };
 

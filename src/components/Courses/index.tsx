@@ -21,7 +21,7 @@ import { formatUrl } from './../../utils/formatUrl';
 export const Courses = () => {
   const [openPopup, setOpenPopup] = useState(false);
   const [openCoursePopup, setOpenCoursePopup] = useState(false);
-  const [courseId, setCourseId] = useState<number>();
+  const [courseId, setCourseId] = useState<number>(0);
   const userContext = useContext(UserContext);
   const [filter, setFilter] = useState({
     page: 1,
