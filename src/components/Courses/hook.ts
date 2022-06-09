@@ -38,18 +38,17 @@ export const useGetCourses = (filterData: FilterCourse) => {
 };
 
 // Get course by Id
-export const useCourseData = (courseId?: number) => {
+export const useCourseData = (courseId: number) => {
   const [courseInfo, setCourseInfo] = useState<CourseInfo | undefined>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getCourseData = async (courseId?: number) => {
-      if (courseId) {
-        const courseInfoData = (await getCourseInfoForm(
-          courseId
-        )) as unknown as CourseInfo;
-        setCourseInfo(courseInfoData);
-      }
+    const getCourseData = async (courseId: number) => {
+      const courseInfoData = (await getCourseInfoForm(
+        courseId
+      )) as unknown as CourseInfo;
+      setCourseInfo(courseInfoData);
+
       setLoading(false);
     };
 
@@ -64,15 +63,13 @@ export const useCourseData = (courseId?: number) => {
   };
 };
 
-export const useContentData = (courseId?: number) => {
+export const useContentData = (courseId: number) => {
   const [contentData, setContentData] = useState<Content[]>([]);
 
   useEffect(() => {
-    const getContentData = async (courseId?: number) => {
-      if (courseId) {
-        const contentInfo = await getCourseContents(courseId);
-        setContentData(contentInfo);
-      }
+    const getContentData = async (courseId: number) => {
+      const contentInfo = await getCourseContents(courseId);
+      setContentData(contentInfo);
     };
 
     getContentData(courseId);

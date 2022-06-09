@@ -5,7 +5,8 @@ import { Users } from '../fakeData/users';
 import axiosClient from '../utils/axios';
 
 export async function getCourseContents(courseId: number): Promise<Content[]> {
-  return contents.filter((item) => item.courseId === courseId);
+  const { data } = await axiosClient.get(`/courses/${courseId}/contents`);
+  return data;
 }
 
 export async function getLastContentsMapping(
@@ -24,31 +25,38 @@ export async function getLastContentsMapping(
   return mapping;
 }
 
-export async function getContentDetail(contentId: number) {
-  return contents.find((item) => item.id === contentId);
+export async function getContentDetail(courseId: number, contentId: number) {
+  const { data } = await axiosClient.get(
+    `/courses/${courseId}/contents/${contentId}/`
+  );
+  return data;
 }
 
 export async function reorderCourseContents(
   courseId: number,
-  orderMapping: Record<number, number>
+  items: Array<{
+    id: number;
+    sequence: number;
+  }>
 ) {
-  const contentItem = contents.filter((item) => item.courseId === courseId);
+  const { data } = await axiosClient.put(
+    `/courses/${courseId}/contents/order`,
+    {
+      items
+    }
+  );
 
-  return contentItem.map((item) => {
-    return {
-      ...item,
-      sequence: orderMapping[item.id] ? orderMapping[item.id] : item.sequence
-    };
-  });
+  return data;
 }
-export async function updateContent(contentId: number, value: ContentFormData) {
-  const content = contents.find((item) => item.id === contentId) as Content;
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const index = contents.indexOf(content);
-
-  // @TODO: Call APi
-  // contents[index] = { ...content, ...value };
+export async function updateContent(
+  courseId: number,
+  contentId: number,
+  value: ContentFormData
+) {
+  return await axiosClient.put(
+    `/courses/${courseId}/contents/${contentId}/edit`,
+    value
+  );
 }
 
 export async function createContent(courseId: number, value: ContentFormData) {

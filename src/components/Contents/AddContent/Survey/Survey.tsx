@@ -42,7 +42,7 @@ const Survey = () => {
   const { id, contentId } = useParams() as { id: string; contentId: string };
   const { enqueueSnackbar } = useSnackbar();
   const { questions } = useQuestion();
-  const { contentInfo } = useContentInfo(parseInt(contentId));
+  const { contentInfo } = useContentInfo(parseInt(id), parseInt(contentId));
   const initialValues = useMemo<ContentForm>(() => {
     return {
       name: contentInfo?.name || '',
@@ -72,7 +72,7 @@ const Survey = () => {
     };
     try {
       if (id) {
-        await updateContent(parseInt(contentId), newContent);
+        await updateContent(parseInt(id), parseInt(contentId), newContent);
       } else {
         await createContent(parseInt(id), newContent);
       }

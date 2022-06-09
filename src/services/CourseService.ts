@@ -1,5 +1,6 @@
 import { courseCompletions } from '../fakeData/courses';
 import { CourseBasic } from '../types/courses';
+import { UserRole } from '../types/users';
 import axiosClient from '../utils/axios';
 
 export interface FilterCourse {
@@ -25,18 +26,15 @@ export async function updateCourse(courseId: number, courseInfo: FormData) {
 export async function getCourses(
   filterData: FilterCourse
 ): Promise<GetCourses> {
+  const role = localStorage.getItem('role');
   const { data } = await axiosClient.get(
-    `/courses?title=${filterData.title}&page=${filterData.page}&limit=${filterData.limit}`
+    `/courses?title=${filterData.title}&page=${filterData.page}&limit=${filterData.limit}&role=${role}`
   );
   return data;
 }
 // get course details
-export async function getCourseInfoForm(courseId?: number) {
-  if (courseId) {
-    const course = await axiosClient.get(`/courses/${courseId}`);
-
-    return { ...course };
-  }
+export async function getCourseInfoForm(courseId: number) {
+  return await axiosClient.get(`/courses/${courseId}`);
 }
 // get course user use course
 export async function getCourseUser(userId: number) {
@@ -44,10 +42,6 @@ export async function getCourseUser(userId: number) {
 }
 
 // get course details
-export async function deleteCourse(courseId?: number) {
-  if (courseId) {
-    const course = await axiosClient.delete(`/courses/${courseId}`);
-
-    return course;
-  }
+export async function deleteCourse(courseId: number) {
+  return await axiosClient.delete(`/courses/${courseId}`);
 }
