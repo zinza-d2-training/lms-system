@@ -2,6 +2,7 @@ import { Content, ContentFormData } from '../types/contents';
 import { contents } from './../fakeData/contents';
 import { sortBy, groupBy } from 'lodash';
 import { Users } from '../fakeData/users';
+import axiosClient from '../utils/axios';
 
 export async function getCourseContents(courseId: number): Promise<Content[]> {
   return contents.filter((item) => item.courseId === courseId);
@@ -51,13 +52,7 @@ export async function updateContent(contentId: number, value: ContentFormData) {
 }
 
 export async function createContent(courseId: number, value: ContentFormData) {
-  const newContent = {
-    ...value,
-    courseId: courseId,
-    id: contents.length + 1,
-    survey: contents.length + 1
-  };
-  return newContent;
+  return await axiosClient.post(`/courses/${courseId}/contents/add`, value);
 }
 export async function getUserInfo(userId: number) {
   return Users.find((item) => item.id === userId);
