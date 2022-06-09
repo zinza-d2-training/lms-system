@@ -49,6 +49,7 @@ export async function deleteDiscussion(id?: number) {
   }
 }
 
+// PROCESS COMMENT
 export async function getComments(discussionId: number): Promise<Comment[]> {
   const { data } = await axiosClient.get(
     `/discussion/${discussionId}/comments`
@@ -56,7 +57,6 @@ export async function getComments(discussionId: number): Promise<Comment[]> {
 
   return data;
 }
-
 export async function createComment(
   discussionId: number,
   commentForm: CommentFormInfo
@@ -67,10 +67,27 @@ export async function createComment(
   );
 }
 
-export async function getCommentInfo(id: number) {
-  return comments.find((item) => item.id === id);
+export async function updateComment(
+  id: number,
+  discussionId: number,
+  commentForm: CommentFormInfo
+) {
+  return await axiosClient.put(
+    `/discussion/${discussionId}/comments/${id}`,
+    commentForm
+  );
 }
 
-export async function updateComment(id: number, commentForm: DiscussionForm) {
-  // @Call Api
+export async function getCommentInfo(id: number) {
+  return await (
+    await axiosClient.get(`/discussion/${id}/comment`)
+  ).data;
+}
+
+export async function deleteComment(id: number, discussionId: number) {
+  if (id) {
+    return await axiosClient.delete(
+      `/discussion/${discussionId}/comments/${id}`
+    );
+  }
 }

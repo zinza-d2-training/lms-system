@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
-import { createComment } from '../../services/DiscussionService';
+import { createComment, deleteComment } from '../../services/DiscussionService';
 import { CommentFormInfo } from '../../types/discussions';
 import { CustomizedMenus } from '../Courses/ListCourses/MenuActions';
 import CommentForm from './CommentForm';
@@ -35,9 +35,13 @@ const DiscussionDetail = () => {
 
   const validate = makeValidate(schema);
 
+  const handleDelete = (id: number, discussionId: number) => {
+    deleteComment(id, discussionId);
+    window.location.reload();
+  };
   const handleSubmit = (value: CommentFormInfo) => {
-    // console.log('comment', value);
     createComment(parseInt(discussionId), value);
+    window.location.reload();
   };
   return (
     <>
@@ -118,7 +122,9 @@ const DiscussionDetail = () => {
                         {
                           to: `#`,
                           label: 'Delete',
-                          icon: <ClearOutlinedIcon />
+                          icon: <ClearOutlinedIcon />,
+                          onClick: () =>
+                            handleDelete(comment.id, comment.discussionId)
                         }
                       ]}
                     />

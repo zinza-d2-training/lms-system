@@ -1,6 +1,5 @@
 import { courseCompletions } from '../fakeData/courses';
 import { CourseBasic } from '../types/courses';
-import { UserRole } from '../types/users';
 import axiosClient from '../utils/axios';
 
 export interface FilterCourse {
