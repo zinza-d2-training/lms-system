@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
+import { createComment } from '../../services/DiscussionService';
 import { CommentFormInfo } from '../../types/discussions';
 import { CustomizedMenus } from '../Courses/ListCourses/MenuActions';
 import CommentForm from './CommentForm';
@@ -26,6 +27,8 @@ const DiscussionDetail = () => {
     setDiscussId(id);
   };
 
+  // console.log(typeof );
+
   const schema: Yup.SchemaOf<CommentFormInfo> = Yup.object().shape({
     comment: Yup.string().required()
   });
@@ -33,7 +36,8 @@ const DiscussionDetail = () => {
   const validate = makeValidate(schema);
 
   const handleSubmit = (value: CommentFormInfo) => {
-    console.log('comment', value);
+    // console.log('comment', value);
+    createComment(parseInt(discussionId), value);
   };
   return (
     <>

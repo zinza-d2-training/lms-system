@@ -54,15 +54,14 @@ export const useDiscussionInfo = (id?: number) => {
   };
 };
 
-export const useComment = (id?: number) => {
+export const useComment = (id: number) => {
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
-    const getComment = async (id?: number) => {
-      if (id) {
-        const data = await getComments(id);
-        setComments(data);
-      }
+    const getComment = async (id: number) => {
+      const data = await getComments(id);
+
+      setComments(data);
     };
 
     getComment(id);

@@ -37,7 +37,7 @@ const CourseInfoDialog = (props: Props) => {
       }
     }
   }, [open]);
-  console.log('123', courseInfo);
+  // console.log('123', courseInfo);
   return (
     <>
       {loading ? (

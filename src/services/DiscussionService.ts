@@ -49,26 +49,22 @@ export async function deleteDiscussion(id?: number) {
   }
 }
 
-export async function getComments(discussionId: number) {
-  return comments.filter((item) => item.discussionId === discussionId);
+export async function getComments(discussionId: number): Promise<Comment[]> {
+  const { data } = await axiosClient.get(
+    `/discussion/${discussionId}/comments`
+  );
+
+  return data;
 }
 
 export async function createComment(
   discussionId: number,
   commentForm: CommentFormInfo
 ) {
-  const user = JSON.parse(localStorage.getItem('user') as string);
-  const discussion = discussions.find((item) => item.id === discussionId);
-  if (discussion && user) {
-    const newComment = {
-      ...commentForm,
-      discussionId: discussion.id,
-      userId: user.id
-    };
-    console.log(newComment);
-    return newComment;
-  }
-  return undefined;
+  return await axiosClient.post(
+    `/discussion/${discussionId}/comments`,
+    commentForm
+  );
 }
 
 export async function getCommentInfo(id: number) {
