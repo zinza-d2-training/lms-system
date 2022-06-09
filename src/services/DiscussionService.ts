@@ -1,37 +1,52 @@
 import { CommentFormInfo, DiscussionForm } from '../types/discussions';
+import axiosClient from '../utils/axios';
 import { comments } from './../fakeData/comments';
 import { discussions } from './../fakeData/discussion';
 import { Discussion } from './../types/discussions';
-import { getCurrentUser } from './AuthService';
 
-export async function createDiscussion(discussion: DiscussionForm) {
-  const user = getCurrentUser();
-
-  const newDiscussion = {
-    ...discussion,
-    userId: user
-  };
-  console.log(newDiscussion);
-  return newDiscussion;
+export interface FilterDiscussion {
+  title?: string;
+  limit?: number;
+  page?: number;
 }
 
-export async function getDiscussions() {
-  return discussions.map((item) => item);
+export interface GetDiscussion {
+  discussion: Discussion[];
+  count: number;
+}
+export async function createDiscussion(discussion: DiscussionForm) {
+  return await axiosClient.post(`/discussion/add`, discussion);
+}
+
+export async function getDiscussions(
+  filterData: FilterDiscussion
+): Promise<GetDiscussion> {
+  const { data } = await axiosClient.get(
+    `/discussion?title=${filterData.title}&page=${filterData.page}&limit=${filterData.limit}`
+  );
+  return data;
 }
 
 export async function discussionInfo(id: number) {
-  return discussions.find((item) => item.id === id);
+  if (id) {
+    return await (
+      await axiosClient.get(`/discussion/${id}`)
+    ).data;
+  }
 }
 
 export async function updateDiscussion(
   id: number,
   discussionForm: DiscussionForm
 ) {
-  let discussion = discussions.find((item) => item.id === id) as Discussion;
+  return await axiosClient.put(`/discussion/${id}/edit`, discussionForm);
+}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const index = discussions.indexOf(discussion);
-  // @Call Api
+// delete discussion
+export async function deleteDiscussion(id?: number) {
+  if (id) {
+    return await axiosClient.delete(`/discussion/${id}`);
+  }
 }
 
 export async function getComments(discussionId: number) {

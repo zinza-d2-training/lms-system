@@ -27,7 +27,6 @@ export const Pagination: React.FC<Props> = ({
     setPage(nextPage + 1);
     onNextPage(page);
   };
-  //console.log('page', page);
   const currentPage = page;
   let totalPage = totalField && Math.ceil(totalField / limit);
   return (

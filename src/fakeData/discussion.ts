@@ -5,7 +5,7 @@ export const discussions: Discussion[] = [
     id: 1,
     userId: 1,
     topic: 'hello',
-    message: 'this is friday',
+    description: 'this is friday',
     comment: [
       {
         id: 1,
@@ -19,7 +19,7 @@ export const discussions: Discussion[] = [
     id: 2,
     userId: 1,
     topic: 'the second',
-    message: 'this is weekend',
+    description: 'this is weekend',
     comment: [
       {
         id: 1,

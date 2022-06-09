@@ -2,7 +2,7 @@ export interface Discussion {
   id: number;
   userId: number;
   topic: string;
-  message: string;
+  description: string;
   comment?: Array<Comment>;
 }
 

@@ -25,7 +25,6 @@ export const UserCourses = () => {
   const { userId } = useParams() as { userId: string };
   const userContext = useContext(UserContext);
   const { coursesData } = useCourseUser(parseInt(userId));
-  console.log(coursesData);
   return (
     <Box sx={{ padding: '10px' }}>
       <TableContainer>

@@ -1,17 +1,17 @@
-import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
 import { Box, Button, Typography } from '@mui/material';
+import { makeValidate, TextField } from 'mui-rff';
 import React, { useState } from 'react';
+import { Form } from 'react-final-form';
 import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
+import { CommentFormInfo } from '../../types/discussions';
 import { CustomizedMenus } from '../Courses/ListCourses/MenuActions';
+import CommentForm from './CommentForm';
+import DiscussionForm from './DiscussionForm';
 import { useComment, useDiscussionInfo } from './hook';
 import './style.css';
-import DiscussionForm from './DiscussionForm';
-import CommentForm from './CommentForm';
-import { CommentFormInfo } from '../../types/discussions';
-import { makeValidate, TextField } from 'mui-rff';
-import { Form } from 'react-final-form';
 
 const DiscussionDetail = () => {
   const { discussionId } = useParams() as { discussionId: string };
