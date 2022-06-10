@@ -22,7 +22,6 @@ const DiscussionList = () => {
     limit: filter.limit,
     title: filter.title
   });
-  console.log('logabc', discussions);
 
   const [openPopup, setOpenPopup] = useState(false);
   const [discussionId, setDiscussionId] = useState<number>();

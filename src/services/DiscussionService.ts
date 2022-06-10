@@ -1,7 +1,5 @@
-import { CommentFormInfo, DiscussionForm } from '../types/discussions';
+import { Comment, CommentFormInfo, DiscussionForm } from '../types/discussions';
 import axiosClient from '../utils/axios';
-import { comments } from './../fakeData/comments';
-import { discussions } from './../fakeData/discussion';
 import { Discussion } from './../types/discussions';
 
 export interface FilterDiscussion {
@@ -49,32 +47,45 @@ export async function deleteDiscussion(id?: number) {
   }
 }
 
-export async function getComments(discussionId: number) {
-  return comments.filter((item) => item.discussionId === discussionId);
-}
+// PROCESS COMMENT
+export async function getComments(discussionId: number): Promise<Comment[]> {
+  const { data } = await axiosClient.get(
+    `/discussion/${discussionId}/comments`
+  );
 
+  return data;
+}
 export async function createComment(
   discussionId: number,
   commentForm: CommentFormInfo
 ) {
-  const user = JSON.parse(localStorage.getItem('user') as string);
-  const discussion = discussions.find((item) => item.id === discussionId);
-  if (discussion && user) {
-    const newComment = {
-      ...commentForm,
-      discussionId: discussion.id,
-      userId: user.id
-    };
-    console.log(newComment);
-    return newComment;
-  }
-  return undefined;
+  return await axiosClient.post(
+    `/discussion/${discussionId}/comments`,
+    commentForm
+  );
+}
+
+export async function updateComment(
+  id: number,
+  discussionId: number,
+  commentForm: CommentFormInfo
+) {
+  return await axiosClient.put(
+    `/discussion/${discussionId}/comments/${id}`,
+    commentForm
+  );
 }
 
 export async function getCommentInfo(id: number) {
-  return comments.find((item) => item.id === id);
+  return await (
+    await axiosClient.get(`/discussion/${id}/comment`)
+  ).data;
 }
 
-export async function updateComment(id: number, commentForm: DiscussionForm) {
-  // @Call Api
+export async function deleteComment(id: number, discussionId: number) {
+  if (id) {
+    return await axiosClient.delete(
+      `/discussion/${discussionId}/comments/${id}`
+    );
+  }
 }

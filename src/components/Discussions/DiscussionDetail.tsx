@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { Form } from 'react-final-form';
 import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
+import { createComment, deleteComment } from '../../services/DiscussionService';
 import { CommentFormInfo } from '../../types/discussions';
 import { CustomizedMenus } from '../Courses/ListCourses/MenuActions';
 import CommentForm from './CommentForm';
@@ -19,13 +20,10 @@ const DiscussionDetail = () => {
   const { comments } = useComment(parseInt(discussionId));
   const [openPopup, setOpenPopup] = useState(false);
   const [openComment, setOpenComment] = useState(false);
-  const [discussId, setDiscussId] = useState<number>();
   const [cmtId, setCmtId] = useState<number>();
   const handleOnclick = (id?: number) => {
     setOpenPopup(true);
-    setDiscussId(id);
   };
-
   const schema: Yup.SchemaOf<CommentFormInfo> = Yup.object().shape({
     comment: Yup.string().required()
   });
@@ -33,7 +31,13 @@ const DiscussionDetail = () => {
   const validate = makeValidate(schema);
 
   const handleSubmit = (value: CommentFormInfo) => {
-    console.log('comment', value);
+    createComment(parseInt(discussionId), value);
+    window.location.reload();
+  };
+
+  const handleDelete = (id: number, discussionId: number) => {
+    deleteComment(id, discussionId);
+    window.location.reload();
   };
   return (
     <>
@@ -114,7 +118,9 @@ const DiscussionDetail = () => {
                         {
                           to: `#`,
                           label: 'Delete',
-                          icon: <ClearOutlinedIcon />
+                          icon: <ClearOutlinedIcon />,
+                          onClick: () =>
+                            handleDelete(comment.id, comment.discussionId)
                         }
                       ]}
                     />
@@ -166,12 +172,16 @@ const DiscussionDetail = () => {
       {openPopup && (
         <DiscussionForm
           label={'Edit discussion'}
-          id={discussId}
+          id={parseInt(discussionId)}
           handleClose={() => setOpenPopup(false)}
         />
       )}
       {openComment && (
-        <CommentForm id={cmtId} handleClose={() => setOpenComment(false)} />
+        <CommentForm
+          id={cmtId}
+          discussionId={parseInt(discussionId)}
+          handleClose={() => setOpenComment(false)}
+        />
       )}
     </>
   );

@@ -11,15 +11,17 @@ import { makeValidate, TextField } from 'mui-rff';
 import React, { useMemo } from 'react';
 import { Form } from 'react-final-form';
 import * as Yup from 'yup';
+import { updateComment } from '../../services/DiscussionService';
 import { CommentFormInfo } from '../../types/discussions';
 import { useCommentInfo } from './hook';
 
 interface Props {
-  id?: number;
+  id?: number | undefined;
+  discussionId?: number;
   handleClose: () => void;
 }
 
-const CommentForm = ({ id, handleClose }: Props) => {
+const CommentForm = ({ id, discussionId, handleClose }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [open, setOpen] = React.useState(false);
 
@@ -38,7 +40,10 @@ const CommentForm = ({ id, handleClose }: Props) => {
   const validate = makeValidate(schema);
 
   const handleSubmit = (value: CommentFormInfo) => {
-    console.log('discussion', value);
+    if (id && discussionId) {
+      updateComment(id, discussionId, value);
+      window.location.reload();
+    }
   };
 
   const descriptionElementRef = React.useRef<HTMLElement>(null);
