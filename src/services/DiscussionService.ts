@@ -1,7 +1,5 @@
-import { CommentFormInfo, DiscussionForm } from '../types/discussions';
+import { Comment, CommentFormInfo, DiscussionForm } from '../types/discussions';
 import axiosClient from '../utils/axios';
-import { comments } from './../fakeData/comments';
-import { discussions } from './../fakeData/discussion';
 import { Discussion } from './../types/discussions';
 
 export interface FilterDiscussion {

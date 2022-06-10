@@ -20,27 +20,23 @@ const DiscussionDetail = () => {
   const { comments } = useComment(parseInt(discussionId));
   const [openPopup, setOpenPopup] = useState(false);
   const [openComment, setOpenComment] = useState(false);
-  const [discussId, setDiscussId] = useState<number>();
   const [cmtId, setCmtId] = useState<number>();
   const handleOnclick = (id?: number) => {
     setOpenPopup(true);
-    setDiscussId(id);
   };
-
-  // console.log(typeof );
-
   const schema: Yup.SchemaOf<CommentFormInfo> = Yup.object().shape({
     comment: Yup.string().required()
   });
 
   const validate = makeValidate(schema);
 
-  const handleDelete = (id: number, discussionId: number) => {
-    deleteComment(id, discussionId);
-    window.location.reload();
-  };
   const handleSubmit = (value: CommentFormInfo) => {
     createComment(parseInt(discussionId), value);
+    window.location.reload();
+  };
+
+  const handleDelete = (id: number, discussionId: number) => {
+    deleteComment(id, discussionId);
     window.location.reload();
   };
   return (
@@ -176,12 +172,16 @@ const DiscussionDetail = () => {
       {openPopup && (
         <DiscussionForm
           label={'Edit discussion'}
-          id={discussId}
+          id={parseInt(discussionId)}
           handleClose={() => setOpenPopup(false)}
         />
       )}
       {openComment && (
-        <CommentForm id={cmtId} handleClose={() => setOpenComment(false)} />
+        <CommentForm
+          id={cmtId}
+          discussionId={parseInt(discussionId)}
+          handleClose={() => setOpenComment(false)}
+        />
       )}
     </>
   );

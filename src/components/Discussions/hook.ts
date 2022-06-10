@@ -60,7 +60,6 @@ export const useComment = (id: number) => {
   useEffect(() => {
     const getComment = async (id: number) => {
       const data = await getComments(id);
-
       setComments(data);
     };
 

@@ -70,7 +70,7 @@ export const useContentData = (courseId: number) => {
     const getContentData = async (courseId: number) => {
       const contentInfo = await getCourseContents(courseId);
       setContentData(contentInfo);
-    };  
+    };
 
     getContentData(courseId);
 
